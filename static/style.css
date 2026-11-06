@@ -95,7 +95,13 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.5}
 .js .compare>input:focus-visible{opacity:.01;outline:2px solid var(--ice);outline-offset:-2px}
 .js .compare>input::-webkit-slider-thumb{-webkit-appearance:none;width:2rem;height:100%}
 .js .compare>input::-moz-range-thumb{width:2rem;height:100%;border:0;background:transparent}
+/* Visible divider: line + round handle at --pos, drawn on the bottom (unclipped) pane */
+.js .compare-pane:first-of-type::after{content:"";position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;margin-left:-1px;background:#fff;z-index:1;pointer-events:none;box-shadow:0 0 6px rgba(0,0,0,.6)}
+.js .compare-pane:first-of-type::before{content:"\2194";position:absolute;top:50%;left:var(--pos,50%);width:2.5rem;height:2.5rem;margin:-1.25rem 0 0 -1.25rem;display:grid;place-items:center;border-radius:50%;background:#fff;color:#0D0D0D;font-size:1.2rem;z-index:1;pointer-events:none;box-shadow:0 0 8px rgba(0,0,0,.6)}
+.js .compare-pane:first-of-type .compare-label{left:auto;right:.75rem}
 .map{margin:4rem 0 0}
+.science-figure{margin:3rem 0 0}
+.science-figure img{width:100%;max-width:70rem}
 .map img{width:100%;max-width:56rem;border:1px solid var(--line)}
 
 /* Video */
@@ -142,7 +148,9 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.5}
 .site-footer a{color:var(--muted)}
 .site-footer a:hover{color:var(--ice)}
 
-/* .reveal stays fully visible by default; Task 7 hides it only under .js */
+/* Reveal on scroll: hidden only when JS is running, so no-JS visitors see everything */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.visible{opacity:1;transform:none}
 
 @media (min-width:48rem){
   :root{--gutter:2.5rem;--nav-h:3.5rem}
@@ -162,7 +170,14 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.5}
   .team{grid-template-columns:repeat(3,1fr)}
   .hero-text{padding-left:6rem}
 }
+@media (max-width:30rem){
+  .brand{display:none} /* make room: all five nav links fit at 375px */
+  .site-header ul{margin-left:0;width:100%;justify-content:space-between;gap:.5rem}
+  .site-header li a{font-size:.9rem}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  /* Task 7 adds further reduced-motion rules */
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .hero-img{transform:none!important}
+  .js .reveal{opacity:1;transform:none}
 }
