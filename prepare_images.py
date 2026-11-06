@@ -29,7 +29,8 @@ OUT_DIR = HERE / "static" / "img"
 
 WIDTHS = (800, 1400, 2000)
 QUALITY = 78
-THUMB_URL = "https://i.ytimg.com/vi/913rFrz9-xo/maxresdefault.jpg"
+# The thumbnail follows video.youtube_id in content.yaml (rerun this script after changing it).
+THUMB_URL = "https://i.ytimg.com/vi/{id}/maxresdefault.jpg"
 
 # (kind, source relative to BROCHURE, output relative to static/img)
 JOBS: list[tuple[str, str, str]] = [
@@ -134,10 +135,16 @@ def rasterise_pdf(src: Path, out_stem: Path) -> list[Path]:
         return responsive(png, out_stem)
 
 
+def _youtube_id() -> str:
+    """The video id from content.yaml, so the thumbnail always matches the video."""
+    from sitelib import load_content
+    return load_content(HERE / "content.yaml")["video"]["youtube_id"]
+
+
 def _download_thumbnail(out_stem: Path) -> list[Path]:
     with tempfile.TemporaryDirectory() as tmp:
         tmp_file = Path(tmp) / "thumb.jpg"
-        with urllib.request.urlopen(THUMB_URL, timeout=30) as resp:
+        with urllib.request.urlopen(THUMB_URL.format(id=_youtube_id()), timeout=30) as resp:
             tmp_file.write_bytes(resp.read())
         return responsive(tmp_file, out_stem)
 

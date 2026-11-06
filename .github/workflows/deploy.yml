@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: astral-sh/setup-uv@v10      # installs uv; uv reads .python-version
+      - uses: astral-sh/setup-uv@v10.3.3  # installs uv (exact tag: no "v10" alias exists)
 
       - name: Install locked dependencies
         run: uv sync --frozen             # exactly the versions in uv.lock

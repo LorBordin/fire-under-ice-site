@@ -32,7 +32,7 @@ a `TODO`, a missing required field, an image file that doesn't exist, an image w
 ("heart of Europe", "2000 MW", "Kinetic Trigger", "extremophile"). It lists every problem at once with its location, e.g.
 `team[0].members[2].photo: file not found: img/team/x.webp`.
 
-People, partners and sponsors appear **only** with `consent: true` (exactly that). Anything else, including a typo or a missing line, hides them. The build prints who was skipped.
+People, partners and sponsors appear **only** with `consent: true`. Anything else (`false`, a typo, a missing line) hides them. Write exactly `true`: YAML also treats an unquoted `yes` as true, so avoid it. The build prints who was skipped.
 
 ## 2. Everyday commands
 

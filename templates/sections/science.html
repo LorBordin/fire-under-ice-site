@@ -13,7 +13,7 @@
   {% for s in c.science if s.image is defined %}
   <figure class="science-figure">
     {{ image(s.image, s.image_alt, sizes="(min-width: 72rem) 70rem, 100vw") }}
-    <figcaption>{{ s.image_alt | md }}</figcaption>
+    {% if s.image_caption is defined %}<figcaption>{{ s.image_caption | md }}</figcaption>{% endif %}
   </figure>
   {% endfor %}
 </section>

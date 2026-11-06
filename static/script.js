@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  // 'js' class is also set inline in <head>; repeated here as a safety net.
+  // Only this file adds the 'js' class: if it fails to load, CSS never hides anything.
   document.documentElement.classList.add('js');
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -83,7 +83,7 @@
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube-nocookie.com/embed/' +
         encodeURIComponent(link.dataset.youtube) + '?autoplay=1';
-      iframe.title = 'Kverkfjöll over time (YouTube video)';
+      iframe.title = (link.dataset.title || 'Video') + ' (YouTube video)';
       iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
       iframe.allowFullscreen = true;
       // Wrap it in a div with the same class so the 16:9 box is kept.

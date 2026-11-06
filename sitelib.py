@@ -23,6 +23,18 @@ REQUIRED: dict[str, list[str]] = {
     "project": ["kicker", "title", "paragraphs"],
     # one {kicker, title, intro?} per section; the page headings live here
     "headings": ["years", "watch", "science", "team", "press", "partners", "contact"],
+    "headings.years": ["kicker", "title"],
+    "headings.watch": ["kicker", "title"],
+    "headings.science": ["kicker", "title"],
+    "headings.team": ["kicker", "title"],
+    "headings.press": ["kicker", "title"],
+    "headings.partners": ["kicker", "title"],
+    "headings.contact": ["kicker", "title"],
+    "comparison": ["before", "before_alt", "after", "after_alt", "caption"],
+    "map": ["image", "image_alt", "caption"],
+    "science": ["title", "text"],
+    "press.tv": ["title", "outlet", "url"],
+    "credits": [],
     "years": ["year", "label", "place", "text", "image", "image_alt"],
     "video": ["youtube_id", "title", "thumbnail", "thumbnail_alt"],
     "csi": ["name", "logo", "blurb"],
@@ -192,8 +204,9 @@ def validate(content: dict, static_dir: Path) -> list[str]:
 def filter_consented(content: dict) -> tuple[dict, list[str]]:
     """Return (copy of content without non-consented people/partners, skipped names).
 
-    Only `consent: true` counts. A missing key, "yes", 1 or a typo such as
-    `concent` all mean "hidden", so a mistake can never publish someone.
+    Only a YAML true value counts (`consent: true`; note YAML also reads an
+    unquoted `yes`/`on` as true). A missing key, `false`, 1, a quoted "yes" or a
+    typo such as `concent` all mean "hidden", so a mistake never publishes someone.
     """
     out = copy.deepcopy(content)
     skipped: list[str] = []

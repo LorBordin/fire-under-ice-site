@@ -246,3 +246,15 @@ def test_image_info_missing_raises(static_dir):
         image_info(static_dir, "img/nope")
     with pytest.raises(FileNotFoundError):
         image_info(static_dir, "img/nope.webp")
+
+
+def test_missing_caption_in_map_is_reported(static_dir):
+    c = minimal_content()
+    del c["map"]["caption"]
+    assert "map.caption: missing" in validate(c, static_dir)
+
+
+def test_missing_heading_title_is_reported(static_dir):
+    c = minimal_content()
+    del c["headings"]["press"]["title"]
+    assert "headings.press.title: missing" in validate(c, static_dir)

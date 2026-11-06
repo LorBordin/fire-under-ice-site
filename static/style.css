@@ -89,10 +89,9 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.5}
 .js .compare{display:grid;grid-template-columns:1fr;gap:0}
 .js .compare>.compare-pane,.js .compare>input{grid-area:1/1}
 .js .compare-top{clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0)}
-.js .compare-top .compare-label{left:auto;right:auto}
 .js .compare>figcaption{grid-area:2/1;grid-column:1;margin-top:.6rem}
 .js .compare>input{display:block;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:2;-webkit-appearance:none;appearance:none;background:transparent}
-.js .compare>input:focus-visible{opacity:.01;outline:2px solid var(--ice);outline-offset:-2px}
+.js .compare:has(input:focus-visible) .compare-pane:first-of-type::before{outline:3px solid var(--ice);outline-offset:3px}
 .js .compare>input::-webkit-slider-thumb{-webkit-appearance:none;width:2rem;height:100%}
 .js .compare>input::-moz-range-thumb{width:2rem;height:100%;border:0;background:transparent}
 /* Visible divider: line + round handle at --pos, drawn on the bottom (unclipped) pane */
