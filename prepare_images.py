@@ -13,7 +13,6 @@ Job kinds:
   square      400x400 centre crop, <out>.webp (team portraits)
   logo        PNG, 160 px high, transparency kept
   pdf         first page of a PDF, then responsive
-  split       left/right halves of one image (needs two output names)
   thumbnail   downloaded from YouTube, then responsive
 """
 import subprocess
@@ -41,9 +40,7 @@ JOBS: list[tuple[str, str, str]] = [
     ("responsive", "figures/composites/f7_3d.jpg", "f7-3d"),
     ("responsive", "figures/composites/f7_ortho.jpg", "f7-ortho"),
     ("responsive", "figures/composites/f3_lake_overlay.jpg", "f3-lake-overlay"),
-    # f4_2006_vs_2025.jpg is ONE overlay map (2006 in blue on the 2025 survey in
-    # orange), not two side-by-side halves, so it is not split. Use "responsive":
-    ("responsive", "figures/composites/f4_2006_vs_2025.jpg", "f4-2006-vs-2025"),
+    # The 2006 vs 2025 slider images are built by make_comparison.py.
     ("pdf", "figures/composites/f2_iceland_map.pdf", "map-iceland"),
     # Team portraits: source file in people/ -> team/<surname>.webp
     ("square", "people/benassi.png", "team/benassi.webp"),
@@ -120,14 +117,6 @@ def logo(src: Path, out: Path, height: int) -> Path:
         out.parent.mkdir(parents=True, exist_ok=True)
         im.save(out, "PNG", optimize=True)
     return out
-
-
-def split_halves(src: Path, left_stem: Path, right_stem: Path) -> None:
-    """Crop the left and right halves of an image, each through responsive()."""
-    with _open(src) as im:
-        mid = im.width // 2
-        _responsive_image(im.crop((0, 0, mid, im.height)), left_stem)
-        _responsive_image(im.crop((mid, 0, im.width, im.height)), right_stem)
 
 
 def rasterise_pdf(src: Path, out_stem: Path) -> list[Path]:

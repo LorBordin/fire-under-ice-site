@@ -3,7 +3,7 @@ from pathlib import Path
 
 from PIL import Image
 
-from prepare_images import logo, responsive, split_halves, square
+from prepare_images import logo, responsive, square
 
 
 def make(path: Path, size, color="gray", mode="RGB") -> Path:
@@ -46,17 +46,3 @@ def test_logo_keeps_alpha(tmp_path):
     with Image.open(out) as im:
         assert im.size == (320, 160)
         assert im.mode == "RGBA"
-
-
-def test_split_halves(tmp_path):
-    img = Image.new("RGB", (2000, 500), "blue")
-    img.paste(Image.new("RGB", (1000, 500), "red"), (0, 0))
-    src = tmp_path / "s.png"
-    img.save(src)
-    split_halves(src, tmp_path / "left", tmp_path / "right")
-    with Image.open(tmp_path / "left-800.webp") as im:
-        r, g, b = im.convert("RGB").getpixel((10, 10))
-        assert r > 200 and b < 60
-    with Image.open(tmp_path / "right-800.webp") as im:
-        r, g, b = im.convert("RGB").getpixel((10, 10))
-        assert b > 200 and r < 60
