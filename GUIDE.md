@@ -88,6 +88,10 @@ Commit message prefixes, by convention: `content:` text changes, `feat:` new fea
    `- {name: Brand, logo: img/logos/brand.png, url: https://brand.example, consent: true}`.
 4. Build, preview, commit, push.
 
+**Rival brands.** No competitor's logo next to a sponsor's (also check photos for visible gear brands).
+Concretely: when a **footwear** sponsor is confirmed, set Gaibana (footwear) to `consent: false` under `partners:`.
+The brochure does the same in its boots variant (`config/boots.tex`, `\showgaibanafalse`), and that brochure's QR leads here.
+
 ## 5. Where things live
 
 | Thing | Where | Notes |
