@@ -75,7 +75,8 @@ Commit message prefixes, by convention: `content:` text changes, `feat:` new fea
    Check each photo for rival-brand logos if a sponsor's gear is in the season.
 2. **Text.** Edit `content.yaml`: the new year in `years:`, figures in `project.stats`, new articles and talks in `press:`.
    Facts come from the brochure or from you, never guessed; unknown means `TODO` until you know.
-3. **People.** New team members: add them with `consent: false`, switch to `true` once they agree. Team photos go through
+3. **People.** New team members: add them with `consent: false`, switch to `true` once they agree. Each needs a
+   `role:` (their job in the expedition, shown in red) and a `line:` (short bio). Team photos go through
    the `square` job in `prepare_images.py` (400×400).
 4. **Check.** `uv run build.py`, preview on laptop and phone, `uv run check_links.py`.
 5. **Publish.** Commit and push (section 3). Open <https://fireunderice.org> on your phone to confirm.

@@ -87,7 +87,8 @@ def minimal_content() -> dict:
                 "members": [
                     {
                         "name": "Anna Rossi",
-                        "line": "Expedition leader",
+                        "role": "Expedition leader",
+                        "line": "PhD in caving",
                         "photo": "img/a-800.webp",
                         "consent": True,
                     }
@@ -258,3 +259,9 @@ def test_missing_heading_title_is_reported(static_dir):
     c = minimal_content()
     del c["headings"]["press"]["title"]
     assert "headings.press.title: missing" in validate(c, static_dir)
+
+
+def test_team_member_role_required(static_dir):
+    c = minimal_content()
+    del c["team"][0]["members"][0]["role"]
+    assert validate(c, static_dir) == ["team[0].members[0].role: missing"]

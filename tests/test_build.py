@@ -72,7 +72,7 @@ def test_no_root_absolute_urls(site):
 def test_nonconsented_member_absent(site, capsys):
     c = minimal_content()
     c["team"][0]["members"].append(
-        {"name": "Secret Person", "line": "x", "photo": "img/a-800.webp", "consent": False}
+        {"name": "Secret Person", "role": "r", "line": "x", "photo": "img/a-800.webp", "consent": False}
     )
     write_content(site, c)
     html = build_html(site)
@@ -141,3 +141,9 @@ def test_team_shows_only_csi_when_nobody_consents(site):
     html = build_html(site)
     assert "Centro Speleologico Indipendenti" in html
     assert "team-group" not in html
+
+
+def test_team_role_and_bio_rendered(site):
+    html = build_html(site)
+    assert '<span class="role">Expedition leader</span>' in html
+    assert "PhD in caving" in html

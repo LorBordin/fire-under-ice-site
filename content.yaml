@@ -61,7 +61,7 @@ headings:
       such as Enceladus.
   team:                                  # brochure p13
     kicker: The team
-    title: Thirteen cavers in 2026
+    title: Thirteen cavers in 2026, led by a core team of five
   press:                                 # brochure p14
     kicker: Press and talks
     title: Who hears about it
@@ -156,64 +156,79 @@ csi:                                     # website_spec "About CSI"
       *Indipendenti* because hypogenic caves are what we look for.
 
 # Team: shown only with `consent: true` (exactly true). Ask each person first.
-team:                                    # brochure p13, alphabetical by surname
+# role: what they do in the expedition (shown in red); line: short bio (brochure p13).
+# 2026-11: core team agreed to publish; the others are stored, waiting for consent.
+team:                                    # order: by role, as given by Lorenzo
   - group: Core team
     members:
       - name: Andrea Benassi
+        role: Research, site selection, team building, public relations
         line: PhD in Anthropology. Advisor to the Italian Speleological Society (SSI). Has organised over 30 international expeditions.
         photo: img/team/benassi.webp
-        consent: false
+        consent: true
       - name: Lorenzo Bordin
+        role: Logistics, partner and park relations, data processing, publications
         line: PhD in Theoretical Physics. SSI instructor. Ice caves, cave survey and drone photogrammetry.
         photo: img/team/bordin.webp
-        consent: false
-      - name: Mattia Gerbaudo (Jerba)
-        line: Industrial safety specialist. CNSAS rescuer, CAI mountaineering instructor. Gas and safety lead.
-        photo: img/team/gerbaudo.webp
-        consent: false
-      - name: Cristian Monticone (Lazzaro)
-        line: Vice President, Gruppo Speleologico Piemontese; CNSAS. Breathing apparatus and confined spaces.
-        photo: img/team/monticone.webp
-        consent: false
+        consent: true
       - name: Maria F. Trombini
+        role: Food supplies and rations, drone photogrammetry
         line: SSI speleology instructor. Ice caves since 2023; expeditions in Italy, France, Slovenia, Albania, Austria, UK.
         photo: img/team/trombini.webp
-        consent: false
+        consent: true
+      - name: Cristian Monticone (Lazzaro)
+        role: Lead explorer in the most hazardous passages
+        line: Vice President, Gruppo Speleologico Piemontese; CNSAS. Breathing apparatus and confined spaces.
+        photo: img/team/monticone.webp
+        consent: true
+      - name: Mattia Gerbaudo (Jerba)
+        role: Technical gear, confined-space safety, high-risk descents
+        line: Industrial safety specialist. CNSAS rescuer, CAI mountaineering instructor. Gas and safety lead.
+        photo: img/team/gerbaudo.webp
+        consent: true
   - group: Exploration and field operations
     members:
-      - name: Marco Ettrapini
-        line: Chemist and assistant speleology instructor. Mountaineering, rock and ice climbing, canyoning.
-        photo: img/team/ettrapini.webp
-        consent: false
       - name: Carlo Urbanet
+        role: Exploration, field coordination, food and medical supplies
         line: Engineer, National Speleology Instructor (SSI), CNSAS technician. Explorations in Ethiopia, Iran, Brazil.
         photo: img/team/urbanet.webp
         consent: false
       - name: Ivan Vicenzi
+        role: Exploration, field support, photography
         line: Rescue operator for over 23 years and technical diver. Expeditions to West Papua, Laos, Honduras.
         photo: img/team/vicenzi.webp
         consent: false
+      - name: Marco Ettrapini
+        role: Exploration, field support
+        line: Chemist and assistant speleology instructor. Mountaineering, rock and ice climbing, canyoning.
+        photo: img/team/ettrapini.webp
+        consent: false
   - group: Science and confined spaces
     members:
-      - name: Lorenzo Scialò
-        line: Rope access technician and industrial rescuer. Expeditions to Mexico, Greece, Albania, Montenegro.
-        photo: img/team/scialo.webp
-        consent: false
       - name: Paolo Turrini
+        role: Microbiological research and sampling (Bicocca)
         line: PhD in Microbiology. Rope access and confined-space specialist; caving in Indonesia, Mexico, Morocco.
         photo: img/team/turrini.webp
         consent: false
+      - name: Lorenzo Scialò
+        role: Exploration, confined spaces, biological sampling support
+        line: Rope access technician and industrial rescuer. Expeditions to Mexico, Greece, Albania, Montenegro.
+        photo: img/team/scialo.webp
+        consent: false
       - name: Katia Zampatti
+        role: Exploration, confined spaces, biological sampling support
         line: Industrial rescuer, canyoner, alpinist. Member of the Italian Speleological Society. Caving in Norway and Iceland.
         photo: img/team/zampatti.webp
         consent: false
   - group: Documentation
     members:
       - name: Tommaso Biondi
+        role: Photography, filming, documentary
         line: Caving and mountain documentary maker, award-winning. Films in Africa, South America and West Papua.
         photo: img/team/biondi.webp
         consent: false
       - name: Paolo Testa
+        role: Photography
         line: National Speleology Instructor (CAI), caving since 1987. Founded Progetto Speleologia Glaciale in 2008.
         photo: img/team/testa.webp
         consent: false

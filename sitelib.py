@@ -38,7 +38,7 @@ REQUIRED: dict[str, list[str]] = {
     "years": ["year", "label", "place", "text", "image", "image_alt"],
     "video": ["youtube_id", "title", "thumbnail", "thumbnail_alt"],
     "csi": ["name", "logo", "blurb"],
-    "team.members": ["name", "line", "photo"],
+    "team.members": ["name", "role", "line", "photo"],
     "partners": ["name", "logo"],
     "sponsors": ["name", "logo"],
     "press.articles": ["year", "title", "byline"],

@@ -15,6 +15,7 @@
       <li>
         {{ image(m.photo, m.name, sizes="96px") }}
         <strong>{{ m.name | md }}</strong>
+        <span class="role">{{ m.role | md }}</span>
         <span>{{ m.line | md }}</span>
       </li>
       {% endfor %}
