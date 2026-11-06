@@ -13,8 +13,8 @@ The ODM model is far too heavy for a web page (1.5 M triangles, 115 textures,
 4. prints where the cave marker goes (centre of the 2025 survey in the
    brochure KML, converted to the model's coordinates), for content.yaml.
 
-Run with:  uv run --group model make_model.py
-(pymeshlab and numpy are in the separate `model` group, so the site build,
+Run with:  uv run --group assets make_model.py
+(pymeshlab and numpy are in the separate `assets` group, so the site build,
 the tests and GitHub Actions never install them.)
 """
 import io

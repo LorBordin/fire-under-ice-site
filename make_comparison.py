@@ -7,10 +7,13 @@ page can slide one over the other. Inputs (read only, outside this repo):
   (a GroundOverlay with a north/south/east/west box in degrees);
 - the transparent survey PNGs in the brochure's files/ folder;
 - the July 2026 drone orthophoto, a tiled KMZ "superoverlay": a zip of
-  PNG tiles at several zoom levels, each tile with its own box in degrees.
+  PNG tiles at several zoom levels, each tile with its own box in degrees;
+- a 2024 satellite view saved twice from Google Earth Pro, with and without
+  the frame KML below (georef.py finds the frame and fits the image to it).
 
-Run with:  uv run make_comparison.py
-Writes static/img/cmp-2006-<w>.webp and cmp-2025-<w>.webp.
+Run with:  uv run --group assets make_comparison.py
+Writes static/img/cmp-2006-<w>.webp and cmp-2025-<w>.webp (drone background)
+and cmp-2006-sat-<w>.webp, cmp-2025-sat-<w>.webp (satellite background).
 
     uv run make_comparison.py --kml
 writes FRAME_KML, the slider frame with corner crosses, to open in Google
@@ -38,7 +41,14 @@ SURVEYS = {"cmp-2006": "s06", "cmp-2025": "s25"}   # output stem -> KML overlay 
 # Site colours, as in the brochure legend: 2006 IceBlue, 2025 MagmaRed (rgb, opacity).
 TINTS = {"cmp-2006": ((0x00, 0xC2, 0xFF), 1.0), "cmp-2025": ((0xFF, 0x45, 0x00), 0.8)}
 
-FRAME_KML = Path.home() / "expeditions/Iceland/2026/maps/slider_frame.kml"
+MAPS = Path.home() / "expeditions/Iceland/2026/maps"
+FRAME_KML = MAPS / "slider_frame.kml"
+SAT_WITH_FRAME = MAPS / "slider_with_frame.jpg"     # Google Earth Pro exports, same view
+SAT_NO_FRAME = MAPS / "slider_no_frame.jpg"
+# Google's terms: the credit must stay visible on the image itself.
+SAT_CREDIT = "Google Earth · Image © 2026 Airbus"
+# output suffix -> background maker; the drone images keep their original names
+BACKGROUNDS = {"": "orthophoto", "-sat": "satellite"}
 
 Box = tuple[float, float, float, float]   # north, south, east, west
 
@@ -110,6 +120,30 @@ def orthophoto(canvas: Canvas) -> Image.Image:
     return rgb.convert("RGBA")
 
 
+def satellite(canvas: Canvas) -> Image.Image:
+    """The Google Earth export, fitted to the frame and toned like the orthophoto."""
+    from georef import frame_curves, outline_mask, unwarp   # needs numpy (assets group)
+    Image.MAX_IMAGE_PIXELS = None                           # exports reach 8192 px
+    with Image.open(SAT_WITH_FRAME) as a, Image.open(SAT_NO_FRAME) as b:
+        curves = frame_curves(outline_mask(a, b))
+        rgb = unwarp(b, curves, (canvas.width, canvas.height))
+    # The 2024 image is very bright (sunlit snow): darken more than the drone image.
+    rgb = ImageEnhance.Color(rgb).enhance(0.35)
+    rgb = ImageEnhance.Brightness(rgb).enhance(0.7)
+    return rgb.convert("RGBA")
+
+
+def credit(im: Image.Image, canvas: Canvas, text: str) -> None:
+    """Small white text in the bottom-right corner, on a dark band so it stays legible."""
+    d = ImageDraw.Draw(im)
+    font = ImageFont.load_default(size=round(canvas.width / 80))
+    x, y = canvas.width * 0.985, canvas.height * 0.985
+    l, t, r, b = d.textbbox((x, y), text, font=font, anchor="rs")
+    pad = canvas.width / 400
+    d.rectangle([l - pad, t - pad, r + pad, b + pad], fill=(13, 13, 13, 255))
+    d.text((x, y), text, fill="white", font=font, anchor="rs")
+
+
 def tint(im: Image.Image, rgb: tuple[int, int, int], opacity: float) -> Image.Image:
     """Paint every visible pixel of `im` in one colour, keeping its transparency."""
     alpha = im.convert("RGBA").getchannel("A").point(lambda a: round(a * opacity))
@@ -172,14 +206,17 @@ def main() -> None:
         print(f"Wrote {FRAME_KML}")
         return
     print(f"Frame {canvas.width}x{canvas.height} px, {canvas.metres_per_px:.2f} m/px")
-    base = orthophoto(canvas)
-    for stem, oid in SURVEYS.items():
-        png, box = overlays[oid]
-        im = base.copy()
-        canvas.paste(im, tint(Image.open(png), *TINTS[stem]), box)
-        scale_bar(im, canvas)
-        for p in _responsive_image(im.convert("RGB"), OUT_DIR / stem):
-            print(f"  {p.relative_to(OUT_DIR.parent.parent)}  {p.stat().st_size // 1024} KB")
+    for suffix, maker in BACKGROUNDS.items():
+        base = globals()[maker](canvas)
+        for stem, oid in SURVEYS.items():
+            png, box = overlays[oid]
+            im = base.copy()
+            canvas.paste(im, tint(Image.open(png), *TINTS[stem]), box)
+            scale_bar(im, canvas)
+            if maker == "satellite":
+                credit(im, canvas, SAT_CREDIT)
+            for p in _responsive_image(im.convert("RGB"), OUT_DIR / f"{stem}{suffix}"):
+                print(f"  {p.relative_to(OUT_DIR.parent.parent)}  {p.stat().st_size // 1024} KB")
 
 
 if __name__ == "__main__":

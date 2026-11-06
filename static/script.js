@@ -76,6 +76,29 @@
     setPos();
   });
 
+  // 4b. Comparison background switch (satellite / drone): swaps both images and the credit.
+  document.querySelectorAll('.compare-switch').forEach(function (group) {
+    var figure = group.nextElementSibling;
+    if (!figure || !figure.classList.contains('compare')) return;
+    var imgs = figure.querySelectorAll('.compare-pane img'); // [before, after]
+    var credit = figure.querySelector('.compare-credit');
+    var buttons = group.querySelectorAll('button');
+    group.hidden = false;
+    buttons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var d = button.dataset;
+        [['before', imgs[0]], ['after', imgs[1]]].forEach(function (pair) {
+          var img = pair[1], k = pair[0];
+          if (d[k + 'Srcset']) img.srcset = d[k + 'Srcset']; else img.removeAttribute('srcset');
+          img.src = d[k + 'Src'];
+          img.alt = d[k + 'Alt'];
+        });
+        if (credit) credit.textContent = d.credit;
+        buttons.forEach(function (b) { b.setAttribute('aria-pressed', b === button ? 'true' : 'false'); });
+      });
+    });
+  });
+
   // 5. Click-to-load video: no YouTube request until the visitor asks for it.
   document.querySelectorAll('.video[data-youtube]').forEach(function (link) {
     link.addEventListener('click', function (event) {

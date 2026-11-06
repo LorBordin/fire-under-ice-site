@@ -20,7 +20,7 @@ static/     ──┘   (checks, then fills the templates)    (git push triggers
 | `static/script.js` | The motion: fade-ins, slider, video. The page works without it | Rarely |
 | `static/img/` | Web-sized images, **generated**: never edit by hand | No (scripts write it) |
 | `prepare_images.py` | Turns brochure originals into web images (`JOBS` list at the top) | Add a line per new photo |
-| `make_comparison.py` | Builds the 2006 vs 2025 slider images from the KML + orthophoto | Only if surveys change |
+| `make_comparison.py`, `georef.py` | Builds the 2006 vs 2025 slider images, on two backgrounds: 2024 satellite (default) and 2026 drone orthophoto | Only if surveys or backgrounds change |
 | `make_model.py`, `geo.py` | Builds the interactive 3D model (`static/model/*.glb`) from the ODM OBJ, and prints the cave marker position | Only for a new model |
 | `static/vendor/` | `<model-viewer>` 4.0.0 (Google, Apache-2.0), the 3D viewer, kept here so no other server is contacted | No |
 | `build.py`, `sitelib.py` | The generator: load, validate, filter consent, render | No |
@@ -47,7 +47,7 @@ Run these in `~/expeditions/Iceland/website`.
 | `uv run pytest` | Run the automatic checks |
 | `uv run prepare_images.py` | Regenerate web images from the brochure originals |
 | `uv run check_links.py` | Check external links (some sites block robots: open those by hand) |
-| `uv run --group model make_model.py` | Rebuild the 3D model (~30 s; installs pymeshlab the first time). Paste the printed `model_marker` into `content.yaml` |
+| `uv run --group assets make_model.py` | Rebuild the 3D model (~30 s; installs pymeshlab the first time). Paste the printed `model_marker` into `content.yaml` |
 | `git status` | What changed since the last commit |
 | `git diff` | The changes, line by line |
 | `git log --oneline` | History of commits |
@@ -83,6 +83,17 @@ Commit message prefixes, by convention: `content:` text changes, `feat:` new fea
    the `square` job in `prepare_images.py` (400×400).
 4. **Check.** `uv run build.py`, preview on laptop and phone, `uv run check_links.py`.
 5. **Publish.** Commit and push (section 3). Open <https://fireunderice.org> on your phone to confirm.
+
+### Changing the slider's satellite background
+
+Google Earth Pro can't export a positioned image, so the site finds it from a frame drawn on it:
+
+1. `uv run --group assets make_comparison.py --kml` writes `~/expeditions/Iceland/2026/maps/slider_frame.kml`.
+2. Open it in Google Earth Pro and follow the steps in its description: pick the date in Historical Imagery,
+   press `u` then `n`, save the view as `slider_with_frame.jpg`, untick the KML, save again as `slider_no_frame.jpg`.
+3. Copy the copyright line Google prints at the bottom into `SAT_CREDIT` in `make_comparison.py`, and into the
+   `credit:` of the satellite background in `content.yaml` and in `credits:` (Google requires it to stay visible).
+4. `uv run --group assets make_comparison.py`, then build and preview.
 
 ### Adding a sponsor
 

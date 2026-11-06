@@ -12,6 +12,10 @@ dependencies = [
 dev = [
     "pytest>=9.2.0",
 ]
-model = [
+# Tools that make files in static/ (make_model.py, make_comparison.py), run by hand:
+#   uv run --group assets <script>.py
+# Not needed to build the site, so CI never installs them.
+assets = [
+    "numpy>=2.5.4",
     "pymeshlab>=2025.7.post1",
 ]

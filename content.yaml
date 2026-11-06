@@ -105,15 +105,25 @@ years:
     image_alt: Map of south Iceland showing Torfajökull, the primary 2027 target, and the reconnaissance options Mýrdalsjökull and Grímsvötn.
 
 comparison:                              # brochure p7
-  before: img/cmp-2006
-  before_alt: The 2006 survey of the Hveradalur cave, drawn in blue over a drone orthophoto.
-  after: img/cmp-2025
-  after_alt: The 2025 survey of the Hveradalur cave, drawn in red over the same orthophoto.
   caption: >-
     *Same heat, different ice.* Between 2006 and 2025 a lake melted the ice that
     held this cave at least once. The 2025 cave sits in different ice, yet its
     main corridor still follows the 2006 route. 2006 survey: Swiss team.
-    Background: drone orthophoto, July 2026.
+  # Background images, made by make_comparison.py. The first one is shown by
+  # default (and is the only one without JavaScript); the others are a click away.
+  backgrounds:
+    - label: Satellite 2024
+      before: img/cmp-2006-sat
+      before_alt: The 2006 survey of the Hveradalur cave, drawn in blue over a 2024 satellite image.
+      after: img/cmp-2025-sat
+      after_alt: The 2025 survey of the Hveradalur cave, drawn in red over the same 2024 satellite image.
+      credit: "Background: satellite image, 2024 (Google Earth, Image © 2026 Airbus)."
+    - label: Drone 2026
+      before: img/cmp-2006
+      before_alt: The 2006 survey of the Hveradalur cave, drawn in blue over a July 2026 drone orthophoto, with the thaw lake.
+      after: img/cmp-2025
+      after_alt: The 2025 survey of the Hveradalur cave, drawn in red over the same drone orthophoto.
+      credit: "Background: drone orthophoto, July 2026."
 
 map:                                     # brochure p4
   image: img/map-iceland
@@ -279,3 +289,4 @@ credits:
   - "Drawing of the glaciovolcanic cave system: original artwork by Lee Florea."
   - "Survey drawings: Cristian Monticone. 2006 survey: Swiss team."
   - "Basemaps: Landmælingar Íslands, IS 50V, CC BY 4.0."
+  - "2024 satellite image: Google Earth, Image © 2026 Airbus."

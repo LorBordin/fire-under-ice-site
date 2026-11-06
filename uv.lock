@@ -22,11 +22,12 @@ dependencies = [
 ]
 
 [package.dev-dependencies]
+assets = [
+    { name = "numpy" },
+    { name = "pymeshlab" },
+]
 dev = [
     { name = "pytest" },
-]
-model = [
-    { name = "pymeshlab" },
 ]
 
 [package.metadata]
@@ -37,8 +38,11 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
+assets = [
+    { name = "numpy", specifier = ">=2.5.4" },
+    { name = "pymeshlab", specifier = ">=2025.7.post1" },
+]
 dev = [{ name = "pytest", specifier = ">=9.2.0" }]
-model = [{ name = "pymeshlab", specifier = ">=2025.7.post1" }]
 
 [[package]]
 name = "iniconfig"

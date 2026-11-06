@@ -80,6 +80,12 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.5}
 .card p:last-child{color:var(--muted);margin-bottom:0}
 
 /* Compare. Default (no JS): stacked, each with its label. */
+.compare-switch{display:flex;flex-wrap:wrap;gap:.5rem;margin:4rem 0 1rem}
+.compare-switch[hidden]{display:none}
+.compare-switch button{padding:.4rem 1rem;border:1px solid var(--muted);border-radius:2rem;background:transparent;color:var(--muted);font:inherit;font-size:.85rem;font-weight:600;letter-spacing:.04em;cursor:pointer}
+.compare-switch button:hover{border-color:var(--ice);color:var(--ice)}
+.compare-switch button[aria-pressed="true"]{border-color:var(--ice);background:var(--ice);color:#0D0D0D}
+.compare-switch:not([hidden])+.compare{margin-top:0}
 .compare{margin:4rem 0 0;display:grid;gap:1rem}
 .compare-pane{position:relative}
 .compare-pane img{width:100%}

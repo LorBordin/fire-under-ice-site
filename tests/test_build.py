@@ -174,3 +174,27 @@ def test_science_model_marker(site):
     (site / "static" / "model").mkdir()
     (site / "static" / "model" / "x.glb").write_bytes(b"glTF")
     assert 'data-model-marker="1m 2m 3m"' in build_html(site)
+
+
+def _two_backgrounds():
+    c = minimal_content()
+    drone = dict(c["comparison"]["backgrounds"][0], label="Drone 2026", credit="Background: drone.")
+    c["comparison"]["backgrounds"].append(drone)
+    return c
+
+
+def test_comparison_single_background_has_no_switch(site):
+    html = build_html(site)
+    assert "compare-switch" not in html
+    assert "Background: satellite." in html
+
+
+def test_comparison_switch(site):
+    write_content(site, _two_backgrounds())
+    html = build_html(site)
+    # Hidden without JS; the first background is shown and pressed.
+    assert re.search(r'<div class="compare-switch"[^>]*hidden', html)
+    assert re.search(r'<button[^>]*aria-pressed="true"[^>]*>Satellite 2024</button>', html)
+    assert re.search(r'<button[^>]*aria-pressed="false"[^>]*>Drone 2026</button>', html)
+    assert 'data-credit="Background: drone."' in html
+    assert '<span class="compare-credit">Background: satellite.</span>' in html

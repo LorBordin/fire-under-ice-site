@@ -50,11 +50,17 @@ def minimal_content() -> dict:
             }
         ],
         "comparison": {
-            "before": "img/a",
-            "before_alt": "The glacier in 2006",
-            "after": "img/a",
-            "after_alt": "The glacier in 2025",
             "caption": "Same place, nineteen years apart.",
+            "backgrounds": [
+                {
+                    "label": "Satellite 2024",
+                    "before": "img/a",
+                    "before_alt": "The glacier in 2006",
+                    "after": "img/a",
+                    "after_alt": "The glacier in 2025",
+                    "credit": "Background: satellite.",
+                }
+            ],
         },
         "map": {
             "image": "img/a",
@@ -274,3 +280,9 @@ def test_science_model_file_must_exist(static_dir):
     (static_dir / "model").mkdir()
     (static_dir / "model" / "x.glb").write_bytes(b"glTF")
     assert validate(c, static_dir) == []
+
+
+def test_comparison_background_needs_credit(static_dir):
+    c = minimal_content()
+    del c["comparison"]["backgrounds"][0]["credit"]
+    assert validate(c, static_dir) == ["comparison.backgrounds[0].credit: missing"]

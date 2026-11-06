@@ -12,17 +12,30 @@
     {% endfor %}
   </ol>
 
+  {% set bgs = c.comparison.backgrounds %}
+  {% if bgs | length > 1 %}
+  {# Background switch: hidden without JavaScript, where the first background stays. #}
+  <div class="compare-switch" role="group" aria-label="Background of the comparison" hidden>
+    {% for b in bgs %}
+    {% set before, after = img(b.before), img(b.after) %}
+    <button type="button" aria-pressed="{{ 'true' if loop.first else 'false' }}"
+      data-before-src="{{ before.src }}" data-before-srcset="{{ before.srcset }}" data-before-alt="{{ b.before_alt }}"
+      data-after-src="{{ after.src }}" data-after-srcset="{{ after.srcset }}" data-after-alt="{{ b.after_alt }}"
+      data-credit="{{ b.credit }}">{{ b.label }}</button>
+    {% endfor %}
+  </div>
+  {% endif %}
   <figure class="compare">
     <div class="compare-pane">
-      {{ image(c.comparison.before, c.comparison.before_alt, sizes="(min-width: 76rem) 71rem, 100vw") }}
+      {{ image(bgs[0].before, bgs[0].before_alt, sizes="(min-width: 76rem) 71rem, 100vw") }}
       <span class="compare-label">2006</span>
     </div>
     <div class="compare-pane compare-top">
-      {{ image(c.comparison.after, c.comparison.after_alt, sizes="(min-width: 76rem) 71rem, 100vw") }}
+      {{ image(bgs[0].after, bgs[0].after_alt, sizes="(min-width: 76rem) 71rem, 100vw") }}
       <span class="compare-label">2025</span>
     </div>
     <input type="range" min="0" max="100" value="50" aria-label="Compare 2006 and 2025" hidden>
-    <figcaption>{{ c.comparison.caption | md }}</figcaption>
+    <figcaption>{{ c.comparison.caption | md }} <span class="compare-credit">{{ bgs[0].credit | md }}</span></figcaption>
   </figure>
 
   <figure class="map">

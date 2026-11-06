@@ -30,7 +30,9 @@ REQUIRED: dict[str, list[str]] = {
     "headings.press": ["kicker", "title"],
     "headings.partners": ["kicker", "title"],
     "headings.contact": ["kicker", "title"],
-    "comparison": ["before", "before_alt", "after", "after_alt", "caption"],
+    "comparison": ["caption", "backgrounds"],
+    # the first background is the default (and the only one without JavaScript)
+    "comparison.backgrounds": ["label", "before", "before_alt", "after", "after_alt", "credit"],
     "map": ["image", "image_alt", "caption"],
     "science": ["title", "text"],
     "press.tv": ["title", "outlet", "url"],
