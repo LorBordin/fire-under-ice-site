@@ -12,11 +12,16 @@ page can slide one over the other. Inputs (read only, outside this repo):
 Run with:  uv run make_comparison.py
 Writes static/img/cmp-2006-<w>.webp and cmp-2025-<w>.webp.
 
+    uv run make_comparison.py --kml
+writes FRAME_KML, the slider frame with corner crosses, to open in Google
+Earth Pro when exporting a satellite background (see the KML's description).
+
 The area is ~350 m across, so treating degrees as a flat grid (with the
 east-west scale shrunk by cos(latitude)) is accurate to well under a pixel.
 """
 import math
 import re
+import sys
 import zipfile
 from pathlib import Path
 
@@ -32,6 +37,8 @@ MARGIN = 0.06            # extra space around the two surveys, as a fraction
 SURVEYS = {"cmp-2006": "s06", "cmp-2025": "s25"}   # output stem -> KML overlay id
 # Site colours, as in the brochure legend: 2006 IceBlue, 2025 MagmaRed (rgb, opacity).
 TINTS = {"cmp-2006": ((0x00, 0xC2, 0xFF), 1.0), "cmp-2025": ((0xFF, 0x45, 0x00), 0.8)}
+
+FRAME_KML = Path.home() / "expeditions/Iceland/2026/maps/slider_frame.kml"
 
 Box = tuple[float, float, float, float]   # north, south, east, west
 
@@ -124,10 +131,46 @@ def scale_bar(im: Image.Image, canvas: Canvas, metres: int = 50) -> None:
     d.text((ax, ay + h * 1.15), "N", fill="white", font=font, anchor="mt")
 
 
+def write_frame_kml(box: Box, path: Path) -> None:
+    """The slider frame as a magenta outline with a cross at each corner, for Google Earth."""
+    n, s, e, w = box
+    arm_y, arm_x = (n - s) * 0.08, (e - w) * 0.08
+
+    def line(name: str, pts: list[tuple[float, float]]) -> str:
+        coords = " ".join(f"{lon:.7f},{lat:.7f},0" for lat, lon in pts)
+        return (f"<Placemark><name>{name}</name><styleUrl>#m</styleUrl><LineString>"
+                f"<tessellate>1</tessellate><altitudeMode>clampToGround</altitudeMode>"
+                f"<coordinates>{coords}</coordinates></LineString></Placemark>")
+
+    parts = [line("frame", [(n, w), (n, e), (s, e), (s, w), (n, w)])]
+    for name, (lat, lon) in {"NW": (n, w), "NE": (n, e), "SE": (s, e), "SW": (s, w)}.items():
+        parts.append(line(f"{name} cross a", [(lat - arm_y, lon), (lat + arm_y, lon)]))
+        parts.append(line(f"{name} cross b", [(lat, lon - arm_x), (lat, lon + arm_x)]))
+    how = (
+        "1. View > Historical Imagery: pick the 2024 image. "
+        "2. Press u (look straight down), then n (north up). "
+        "3. Zoom so the whole magenta frame fills most of the window, crosses included. "
+        "4. File > Save > Save Image, maximum resolution: slider_with_frame.jpg. "
+        "5. Untick this KML in Places, do NOT move the view, save again: slider_no_frame.jpg."
+    )
+    path.write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<kml xmlns="http://www.opengis.net/kml/2.2"><Document>'
+        f"<name>Slider frame (fireunderice.org)</name><description>{how}</description>"
+        '<Style id="m"><LineStyle><color>ffff00ff</color><width>4</width></LineStyle></Style>'
+        + "".join(parts) + "</Document></kml>\n",
+        encoding="utf-8",
+    )
+
+
 def main() -> None:
     overlays = survey_overlays()
     used = [overlays[oid] for oid in SURVEYS.values()]
     canvas = Canvas(frame([box for _, box in used]), WIDTH)
+    if "--kml" in sys.argv:
+        write_frame_kml((canvas.n, canvas.s, canvas.e, canvas.w), FRAME_KML)
+        print(f"Wrote {FRAME_KML}")
+        return
     print(f"Frame {canvas.width}x{canvas.height} px, {canvas.metres_per_px:.2f} m/px")
     base = orthophoto(canvas)
     for stem, oid in SURVEYS.items():
