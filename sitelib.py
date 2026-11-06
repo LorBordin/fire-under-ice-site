@@ -20,6 +20,9 @@ from markupsafe import Markup, escape
 REQUIRED: dict[str, list[str]] = {
     "site": ["title", "url", "description", "contact_email"],
     "hero": ["title", "subtitle", "years", "image", "image_alt"],
+    "project": ["kicker", "title", "paragraphs"],
+    # one {kicker, title, intro?} per section; the page headings live here
+    "headings": ["years", "watch", "science", "team", "press", "partners", "contact"],
     "years": ["year", "label", "place", "text", "image", "image_alt"],
     "video": ["youtube_id", "title", "thumbnail", "thumbnail_alt"],
     "csi": ["name", "logo", "blurb"],

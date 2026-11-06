@@ -1,6 +1,23 @@
-{% from "macros.html" import header %}
+{% from "macros.html" import image, header %}
 <section id="project" class="reveal">
-  {{ header(c.project.kicker, c.project.title) }}
-  {% for p in c.project.paragraphs %}<p>{{ p | md }}</p>
-  {% endfor %}
+  {{ header(c.project) }}
+  <div class="project-body">
+    <div class="project-text">
+      {% for p in c.project.paragraphs %}<p>{{ p | md }}</p>
+      {% endfor %}
+    </div>
+    {% if c.project.image is defined %}
+    <figure class="project-figure">
+      {{ image(c.project.image, c.project.image_alt, sizes="(min-width: 48rem) 45vw, 100vw") }}
+      {% if c.project.image_caption is defined %}<figcaption>{{ c.project.image_caption | md }}</figcaption>{% endif %}
+    </figure>
+    {% endif %}
+  </div>
+  {% if c.project.stats is defined %}
+  <ul class="stats">
+    {% for s in c.project.stats %}<li><strong>{{ s.value | md }}</strong> <span>{{ s.label | md }}</span></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% if c.project.note is defined %}<p class="note">{{ c.project.note | md }}</p>{% endif %}
 </section>

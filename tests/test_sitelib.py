@@ -18,6 +18,15 @@ def minimal_content() -> dict:
             "description": "A glaciological expedition.",
             "contact_email": "info@fireunderice.org",
         },
+        "headings": {
+            "years": {"kicker": "Years", "title": "Years title"},
+            "watch": {"kicker": "Watch", "title": "Watch title"},
+            "science": {"kicker": "Science", "title": "Science title"},
+            "team": {"kicker": "Team", "title": "Team title"},
+            "press": {"kicker": "Press", "title": "Press title"},
+            "partners": {"kicker": "Partners", "title": "Partners title"},
+            "contact": {"kicker": "Contact", "title": "Contact title"},
+        },
         "hero": {
             "title": "Fire Under Ice",
             "subtitle": "Kverkfjöll, Iceland",

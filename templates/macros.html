@@ -9,8 +9,12 @@
   {%- if priority %} fetchpriority="high"{% elif lazy %} loading="lazy"{% endif %}>
 {%- endmacro %}
 
-{# header(kicker, title): the small uppercase line above a section title #}
-{% macro header(kicker, title) -%}
-<p class="kicker">{{ kicker | md }}</p>
-<h2>{{ title | md }}</h2>
+{# header(h): kicker (small uppercase line), title, optional intro paragraph.
+   `h` is one entry of `headings:` in content.yaml (or any dict with those keys). #}
+{% macro header(h) -%}
+<p class="kicker">{{ h.kicker | md }}</p>
+<h2>{{ h.title | md }}</h2>
+{%- if h.intro is defined %}
+<p class="intro">{{ h.intro | md }}</p>
+{%- endif %}
 {%- endmacro %}

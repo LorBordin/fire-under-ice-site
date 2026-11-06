@@ -1,6 +1,6 @@
 {% from "macros.html" import header %}
 <section id="press" class="reveal">
-  {{ header("Press and talks", "In print, on stage, on air") }}
+  {{ header(c.headings.press) }}
   <h3>Articles</h3>
   <ul class="press-list">
     {% for a in c.press.articles %}

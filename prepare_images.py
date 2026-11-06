@@ -42,6 +42,9 @@ JOBS: list[tuple[str, str, str]] = [
     ("responsive", "figures/composites/f3_lake_overlay.jpg", "f3-lake-overlay"),
     # The 2006 vs 2025 slider images are built by make_comparison.py.
     ("pdf", "figures/composites/f2_iceland_map.pdf", "map-iceland"),
+    ("pdf", "figures/composites/f6_targets_map.pdf", "map-targets-2027"),
+    ("responsive", "figures/composites/f1_schema.jpg", "f1-schema"),
+    ("responsive", "figures/composites/f_p05_hveradalur2025.png", "survey-hveradalur-2025"),
     # Team portraits: source file in people/ -> team/<surname>.webp
     ("square", "people/benassi.png", "team/benassi.webp"),
     ("square", "people/lorenzo.png", "team/bordin.webp"),
@@ -124,7 +127,7 @@ def rasterise_pdf(src: Path, out_stem: Path) -> list[Path]:
     with tempfile.TemporaryDirectory() as tmp:
         png = Path(tmp) / "page.png"
         subprocess.run(
-            ["magick", "-density", "200", f"{src}[0]", "-background", "white",
+            ["magick", "-density", "200", f"{src}[0]", "-background", "#0D0D0D",
              "-alpha", "remove", str(png)],
             check=True,
         )

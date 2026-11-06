@@ -1,0 +1,262 @@
+# Fire Under Ice: all the text on the site.
+#
+# Edit this file, then run `uv run build.py` and preview with
+# `uv run python -m http.server -d _site 8000` (open http://localhost:8000).
+#
+# Formatting: *text* becomes italic. Everything else is shown as written.
+# Images: paths are relative to static/. No extension (img/p01-cover) means a
+# set of sizes made by prepare_images.py; with an extension it is one file.
+# Facts must come from the brochure (~/expeditions/Iceland/brochure/2027/pages).
+# If you don't know a value, write TODO: the build refuses to publish it.
+
+site:
+  title: Fire Under Ice
+  url: https://fireunderice.org
+  description: >-
+    Fire Under Ice: CSI expeditions to Iceland's glaciovolcanic caves, 2025-2027.
+    Surveys, monitoring and sampling in caves melted from below by geothermal heat.
+  contact_email: info@fireunderice.org
+
+hero:                                    # brochure p1
+  title: Fire Under Ice
+  subtitle: Exploring Iceland's glaciovolcanic caves
+  years: 2025–2027
+  image: img/p01-cover
+  image_alt: A caver stands at the foot of a large ice cave, on orange ground.
+
+project:                                 # brochure p2-p3
+  kicker: The project
+  title: The ice changes, the heat stays.
+  paragraphs:
+    - >-
+      Where a volcano melts a glacier from below, caves open in the ice. They can
+      vanish within a year. We go back, survey them and measure what changes.
+    - >-
+      Ordinary glacier caves are cut by surface meltwater. These are melted from
+      below by geothermal heat and steam. The ceiling is ice. The air may not be
+      breathable.
+  image: img/f1-schema
+  image_alt: Cut-away drawing of a glacier on a volcano, with heat and steam rising from below and caves opening in the ice.
+  image_caption: Glaciovolcanic cave system. Original artwork by Lee Florea.
+  stats:
+    - {value: "2", label: volcanic systems explored}
+    - {value: "13", label: cavers in 2026}
+    - {value: "~1500 m", label: "Freyja Hellir, new in 2026"}
+    - {value: 1984–2026, label: survey record}
+  note: 2026 fieldwork carried out under a research permit.
+
+headings:
+  years:                                 # brochure p4
+    kicker: 2025–2027
+    title: Three years, one island
+  watch:                                 # brochure p9 (video QR)
+    kicker: Watch
+    title: Kverkfjöll over time
+    intro: Photogrammetry, cave surveys and timelapse.
+  science:                               # brochure p9
+    kicker: Science and monitoring
+    title: From 0.2 °C to 59.4 °C in one cave.
+    intro: >-
+      Dark, oligotrophic, volcanic environments: Earth analogues for icy moons
+      such as Enceladus.
+  team:                                  # brochure p13
+    kicker: The team
+    title: Thirteen cavers in 2026
+  press:                                 # brochure p14
+    kicker: Press and talks
+    title: Who hears about it
+  partners:                              # brochure p14
+    kicker: Partners
+    title: Who backs us
+  contact:                               # brochure p16
+    kicker: Contact
+    title: Write to us
+    intro: >-
+      2027 expedition: about 10–31 July. For partnerships, press or talks,
+      write to the address below.
+
+years:
+  - year: 2025                           # brochure p5
+    label: Reconnaissance
+    place: Kverkfjöll, Dyngjujökull
+    text: >-
+      Four people on the trail of the Swiss team that explored Kverkfjöll from
+      the 1980s to 2008. Near the hut, on top of the volcano, we found the
+      Hveradalur system: almost 1 km.
+    image: img/survey-hveradalur-2025-709.webp
+    image_alt: Plan of the Hveradalur cave system, survey 2025, north up.
+  - year: 2026                           # brochure p6, p8
+    label: Discovery
+    place: Kverkfjöll, Torfa caldera
+    text: >-
+      A thaw lake flooded most of Hveradalur: of almost 1 km, 150 m remained
+      above water. On Kaldaklofsjökull we found Freyja Hellir, a new
+      glaciovolcanic cave: almost 1500 m surveyed, with a hall about 50 m across.
+    image: img/p08-sala-rosa
+    image_alt: Sala Rosa dei Beati in Freyja Hellir, a domed hall of ice with concentric blue rings.
+  - year: 2027                           # brochure p10-p11
+    label: Expansion
+    place: Torfajökull, plus one reconnaissance
+    text: >-
+      Back to the Torfa caldera, this time on its main glacier. Reconnaissance on
+      Mýrdalsjökull (Katla), or the Grímsvötn cauldrons from the south. Lidar
+      joins the survey. About 10–31 July 2027, with the 2026 team.
+    image: img/map-targets-2027
+    image_alt: Map of south Iceland showing Torfajökull, the primary 2027 target, and the reconnaissance options Mýrdalsjökull and Grímsvötn.
+
+comparison:                              # brochure p7
+  before: img/cmp-2006
+  before_alt: The 2006 survey of the Hveradalur cave, drawn in blue over a drone orthophoto.
+  after: img/cmp-2025
+  after_alt: The 2025 survey of the Hveradalur cave, drawn in red over the same orthophoto.
+  caption: >-
+    *Same heat, different ice.* Between 2006 and 2025 a lake melted the ice that
+    held this cave at least once. The 2025 cave sits in different ice, yet its
+    main corridor still follows the 2006 route. 2006 survey: Swiss team.
+    Background: drone orthophoto, July 2026.
+
+map:                                     # brochure p4
+  image: img/map-iceland
+  image_alt: Map of Iceland marking Kverkfjöll and Dyngjujökull (2025), the Torfa caldera (2026 and 2027) and the 2027 reconnaissance options.
+  caption: "2025: Kverkfjöll, Dyngjujökull. 2026: Kverkfjöll, Torfa caldera. 2027: Torfajökull, plus one reconnaissance target."
+
+video:
+  youtube_id: 913rFrz9-xo
+  title: Kverkfjöll over time
+  thumbnail: img/video-thumb-800.webp
+  thumbnail_alt: "Video still: Kverkfjöll over time."
+
+science:                                 # brochure p9, p11
+  - title: Microbiology
+    text: >-
+      Samples from every cave explored, at Kverkfjöll and Torfa, for the
+      University of Milano-Bicocca.
+  - title: Monitoring
+    text: >-
+      Air and water temperature sensors and timelapse cameras, placed in July and
+      recovered in September by a team led by Lee J. Florea, PhD, Christian
+      Stenner and Linda Sobolewski, PhD (University of Iceland).
+  - title: Photogrammetry
+    text: >-
+      Drone models of the Encelado cauldron, July and September 2026. In 2027 we
+      add lidar: the same voids in three dimensions, from the inside.
+    image: img/f7-3d
+    image_alt: 3D model of Efri Hveradalur, Kverkfjöll, from drone photogrammetry, with Lake Galtarlón in front.
+
+csi:                                     # website_spec "About CSI"
+  name: Consorzio Speleologi Ipogenici
+  logo: img/logos/csi_logo_crop.png
+  blurb:
+    - From different caving groups across Italy, *Indipendenti* in spirit, *Ipogenici* by vocation.
+    - >-
+      The name nods to the Italian band CSI, *Consorzio Suonatori Indipendenti*:
+      a team from different regions and caving groups needed an informal name,
+      and *Consorzio Speleologi Indipendenti* fitted. *Ipogenici* replaced
+      *Indipendenti* because hypogenic caves are what we look for.
+
+# Team: shown only with `consent: true` (exactly true). Ask each person first.
+team:                                    # brochure p13, alphabetical by surname
+  - group: Core team
+    members:
+      - name: Andrea Benassi
+        line: PhD in Anthropology. Advisor to the Italian Speleological Society (SSI). Has organised over 30 international expeditions.
+        photo: img/team/benassi.webp
+        consent: false
+      - name: Lorenzo Bordin
+        line: PhD in Theoretical Physics. SSI instructor. Ice caves, cave survey and drone photogrammetry.
+        photo: img/team/bordin.webp
+        consent: false
+      - name: Mattia Gerbaudo (Jerba)
+        line: Industrial safety specialist. CNSAS rescuer, CAI mountaineering instructor. Gas and safety lead.
+        photo: img/team/gerbaudo.webp
+        consent: false
+      - name: Cristian Monticone (Lazzaro)
+        line: Vice President, Gruppo Speleologico Piemontese; CNSAS. Breathing apparatus and confined spaces.
+        photo: img/team/monticone.webp
+        consent: false
+      - name: Maria F. Trombini
+        line: SSI speleology instructor. Ice caves since 2023; expeditions in Italy, France, Slovenia, Albania, Austria, UK.
+        photo: img/team/trombini.webp
+        consent: false
+  - group: Exploration and field operations
+    members:
+      - name: Marco Ettrapini
+        line: Chemist and assistant speleology instructor. Mountaineering, rock and ice climbing, canyoning.
+        photo: img/team/ettrapini.webp
+        consent: false
+      - name: Carlo Urbanet
+        line: Engineer, National Speleology Instructor (SSI), CNSAS technician. Explorations in Ethiopia, Iran, Brazil.
+        photo: img/team/urbanet.webp
+        consent: false
+      - name: Ivan Vicenzi
+        line: Rescue operator for over 23 years and technical diver. Expeditions to West Papua, Laos, Honduras.
+        photo: img/team/vicenzi.webp
+        consent: false
+  - group: Science and confined spaces
+    members:
+      - name: Lorenzo Scialò
+        line: Rope access technician and industrial rescuer. Expeditions to Mexico, Greece, Albania, Montenegro.
+        photo: img/team/scialo.webp
+        consent: false
+      - name: Paolo Turrini
+        line: PhD in Microbiology. Rope access and confined-space specialist; caving in Indonesia, Mexico, Morocco.
+        photo: img/team/turrini.webp
+        consent: false
+      - name: Katia Zampatti
+        line: Industrial rescuer, canyoner, alpinist. Member of the Italian Speleological Society. Caving in Norway and Iceland.
+        photo: img/team/zampatti.webp
+        consent: false
+  - group: Documentation
+    members:
+      - name: Tommaso Biondi
+        line: Caving and mountain documentary maker, award-winning. Films in Africa, South America and West Papua.
+        photo: img/team/biondi.webp
+        consent: false
+      - name: Paolo Testa
+        line: National Speleology Instructor (CAI), caving since 1987. Founded Progetto Speleologia Glaciale in 2008.
+        photo: img/team/testa.webp
+        consent: false
+
+press:                                   # brochure p14
+  articles:
+    - year: 2026
+      title: "Ghiaccio Bollente: esplorazioni glaciovulcaniche in Islanda"
+      byline: Monticone C., Benassi A., Bordin L., Trombini M. · *La Rivista* del CAI, issue 18
+    - year: 2026
+      title: "Di ghiaccio e di fuoco: esplorazioni glaciovulcaniche in Islanda"
+      byline: Benassi A. · *Speleologia*, issue 93
+    - year: 2026
+      title: "Un altro buco nell'acqua: viaggio nel cuore effimero del Mittelbergferner"
+      byline: Bordin L. · *Speleologia*, issue 93
+    - year: 2026
+      title: "Esplorare l'effimero: nel cuore del Mittelbergferner"
+      byline: Monticone C. · *Grotte*, issue 183
+    - year: 2025
+      title: "Ghiaccio Bollente: esplorazioni glaciovulcaniche in Islanda"
+      byline: Benassi A. · Casola Speleo blog
+  talks:
+    - {year: 2026, venue: "CAI Rovigo, October", place: Rovigo, title: "*Il massiccio dimenticato*"}
+    - {year: 2026, venue: "National speleology gathering, Costacciaro", place: Costacciaro (PG), title: "*Vatnajökull 2026 – Fire under Ice*"}
+    - {year: 2026, venue: CAI Roma, place: Roma, title: "*Di ghiaccio e fuoco*"}
+    - {year: 2026, venue: "CAI UGET Torino, Gruppo Speleologico Piemontese", place: Torino, title: "*Tra ghiaccio e fuoco*"}
+    - {year: 2025, venue: "Mese Montagna 2025, SAT Lavis", place: Lavis (TN), title: "*Ghiaccio bollente: esplorazioni glaciovulcaniche*"}
+    - {year: 2025, venue: "Capovolta, national speleology gathering", place: Volta Mantovana (MN), title: "*Di ghiaccio e di fuoco*"}
+  tv:
+    - title: "*Tra fuoco e ghiaccio*"
+      outlet: TG5 report
+      url: https://mediasetinfinity.mediaset.it/video/tg5/tra-fuoco-e-ghiaccio-la-bellezza-della-vita_F314202201199D08
+
+# Partners and sponsors: shown only with `consent: true`.
+partners:                                # brochure p14
+  - {name: Società Speleologica Italiana, logo: img/logos/ssi.png, consent: true}
+  - {name: Regione Friuli Venezia Giulia, logo: img/logos/fvg.png, consent: true}
+  - {name: Club Alpino Italiano, logo: img/logos/cai_logo.png, consent: true}
+  - {name: Società Geografica Italiana, logo: img/logos/soc_geo_logo_crop.png, consent: true}
+  - {name: Gaibana, logo: img/logos/gaibana_logo.png, consent: true}
+
+sponsors: []                             # 2027 sponsors, once confirmed
+
+credits:
+  - "Drawing of the glaciovolcanic cave system: original artwork by Lee Florea."
+  - "Survey drawings: Cristian Monticone. 2006 survey: Swiss team."
+  - "Basemaps: Landmælingar Íslands, IS 50V, CC BY 4.0."

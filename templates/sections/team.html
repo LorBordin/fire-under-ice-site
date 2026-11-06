@@ -1,6 +1,6 @@
 {% from "macros.html" import image, header %}
 <section id="team" class="reveal">
-  {{ header("Team", "Who we are") }}
+  {{ header(c.headings.team) }}
   <div class="csi">
     {{ image(c.csi.logo, c.csi.name, cls="csi-logo") }}
     <h3>{{ c.csi.name | md }}</h3>
