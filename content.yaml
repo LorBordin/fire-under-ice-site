@@ -152,7 +152,7 @@ science:                                 # brochure p9, p11
       add lidar: the same voids in three dimensions, from the inside.
     image: img/f7-3d
     image_alt: 3D model of Efri Hveradalur, Kverkfjöll, from drone photogrammetry, with Lake Galtarlón in front.
-    image_caption: "Efri Hveradalur, Kverkfjöll, 2026: 3D model from drone photogrammetry, Lake Galtarlón in front. Orange ring: the cave."
+    image_caption: "Efri Hveradalur, Kverkfjöll, 2026: 3D model from drone photogrammetry, Lake Galtarlón in front."
     # Interactive version (made by make_model.py); a button under the picture loads it.
     model: model/hveradalur-2026.glb
 
