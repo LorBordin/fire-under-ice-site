@@ -1,0 +1,14 @@
+_site/
+.venv/
+__pycache__/
+*.jpg
+*.JPG
+*.jpeg
+*.tif*
+*.raw
+*.cr2
+*.nef
+*.dng
+*.mp4
+*.mov
+*.pdf
