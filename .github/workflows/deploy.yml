@@ -1,0 +1,54 @@
+# Publish the site to GitHub Pages.
+#
+# Runs on every push to main (and by hand from the Actions tab):
+#   1. "build" job: get the code, install uv + Python + the locked libraries,
+#      run the tests, run build.py, hand _site/ to GitHub Pages.
+#   2. "deploy" job: GitHub Pages publishes that bundle.
+# If any step fails, nothing is published and the old site stays online.
+
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:          # adds a "Run workflow" button in the Actions tab
+
+permissions:
+  contents: read              # read the repository
+  pages: write                # publish to Pages
+  id-token: write             # prove to Pages that this run is really ours
+
+concurrency:                  # one deploy at a time; never cancel one halfway
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10      # installs uv; uv reads .python-version
+
+      - name: Install locked dependencies
+        run: uv sync --frozen             # exactly the versions in uv.lock
+
+      - name: Run tests
+        run: uv run pytest -q
+
+      - name: Build site
+        run: uv run build.py
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
