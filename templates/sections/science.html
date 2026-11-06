@@ -4,10 +4,16 @@
   <ul class="cards">
     {% for s in c.science %}
     <li class="card">
-      {% if s.image is defined %}{{ image(s.image, s.image_alt, sizes="(min-width: 48rem) 33vw, 100vw") }}{% endif %}
       <h3>{{ s.title | md }}</h3>
       <p>{{ s.text | md }}</p>
     </li>
     {% endfor %}
   </ul>
+  {# Card images are shown as wide figures below the cards, so the cards stay balanced. #}
+  {% for s in c.science if s.image is defined %}
+  <figure class="science-figure">
+    {{ image(s.image, s.image_alt, sizes="(min-width: 72rem) 70rem, 100vw") }}
+    <figcaption>{{ s.image_alt | md }}</figcaption>
+  </figure>
+  {% endfor %}
 </section>
