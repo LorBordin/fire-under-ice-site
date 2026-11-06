@@ -61,7 +61,7 @@ headings:
       such as Enceladus.
   team:                                  # brochure p13
     kicker: The team
-    title: Thirteen cavers in 2026, led by a core team of five
+    title: Thirteen cavers in 2026
   press:                                 # brochure p14
     kicker: Press and talks
     title: Who hears about it
@@ -155,7 +155,6 @@ science:                                 # brochure p9, p11
     image_caption: "Efri Hveradalur, Kverkfjöll, 2026: 3D model from drone photogrammetry, Lake Galtarlón in front. Orange ring: the cave."
     # Interactive version (made by make_model.py); a button under the picture loads it.
     model: model/hveradalur-2026.glb
-    model_marker: "-54.7m 40.3m -100.9m"   # orange ring on the cave; printed by make_model.py
 
 csi:                                     # website_spec "About CSI"
   name: Consorzio Speleologi Ipogenici
