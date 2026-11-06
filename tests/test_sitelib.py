@@ -110,6 +110,12 @@ def test_valid_content_has_no_errors(static_dir):
     assert validate(minimal_content(), static_dir) == []
 
 
+def test_empty_sponsors_is_valid(static_dir):
+    c = minimal_content()
+    c["sponsors"] = []
+    assert validate(c, static_dir) == []
+
+
 def test_todo_is_error(static_dir):
     c = minimal_content()
     c["hero"]["subtitle"] = "TODO check"

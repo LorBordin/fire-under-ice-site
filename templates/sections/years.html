@@ -1,0 +1,32 @@
+{% from "macros.html" import image, header %}
+<section id="years" class="reveal">
+  {{ header("2025-2027", "Three years") }}
+  <ol class="cards">
+    {% for y in c.years %}
+    <li class="card">
+      {{ image(y.image, y.image_alt, sizes="(min-width: 48rem) 33vw, 100vw") }}
+      <p class="kicker">{{ y.year }} {{ y.label | md }}</p>
+      <h3>{{ y.place | md }}</h3>
+      <p>{{ y.text | md }}</p>
+    </li>
+    {% endfor %}
+  </ol>
+
+  <figure class="compare">
+    <div class="compare-pane">
+      {{ image(c.comparison.before, c.comparison.before_alt, sizes="(min-width: 48rem) 50vw, 100vw") }}
+      <span class="compare-label">2006</span>
+    </div>
+    <div class="compare-pane compare-top">
+      {{ image(c.comparison.after, c.comparison.after_alt, sizes="(min-width: 48rem) 50vw, 100vw") }}
+      <span class="compare-label">2025</span>
+    </div>
+    <input type="range" min="0" max="100" value="50" aria-label="Compare 2006 and 2025" hidden>
+    <figcaption>{{ c.comparison.caption | md }}</figcaption>
+  </figure>
+
+  <figure class="map">
+    {{ image(c.map.image, c.map.image_alt, sizes="(min-width: 48rem) 50vw, 100vw") }}
+    <figcaption>{{ c.map.caption | md }}</figcaption>
+  </figure>
+</section>

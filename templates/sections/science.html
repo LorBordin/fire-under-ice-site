@@ -1,0 +1,13 @@
+{% from "macros.html" import image, header %}
+<section id="science" class="reveal">
+  {{ header("Science", "What we measure") }}
+  <ul class="cards">
+    {% for s in c.science %}
+    <li class="card">
+      {% if s.image is defined %}{{ image(s.image, s.image_alt, sizes="(min-width: 48rem) 33vw, 100vw") }}{% endif %}
+      <h3>{{ s.title | md }}</h3>
+      <p>{{ s.text | md }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</section>

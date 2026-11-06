@@ -1,0 +1,11 @@
+{% from "macros.html" import image %}
+<section id="top" class="hero">
+  {{ image(c.hero.image, c.hero.image_alt, cls="hero-img", priority=True) }}
+  <div class="hero-text">
+    <h1>{{ c.hero.title | md }}</h1>
+    <p class="subtitle">{{ c.hero.subtitle | md }}</p>
+    <p class="kicker">{{ c.hero.years | md }}</p>
+    {{ image(c.csi.logo, c.csi.name, cls="hero-logo", lazy=False) }}
+  </div>
+  <a class="scroll-cue" href="#project" aria-label="Scroll to the project">&darr;</a>
+</section>

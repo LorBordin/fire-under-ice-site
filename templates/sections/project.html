@@ -1,0 +1,6 @@
+{% from "macros.html" import header %}
+<section id="project" class="reveal">
+  {{ header(c.project.kicker, c.project.title) }}
+  {% for p in c.project.paragraphs %}<p>{{ p | md }}</p>
+  {% endfor %}
+</section>

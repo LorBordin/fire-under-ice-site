@@ -1,0 +1,26 @@
+{% from "macros.html" import header %}
+<section id="press" class="reveal">
+  {{ header("Press and talks", "In print, on stage, on air") }}
+  <h3>Articles</h3>
+  <ul class="press-list">
+    {% for a in c.press.articles %}
+    <li><span class="year">{{ a.year }}</span>
+      {% if a.url is defined %}<a href="{{ a.url }}" rel="noopener">{{ a.title | md }}</a>{% else %}{{ a.title | md }}{% endif %}
+      <span class="meta">{{ a.byline | md }}</span></li>
+    {% endfor %}
+  </ul>
+  <h3>Talks</h3>
+  <ul class="press-list">
+    {% for t in c.press.talks %}
+    <li><span class="year">{{ t.year }}</span> {{ t.title | md }}
+      <span class="meta">{{ t.venue | md }}, {{ t.place | md }}</span></li>
+    {% endfor %}
+  </ul>
+  <h3>TV</h3>
+  <ul class="press-list">
+    {% for v in c.press.tv %}
+    <li><a href="{{ v.url }}" rel="noopener">{{ v.title | md }}</a>
+      <span class="meta">{{ v.outlet | md }}</span></li>
+    {% endfor %}
+  </ul>
+</section>

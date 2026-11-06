@@ -1,0 +1,16 @@
+{# image(ref, alt, sizes, cls, priority, lazy): one <img> tag, always with
+   width/height (no layout shift), srcset when the image has several sizes. #}
+{% macro image(ref, alt, sizes="100vw", cls=None, priority=False, lazy=True) -%}
+{%- set i = img(ref) -%}
+<img src="{{ i.src }}"
+  {%- if i.srcset %} srcset="{{ i.srcset }}" sizes="{{ sizes }}"{% endif %}
+  width="{{ i.width }}" height="{{ i.height }}" alt="{{ alt }}"
+  {%- if cls %} class="{{ cls }}"{% endif %}
+  {%- if priority %} fetchpriority="high"{% elif lazy %} loading="lazy"{% endif %}>
+{%- endmacro %}
+
+{# header(kicker, title): the small uppercase line above a section title #}
+{% macro header(kicker, title) -%}
+<p class="kicker">{{ kicker | md }}</p>
+<h2>{{ title | md }}</h2>
+{%- endmacro %}

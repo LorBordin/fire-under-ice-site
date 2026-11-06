@@ -30,6 +30,9 @@ REQUIRED: dict[str, list[str]] = {
     "press.talks": ["year", "venue", "place", "title"],
 }
 
+# Sections that may be absent or empty (an empty list is how "no sponsors yet" is written).
+OPTIONAL_SECTIONS = ("sponsors",)
+
 # Phrases we never want on the site (compared in lowercase).
 FORBIDDEN: tuple[str, ...] = ("heart of europe", "2000 mw", "kinetic trigger", "extremophile")
 
@@ -132,6 +135,8 @@ def validate(content: dict, static_dir: Path) -> list[str]:
     # 1. Required fields.
     for dotted, keys in REQUIRED.items():
         top = dotted.split(".")[0]
+        if top in OPTIONAL_SECTIONS and _is_blank(content.get(top)):
+            continue
         if top not in content or _is_blank(content[top]):
             errors.append(f"{top}: missing")
             continue

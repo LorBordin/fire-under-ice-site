@@ -1,0 +1,24 @@
+{% from "macros.html" import image, header %}
+<section id="team" class="reveal">
+  {{ header("Team", "Who we are") }}
+  <div class="csi">
+    {{ image(c.csi.logo, c.csi.name, cls="csi-logo") }}
+    <h3>{{ c.csi.name | md }}</h3>
+    {% for p in c.csi.blurb %}<p>{{ p | md }}</p>
+    {% endfor %}
+  </div>
+  {% for group in c.team %}
+  <div class="team-group">
+    <h3>{{ group.group | md }}</h3>
+    <ul class="team">
+      {% for m in group.members %}
+      <li>
+        {{ image(m.photo, m.name, sizes="96px") }}
+        <strong>{{ m.name | md }}</strong>
+        <span>{{ m.line | md }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</section>

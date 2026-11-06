@@ -1,0 +1,12 @@
+{% from "macros.html" import image, header %}
+<section id="watch" class="reveal">
+  {{ header("Watch", c.video.title) }}
+  <a class="video" href="https://www.youtube.com/watch?v={{ c.video.youtube_id }}" data-youtube="{{ c.video.youtube_id }}" rel="noopener">
+    {{ image(c.video.thumbnail, c.video.thumbnail_alt, sizes="(min-width: 48rem) 70vw, 100vw") }}
+    <svg class="play" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" focusable="false">
+      <circle cx="32" cy="32" r="30" fill="currentColor" opacity="0.85"/>
+      <path d="M25 19v26l22-13z" fill="#0D0D0D"/>
+    </svg>
+    <span class="video-label">Play video on YouTube</span>
+  </a>
+</section>
