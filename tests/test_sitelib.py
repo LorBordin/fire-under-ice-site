@@ -265,3 +265,12 @@ def test_team_member_role_required(static_dir):
     c = minimal_content()
     del c["team"][0]["members"][0]["role"]
     assert validate(c, static_dir) == ["team[0].members[0].role: missing"]
+
+
+def test_science_model_file_must_exist(static_dir):
+    c = minimal_content()
+    c["science"][1]["model"] = "model/x.glb"
+    assert validate(c, static_dir) == ["science[1].model: file not found: model/x.glb"]
+    (static_dir / "model").mkdir()
+    (static_dir / "model" / "x.glb").write_bytes(b"glTF")
+    assert validate(c, static_dir) == []

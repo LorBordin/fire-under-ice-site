@@ -11,8 +11,12 @@
   </ul>
   {# Card images are shown as wide figures below the cards, so the cards stay balanced. #}
   {% for s in c.science if s.image is defined %}
-  <figure class="science-figure">
+  <figure class="science-figure"{% if s.model is defined %} data-model="static/{{ s.model }}" data-model-alt="{{ s.image_alt }}"{% if s.model_marker is defined %} data-model-marker="{{ s.model_marker }}"{% endif %}{% endif %}>
     {{ image(s.image, s.image_alt, sizes="(min-width: 72rem) 70rem, 100vw") }}
+    {% if s.model is defined %}
+    {# Hidden without JavaScript: script.js shows it when the browser can draw 3D. #}
+    <button type="button" class="model-load" hidden>Explore in 3D ({{ filesize(s.model) }})</button>
+    {% endif %}
     {% if s.image_caption is defined %}<figcaption>{{ s.image_caption | md }}</figcaption>{% endif %}
   </figure>
   {% endfor %}

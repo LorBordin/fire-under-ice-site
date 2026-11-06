@@ -147,3 +147,30 @@ def test_team_role_and_bio_rendered(site):
     html = build_html(site)
     assert '<span class="role">Expedition leader</span>' in html
     assert "PhD in caving" in html
+
+
+def test_science_model_button(site):
+    c = minimal_content()
+    c["science"][1]["model"] = "model/x.glb"
+    write_content(site, c)
+    (site / "static" / "model").mkdir()
+    (site / "static" / "model" / "x.glb").write_bytes(b"\0" * 2_600_000)
+    html = build_html(site)
+    assert 'data-model="static/model/x.glb"' in html
+    assert "Explore in 3D (2.6 MB)" in html
+    # The button only works with JavaScript, so it starts hidden.
+    assert re.search(r"<button[^>]*class=\"model-load\"[^>]*hidden", html)
+
+
+def test_no_model_no_button(site):
+    assert "model-load" not in build_html(site)
+
+
+def test_science_model_marker(site):
+    c = minimal_content()
+    c["science"][1]["model"] = "model/x.glb"
+    c["science"][1]["model_marker"] = "1m 2m 3m"
+    write_content(site, c)
+    (site / "static" / "model").mkdir()
+    (site / "static" / "model" / "x.glb").write_bytes(b"glTF")
+    assert 'data-model-marker="1m 2m 3m"' in build_html(site)

@@ -56,6 +56,9 @@ IMAGE_KEYS = ("image", "photo", "logo", "thumbnail", "before", "after")
 # These get alt text from a sibling key "<key>_alt"; photo/logo use "name".
 ALT_FROM_SIBLING = ("image", "thumbnail", "before", "after")
 
+# Any dict key with one of these names holds a plain file path under static/ (no alt text).
+FILE_KEYS = ("model",)
+
 RESPONSIVE_WIDTHS = (800, 1400, 2000)
 
 
@@ -105,6 +108,11 @@ def image_info(static_dir: Path, ref: str) -> ImageInfo:
     if files[0][0] is not None:
         srcset = ", ".join(f"{url(p)} {w}w" for w, p in files)
     return ImageInfo(url(largest), srcset, width, height)
+
+
+def file_size(static_dir: Path, ref: str) -> str:
+    """Size of a file under static/, for people: "11.5 MB"."""
+    return f"{(static_dir / ref).stat().st_size / 1e6:.1f} MB"
 
 
 # ------------------------------------------------------------ validation
@@ -167,6 +175,8 @@ def validate(content: dict, static_dir: Path) -> list[str]:
                 child = f"{path}.{key}" if path else str(key)
                 if key in IMAGE_KEYS and isinstance(value, str):
                     check_image(node, key, value, child, path)
+                if key in FILE_KEYS and isinstance(value, str) and not (static_dir / value).is_file():
+                    errors.append(f"{child}: file not found: {value}")
                 walk(value, child)
         elif isinstance(node, list):
             for i, value in enumerate(node):

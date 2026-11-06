@@ -101,6 +101,13 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.5}
 .map{margin:4rem 0 0}
 .science-figure{margin:3rem 0 0}
 .science-figure img{width:100%;max-width:70rem}
+.model-load{display:inline-flex;align-items:center;gap:.5rem;margin-top:1rem;padding:.6rem 1.2rem;border:1px solid var(--ice);border-radius:2rem;background:transparent;color:var(--ice);font:inherit;font-weight:600;letter-spacing:.04em;cursor:pointer}
+.model-load:hover{background:var(--ice);color:#0D0D0D}
+.model-load[disabled]{opacity:.6;cursor:progress}
+.model-load[hidden]{display:none}
+model-viewer.model-view{display:block;width:100%;height:auto;max-width:70rem;aspect-ratio:2000/811;background:#0D0D0D;--poster-color:transparent;--progress-bar-height:0px}
+.model-ring{width:28px;height:28px;border:3px solid var(--magma);border-radius:50%;box-shadow:0 0 6px rgba(0,0,0,.7);pointer-events:none}
+.model-hint{font-size:.85rem;color:var(--ice);margin:.6rem 0 0}
 .map img{width:100%;max-width:56rem;border:1px solid var(--line)}
 
 /* Video */
@@ -181,3 +188,5 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.5}
   .hero-img{transform:none!important}
   .js .reveal{opacity:1;transform:none}
 }
+
+@media (max-width:47.99rem){model-viewer.model-view{aspect-ratio:1/1}}

@@ -16,7 +16,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
-from sitelib import filter_consented, image_info, inline_md, load_content, validate
+from sitelib import file_size, filter_consented, image_info, inline_md, load_content, validate
 
 
 def make_environment(root: Path) -> Environment:
@@ -29,6 +29,7 @@ def make_environment(root: Path) -> Environment:
     env.filters["md"] = inline_md     # {{ text | md }}  ->  escaped, *x* = italic
     static_dir = root / "static"
     env.globals["img"] = lambda ref: image_info(static_dir, ref)
+    env.globals["filesize"] = lambda ref: file_size(static_dir, ref)
     return env
 
 

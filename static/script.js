@@ -94,4 +94,75 @@
       iframe.focus();
     });
   });
+
+  // 6. 3D model: nothing heavy loads until the visitor clicks "Explore in 3D".
+  // The viewer (<model-viewer>, self-hosted) needs WebGL; without it the
+  // button stays hidden and the still image remains.
+  var canDraw3D = (function () {
+    try {
+      var c = document.createElement('canvas');
+      return !!(window.customElements && (c.getContext('webgl2') || c.getContext('webgl')));
+    } catch (e) { return false; }
+  })();
+  var VIEWER = 'static/vendor/model-viewer-4.0.0.min.js';
+  document.querySelectorAll('figure[data-model]').forEach(function (fig) {
+    var button = fig.querySelector('.model-load');
+    var img = fig.querySelector('img');
+    if (!button || !img || !canDraw3D) return;
+    button.hidden = false;
+    button.addEventListener('click', function () {
+      button.disabled = true;
+      button.textContent = 'Loading 3D model…';
+      if (!document.querySelector('script[src="' + VIEWER + '"]')) {
+        var s = document.createElement('script');
+        s.type = 'module';
+        s.src = VIEWER;
+        document.head.appendChild(s);
+      }
+      var mv = document.createElement('model-viewer');
+      mv.className = 'model-view';
+      mv.setAttribute('src', fig.dataset.model);
+      mv.setAttribute('alt', fig.dataset.modelAlt || '3D model');
+      mv.setAttribute('poster', img.currentSrc || img.src); // same picture until the model is ready
+      mv.setAttribute('camera-controls', '');
+      mv.setAttribute('touch-action', 'pan-y');          // vertical swipes still scroll the page
+      mv.setAttribute('interaction-prompt', 'none');
+      var narrow = window.matchMedia('(max-width: 47.99rem)').matches; // square box on phones: start further out
+      mv.setAttribute('camera-orbit', '180deg 62deg ' + (narrow ? '80%' : '55%')); // from the north, lake in front, as in the picture
+      mv.setAttribute('min-camera-orbit', 'auto 0deg auto');
+      mv.setAttribute('max-camera-orbit', 'auto 88deg auto'); // never below the ground
+      mv.setAttribute('loading', 'eager');
+      mv.setAttribute('reveal', 'auto');
+      if (!reduceMotion) {
+        mv.setAttribute('auto-rotate', '');
+        mv.setAttribute('rotation-per-second', '8deg');
+      }
+      if (fig.dataset.modelMarker) {
+        // Same orange ring as in the picture, pinned to the cave in 3D.
+        var ring = document.createElement('div');
+        ring.className = 'model-ring';
+        ring.slot = 'hotspot-cave';
+        ring.dataset.position = fig.dataset.modelMarker;
+        ring.dataset.normal = '0m 1m 0m';
+        ring.setAttribute('aria-label', 'The cave');
+        mv.appendChild(ring);
+      }
+      mv.addEventListener('load', function () {
+        img.remove(); // the viewer is already in its place
+        var hint = document.createElement('p');
+        hint.className = 'model-hint';
+        hint.textContent = 'Drag to rotate, scroll or pinch to zoom, two fingers or right-drag to move.';
+        button.replaceWith(hint);
+      });
+      mv.addEventListener('error', function () {
+        mv.remove();
+        img.style.display = '';
+        button.disabled = false;
+        button.textContent = 'Could not load the 3D model. Try again';
+      });
+      // Show the viewer (with its progress bar) in place of the picture right away.
+      img.style.display = 'none'; // (the hidden attribute loses to the CSS img rule)
+      img.after(mv);
+    });
+  });
 })();

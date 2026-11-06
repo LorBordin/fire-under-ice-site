@@ -21,6 +21,8 @@ static/     ──┘   (checks, then fills the templates)    (git push triggers
 | `static/img/` | Web-sized images, **generated**: never edit by hand | No (scripts write it) |
 | `prepare_images.py` | Turns brochure originals into web images (`JOBS` list at the top) | Add a line per new photo |
 | `make_comparison.py` | Builds the 2006 vs 2025 slider images from the KML + orthophoto | Only if surveys change |
+| `make_model.py`, `geo.py` | Builds the interactive 3D model (`static/model/*.glb`) from the ODM OBJ, and prints the cave marker position | Only for a new model |
+| `static/vendor/` | `<model-viewer>` 4.0.0 (Google, Apache-2.0), the 3D viewer, kept here so no other server is contacted | No |
 | `build.py`, `sitelib.py` | The generator: load, validate, filter consent, render | No |
 | `check_links.py` | Checks that external links (YouTube, TG5, …) still work | No, just run it |
 | `tests/` | Automatic checks of the generator (`uv run pytest`) | No |
@@ -45,6 +47,7 @@ Run these in `~/expeditions/Iceland/website`.
 | `uv run pytest` | Run the automatic checks |
 | `uv run prepare_images.py` | Regenerate web images from the brochure originals |
 | `uv run check_links.py` | Check external links (some sites block robots: open those by hand) |
+| `uv run --group model make_model.py` | Rebuild the 3D model (~30 s; installs pymeshlab the first time). Paste the printed `model_marker` into `content.yaml` |
 | `git status` | What changed since the last commit |
 | `git diff` | The changes, line by line |
 | `git log --oneline` | History of commits |

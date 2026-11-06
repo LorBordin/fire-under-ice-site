@@ -12,3 +12,6 @@ dependencies = [
 dev = [
     "pytest>=9.2.0",
 ]
+model = [
+    "pymeshlab>=2025.7.post1",
+]
