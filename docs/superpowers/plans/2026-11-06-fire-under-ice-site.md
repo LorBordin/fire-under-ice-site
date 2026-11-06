@@ -136,7 +136,7 @@ Markup decisions (implementer writes the HTML):
   - `test_no_root_absolute_urls`: `not re.search(r'(src|href|srcset)="/', html)` (Review Focus 2)
   - `test_nonconsented_member_absent`: member `"Secret Person"` consent false -> not in html
   - `test_section_ids_present`: every id listed above appears
-  - `test_stale_files_removed`: build, delete `static/img/logo.png`, build again -> `out/static/img/logo.png` does not exist (Review Focus 5)
+  - `test_stale_files_removed`: create an unreferenced `static/img/extra.png`, build, delete it, build again -> `out/static/img/extra.png` does not exist (Review Focus 5)
   - `test_all_images_have_alt`: every `<img` tag contains `alt="` with non-empty value (regex)
 - [ ] **Step 2:** `uv run pytest tests/test_build.py -v` -> fail.
 - [ ] **Step 3:** Implement `build.py` and templates.
