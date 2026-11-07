@@ -6,6 +6,7 @@ build.py is the part that wires these functions to the real files.
 """
 import copy
 import re
+import unicodedata
 from pathlib import Path
 from typing import Any, NamedTuple
 
@@ -45,10 +46,14 @@ REQUIRED: dict[str, list[str]] = {
     "sponsors": ["name", "logo"],
     "press.articles": ["year", "title", "byline"],
     "press.talks": ["year", "venue", "place", "title"],
+    # Place galleries (one page each) and the In the field section.
+    "places": ["slug", "name", "years", "teaser", "intro", "photos"],
+    "places.photos": ["source", "author", "caption", "alt"],
+    "field": ["title", "text", "image", "image_alt", "credit"],
 }
 
 # Sections that may be absent or empty (an empty list is how "no sponsors yet" is written).
-OPTIONAL_SECTIONS = ("sponsors",)
+OPTIONAL_SECTIONS = ("sponsors", "places", "field")
 
 # Phrases we never want on the site (compared in lowercase).
 FORBIDDEN: tuple[str, ...] = ("heart of europe", "2000 mw", "kinetic trigger", "extremophile")
@@ -61,7 +66,29 @@ ALT_FROM_SIBLING = ("image", "thumbnail", "before", "after")
 # Any dict key with one of these names holds a plain file path under static/ (no alt text).
 FILE_KEYS = ("model",)
 
-RESPONSIVE_WIDTHS = (800, 1400, 2000)
+RESPONSIVE_WIDTHS = (400, 800, 1400, 2000)
+
+
+# Place slugs become folder names: /torfa/ -> _site/torfa/index.html.
+SLUG_RE = re.compile(r"^[a-z0-9-]+$")
+RESERVED_SLUGS = ("static",)
+MAX_FEATURED = 3
+
+
+def slugify(text: str) -> str:
+    """"Copia di Vatnajökull (113)" -> "copia-di-vatnajokull-113"."""
+    decomposed = unicodedata.normalize("NFKD", text.lower())
+    ascii_only = "".join(ch for ch in decomposed if not unicodedata.combining(ch))
+    return re.sub(r"[^a-z0-9]+", "-", ascii_only).strip("-")
+
+
+def gallery_ref(slug: str, source: str) -> str:
+    """The web image of a gallery photo, e.g. "img/places/torfa/rimg0247".
+
+    Used by prepare_images.py (to write it) and by the templates (to show it),
+    so the two always agree.
+    """
+    return f"img/places/{slug}/{slugify(Path(source).stem)}"
 
 
 def load_content(path: Path) -> dict:
@@ -205,10 +232,70 @@ def validate(content: dict, static_dir: Path) -> list[str]:
             errors.append(f"{parent + '.' if parent else ''}{alt_key}: missing")
 
     walk(content, "")
+    errors += _validate_places(content, static_dir)
 
     # The same problem can be found twice (e.g. a missing alt is both
     # "required" and "alt text"); keep the first of each, in order.
     return list(dict.fromkeys(errors))
+
+
+def _validate_places(content: dict, static_dir: Path) -> list[str]:
+    """Rules for places and field that the generic checks above cannot express."""
+    errors: list[str] = []
+    headings = content.get("headings") or {}
+    for section in ("places", "field"):
+        if not _is_blank(content.get(section)) and _is_blank(headings.get(section)):
+            errors.append(f"headings.{section}: missing")
+
+    places = content.get("places") or []
+    seen_slugs: set[str] = set()
+    for i, pl in enumerate(places):
+        if not isinstance(pl, dict):
+            continue
+        slug = pl.get("slug")
+        if isinstance(slug, str) and slug:
+            if not SLUG_RE.match(slug):
+                errors.append(f"places[{i}].slug: use lowercase letters, digits and hyphens only: {slug}")
+            elif slug in RESERVED_SLUGS:
+                errors.append(f"places[{i}].slug: reserved name: {slug}")
+            elif slug in seen_slugs:
+                errors.append(f"places[{i}].slug: used twice: {slug}")
+            seen_slugs.add(slug)
+        photos = [p for p in (pl.get("photos") or []) if isinstance(p, dict)]
+        if not photos:
+            continue
+
+        covers = sum(1 for p in photos if p.get("cover") is True)
+        featured = sum(1 for p in photos if p.get("featured") is True)
+        if covers != 1:
+            errors.append(f"places[{i}]: needs exactly one photo with cover: true (found {covers})")
+        if featured != MAX_FEATURED:
+            errors.append(f"places[{i}]: needs exactly {MAX_FEATURED} photos with featured: true (found {featured})")
+        if any(p.get("cover") is True and p.get("featured") is True for p in photos):
+            errors.append(f"places[{i}]: a photo cannot be both cover and featured")
+
+        if not (isinstance(slug, str) and SLUG_RE.match(slug)):
+            continue
+        stems: dict[str, int] = {}
+        for j, ph in enumerate(photos):
+            source = ph.get("source")
+            if not isinstance(source, str) or not source:
+                continue
+            ref = gallery_ref(slug, source)
+            if ref in stems:
+                errors.append(
+                    f"places[{i}].photos[{j}]: same image name as photos[{stems[ref]}] "
+                    f"({Path(ref).name}); rename one source file"
+                )
+                continue
+            stems[ref] = j
+            try:
+                image_info(static_dir, ref)
+            except FileNotFoundError:
+                errors.append(
+                    f"places[{i}].photos[{j}]: image not found: {ref} (run uv run prepare_images.py)"
+                )
+    return errors
 
 
 # --------------------------------------------------------------- consent
