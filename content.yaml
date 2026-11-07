@@ -282,6 +282,7 @@ partners:                                # brochure p14
   - {name: Regione Friuli Venezia Giulia, logo: img/logos/fvg.png, consent: true}
   - {name: Club Alpino Italiano, logo: img/logos/cai_logo.png, consent: true}
   - {name: Società Geografica Italiana, logo: img/logos/soc_geo_logo_crop.png, consent: true}
+  - {name: Università di Milano-Bicocca, logo: img/logos/bicocca_logo.png, consent: true}
   - {name: Gaibana, logo: img/logos/gaibana_logo.png, consent: true}
 
 sponsors: []                             # 2027 sponsors, once confirmed
