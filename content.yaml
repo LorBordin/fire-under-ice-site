@@ -80,8 +80,8 @@ years:
     label: Reconnaissance
     place: Kverkfjöll, Dyngjujökull
     text: >-
-      Four people on the trail of the Swiss team that explored Kverkfjöll from
-      the 1980s to 2008. Near the hut, on top of the volcano, we found the
+      Four people on the trail of Gérald Favre's Swiss team, which explored
+      Kverkfjöll from the 1980s to 2008. Near the hut, on top of the volcano, we found the
       Hveradalur system: almost 1 km.
     image: img/survey-hveradalur-2025-709.webp
     image_alt: Plan of the Hveradalur cave system, survey 2025, north up.
@@ -108,7 +108,8 @@ comparison:                              # brochure p7
   caption: >-
     *Same heat, different ice.* Between 2006 and 2025 a lake melted the ice that
     held this cave at least once. The 2025 cave sits in different ice, yet its
-    main corridor still follows the 2006 route. 2006 survey: Swiss team.
+    main corridor still follows the 2006 route. 2006 survey: G. Favre et al.,
+    *Hypogées* 69.
   # Background images, made by make_comparison.py. The first one is shown by
   # default (and is the only one without JavaScript); the others are a click away.
   backgrounds:
@@ -169,7 +170,7 @@ csi:                                     # website_spec "About CSI"
 
 # Team: shown only with `consent: true` (exactly true). Ask each person first.
 # role: what they do in the expedition (shown in red); line: short bio (brochure p13).
-# 2026-11: core team agreed to publish; the others are stored, waiting for consent.
+# 2026-11: all participants enabled by Lorenzo.
 team:                                    # order: by role, as given by Lorenzo
   - group: Core team
     members:
@@ -204,46 +205,46 @@ team:                                    # order: by role, as given by Lorenzo
         role: Exploration, field coordination, food and medical supplies
         line: Engineer, National Speleology Instructor (SSI), CNSAS technician. Explorations in Ethiopia, Iran, Brazil.
         photo: img/team/urbanet.webp
-        consent: false
+        consent: true
       - name: Ivan Vicenzi
         role: Exploration, field support, photography
         line: Rescue operator for over 23 years and technical diver. Expeditions to West Papua, Laos, Honduras.
         photo: img/team/vicenzi.webp
-        consent: false
+        consent: true
       - name: Marco Ettrapini
         role: Exploration, field support
         line: Chemist and assistant speleology instructor. Mountaineering, rock and ice climbing, canyoning.
         photo: img/team/ettrapini.webp
-        consent: false
+        consent: true
   - group: Science and confined spaces
     members:
       - name: Paolo Turrini
         role: Microbiological research and sampling (Bicocca)
         line: PhD in Microbiology. Rope access and confined-space specialist; caving in Indonesia, Mexico, Morocco.
         photo: img/team/turrini.webp
-        consent: false
+        consent: true
       - name: Lorenzo Scialò
         role: Exploration, confined spaces, biological sampling support
         line: Rope access technician and industrial rescuer. Expeditions to Mexico, Greece, Albania, Montenegro.
         photo: img/team/scialo.webp
-        consent: false
+        consent: true
       - name: Katia Zampatti
         role: Exploration, confined spaces, biological sampling support
         line: Industrial rescuer, canyoner, alpinist. Member of the Italian Speleological Society. Caving in Norway and Iceland.
         photo: img/team/zampatti.webp
-        consent: false
+        consent: true
   - group: Documentation
     members:
       - name: Tommaso Biondi
         role: Photography, filming, documentary
         line: Caving and mountain documentary maker, award-winning. Films in Africa, South America and West Papua.
         photo: img/team/biondi.webp
-        consent: false
+        consent: true
       - name: Paolo Testa
         role: Photography
         line: National Speleology Instructor (CAI), caving since 1987. Founded Progetto Speleologia Glaciale in 2008.
         photo: img/team/testa.webp
-        consent: false
+        consent: true
 
 press:                                   # brochure p14
   articles:
@@ -286,6 +287,6 @@ sponsors: []                             # 2027 sponsors, once confirmed
 
 credits:
   - "Drawing of the glaciovolcanic cave system: original artwork by Lee Florea."
-  - "Survey drawings: Cristian Monticone. 2006 survey: Swiss team."
+  - "Survey drawings: Cristian Monticone. 2006 survey: G. Favre et al., Hypogées 69."
   - "Basemaps: Landmælingar Íslands, IS 50V, CC BY 4.0."
   - "2024 satellite image: Google Earth, Image © 2026 Airbus."
