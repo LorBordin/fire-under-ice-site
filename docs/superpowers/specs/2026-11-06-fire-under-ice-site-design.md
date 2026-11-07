@@ -200,7 +200,7 @@ Permissions: `pages: write`, `id-token: write`, `contents: read`. A failed build
 
 ## 12. Out of scope for v1
 
-Blog, CMS, contact form, newsletter, analytics, gallery, interactive map, 3D viewer, Italian version, sending mail as `info@`.
+Blog, CMS, contact form, newsletter, analytics, gallery (lifted in v2, see `2026-11-07-places-galleries-design.md`), interactive map, 3D viewer, Italian version, sending mail as `info@`.
 
 ## 13. Open items (do not block building, block going public where noted)
 

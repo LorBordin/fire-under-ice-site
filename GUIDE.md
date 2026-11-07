@@ -8,18 +8,22 @@ Live site: <https://fireunderice.org> · Repository: <https://github.com/lorbord
 
 ```
 content.yaml ─┐
-templates/  ──┼─> build.py ──> _site/index.html + _site/static/ ──> GitHub Pages ──> fireunderice.org
+templates/  ──┼─> build.py ──> _site/ ──> GitHub Pages ──> fireunderice.org
 static/     ──┘   (checks, then fills the templates)    (git push triggers GitHub Actions)
 ```
 
+`_site/` holds the home page (`index.html`), one page per place (`<slug>/index.html`, e.g. `torfa/`), and `static/`.
+
 | File / folder | What it is | Do you edit it? |
 |---|---|---|
-| `content.yaml` | **All the text** on the page, plus image paths and consent flags | Yes, every season |
-| `templates/` | The HTML skeleton, one file per section (Jinja2: HTML with `{{ gaps }}`) | Rarely |
+| `content.yaml` | **All the text** on the page, plus image paths, consent flags and the place galleries | Yes, every season |
+| `templates/` | The HTML skeleton (Jinja2: HTML with `{{ gaps }}`): `layout.html` (head, menu, footer, shared by every page), `index.html` (home), `place.html` (one page per place), `sections/` (home-page sections). `base.html` is gone: `layout.html` replaces it | Rarely |
+| `fonts/` | `Cabin-SemiBold.otf`, the watermark font on gallery photos; not published on the site. `OFL.txt` is its licence | No |
+| `~/expeditions/Iceland/photos/` | Original photos of the place galleries, one folder per place (`torfa/`, `kverkfjoll/`). Outside the repo, like the brochure | Yes: copy new originals here |
 | `static/style.css` | The look: colours, fonts, layout | Rarely |
 | `static/script.js` | The motion: fade-ins, slider, video. The page works without it | Rarely |
-| `static/img/` | Web-sized images, **generated**: never edit by hand | No (scripts write it) |
-| `prepare_images.py` | Turns brochure originals into web images (`JOBS` list at the top) | Add a line per new photo |
+| `static/img/` | Web-sized images, **generated**: never edit by hand. Gallery photos are in `static/img/places/<slug>/` | No (scripts write it) |
+| `prepare_images.py` | Turns the originals into web images: brochure images from the `JOBS` list at the top, and place gallery photos from `content.yaml` (watermarked) | Add a `JOBS` line per new brochure image; gallery photos need no line |
 | `make_comparison.py`, `georef.py` | Builds the 2006 vs 2025 slider images, on two backgrounds: 2024 satellite (default) and 2026 drone orthophoto | Only if surveys or backgrounds change |
 | `make_model.py`, `geo.py` | Builds the interactive 3D model (`static/model/*.glb`) from the ODM OBJ, and prints the cave marker position | Only for a new model |
 | `static/vendor/` | `<model-viewer>` 4.0.0 (Google, Apache-2.0), the 3D viewer, kept here so no other server is contacted | No |
@@ -30,7 +34,7 @@ static/     ──┘   (checks, then fills the templates)    (git push triggers
 | `_site/` | Build output. Not in git; recreated by every build | No |
 
 **The safety nets.** `build.py` refuses to build (and so GitHub refuses to publish) if `content.yaml` has:
-a `TODO`, a missing required field, an image file that doesn't exist, an image without alt text, or a forbidden phrase
+a `TODO`, a missing required field, an image file that doesn't exist (for a gallery photo it says to run `uv run prepare_images.py`), a place without exactly one `cover: true` and exactly three `featured: true` photos, an image without alt text, or a forbidden phrase
 ("heart of Europe", "2000 MW", "Kinetic Trigger", "extremophile"). It lists every problem at once with its location, e.g.
 `team[0].members[2].photo: file not found: img/team/x.webp`.
 
@@ -45,7 +49,7 @@ Run these in `~/expeditions/Iceland/website`.
 | `uv run build.py` | Build the site into `_site/` |
 | `uv run python -m http.server -d _site 8000` | Preview at <http://localhost:8000> (Ctrl+C to stop) |
 | `uv run pytest` | Run the automatic checks |
-| `uv run prepare_images.py` | Regenerate web images from the brochure originals |
+| `uv run prepare_images.py` | Regenerate web images: brochure originals (`JOBS`) and place galleries |
 | `uv run check_links.py` | Check external links (some sites block robots: open those by hand) |
 | `uv run --group assets make_model.py` | Rebuild the 3D model (~30 s; installs pymeshlab the first time). Paste the printed `model_marker` into `content.yaml` |
 | `git status` | What changed since the last commit |
@@ -76,6 +80,7 @@ Commit message prefixes, by convention: `content:` text changes, `feat:` new fea
 1. **Photos.** Put originals in the brochure folder (never in this repo). Add one line per photo to `JOBS` in `prepare_images.py`, e.g.
    `("responsive", "figures/photos/p05-recon.jpg", "p05-recon"),` and run `uv run prepare_images.py`.
    Check each photo for rival-brand logos if a sponsor's gear is in the season.
+   Place gallery photos are not in `JOBS`: see "Adding a photo to a place" below.
 2. **Text.** Edit `content.yaml`: the new year in `years:`, figures in `project.stats`, new articles and talks in `press:`.
    Facts come from the brochure or from you, never guessed; unknown means `TODO` until you know.
 3. **People.** New team members: add them with `consent: false`, switch to `true` once they agree. Each needs a
@@ -94,6 +99,41 @@ Google Earth Pro can't export a positioned image, so the site finds it from a fr
 3. Copy the copyright line Google prints at the bottom into `SAT_CREDIT` in `make_comparison.py`, and into the
    `credit:` of the satellite background in `content.yaml` and in `credits:` (Google requires it to stay visible).
 4. `uv run --group assets make_comparison.py`, then build and preview.
+
+### Adding a photo to a place
+
+Each place in `places:` (in `content.yaml`) has a gallery on its own page. Every gallery photo gets "© author" and the CSI badge burned in by `prepare_images.py`.
+
+1. Copy the original into the place's folder, `~/expeditions/Iceland/photos/<place>/`. Never into this repo.
+2. Add an entry under that place's `photos:`. `source` is relative to `~/expeditions/Iceland/`. Real example from Kverkfjöll:
+
+```yaml
+      - source: photos/kverkfjoll/P7161033.JPG
+        author: Andrea Benassi
+        caption: The Encelado cauldron, Kverkfjöll, July 2026.
+        alt: Steam rises from a deep ice cauldron with a green lake at its bottom; a caver in yellow watches from the rim.
+        cover: true
+```
+
+| Field | What it is |
+|---|---|
+| `source` | The original, relative to `~/expeditions/Iceland/` |
+| `author` | Printed on the watermark |
+| `caption` | Shown under the photo |
+| `alt` | Describes the photo in plain words, for screen readers |
+| `cover: true` | The big picture on the place's card on the home page. Exactly one per place |
+| `featured: true` | One of the three pictures shown on that card. Exactly three per place |
+
+3. Run `uv run prepare_images.py`. It writes four widths (400, 800, 1400, 2000 px) under `static/img/places/<slug>/`.
+4. Run `uv run build.py`. If it says an image is not found, you skipped step 3.
+5. Preview, then commit with `static/img/places/` included (section 3).
+
+**Rules**
+
+- **Removing an entry** from `content.yaml` removes its images on the next `uv run prepare_images.py`. Removing a whole place does the same for its folder.
+- **A photo replaced elsewhere moves into its place's gallery.** If a photo leaves a background or a section picture (for example a home-page section photo), it goes into its place's gallery, never just deleted. Section photos are clean; their gallery copies carry the watermark.
+
+**Open item.** Five gallery photos are still read from the brochure's cropped copies: `p01-cover`, `p05-recon`, `p06-lake`, `p08-cauldron`, `p08-sala-rosa`. When the full-size originals are available: copy each into `~/expeditions/Iceland/photos/<place>/`, change its `source:` line to the copy, and rerun `uv run prepare_images.py`.
 
 ### Adding a sponsor
 
