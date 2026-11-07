@@ -18,4 +18,14 @@
     {% endfor %}
   </nav>
 </section>
+{# Shared viewer: script.js fills it from the grid links; without JavaScript it stays closed. #}
+<dialog class="viewer" aria-label="Photo viewer">
+  <button type="button" class="viewer-close" aria-label="Close">×</button>
+  <button type="button" class="viewer-prev" aria-label="Previous photo">‹</button>
+  <figure class="viewer-figure">
+    <img alt="">
+    <figcaption><p class="viewer-caption"></p><p class="viewer-credit"></p></figcaption>
+  </figure>
+  <button type="button" class="viewer-next" aria-label="Next photo">›</button>
+</dialog>
 {% endblock %}

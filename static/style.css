@@ -97,6 +97,25 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.5}
 .gallery img{width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg)}
 .gallery-caption,.gallery-credit{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
+/* Photo viewer: one <dialog> per place page, opened by script.js */
+.viewer{width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(0,0,0,.94);color:var(--text)}
+.viewer[open]{display:grid;grid-template-columns:3rem 1fr 3rem;grid-template-rows:1fr;align-items:center}
+.viewer::backdrop{background:rgba(0,0,0,.94)}
+.viewer-figure{grid-column:2;margin:0;padding:3.5rem 0 1rem;text-align:center;min-width:0}
+.viewer-figure img{width:auto;max-width:100%;max-height:calc(100svh - 7rem);margin:0 auto;object-fit:contain;touch-action:pan-y}
+.viewer figcaption{margin-top:.8rem;color:var(--text)}
+.viewer-caption{margin:0;font-size:.95rem}
+.viewer-credit{margin:0;font-size:.8rem;color:var(--muted)}
+.viewer button{width:2.75rem;height:2.75rem;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:var(--text);font:inherit;font-size:1.8rem;line-height:1;cursor:pointer}
+.viewer button:hover{background:rgba(255,255,255,.25)}
+.viewer-prev{grid-column:1;justify-self:center}
+.viewer-next{grid-column:3;justify-self:center}
+.viewer-close{position:absolute;top:.5rem;right:.5rem;z-index:1}
+@media (prefers-reduced-motion:no-preference){
+  .viewer[open]{animation:viewer-in .2s ease}
+  @keyframes viewer-in{from{opacity:0}to{opacity:1}}
+}
+
 /* Compare. Default (no JS): stacked, each with its label. */
 .compare-switch{display:flex;flex-wrap:wrap;gap:.5rem;margin:4rem 0 1rem}
 .compare-switch[hidden]{display:none}

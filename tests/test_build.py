@@ -306,3 +306,13 @@ def test_places_section(site_with_places):
 
 def test_places_nav_link(site_with_places):
     assert 'href="#places"' in build_html(site_with_places)
+
+
+def test_viewer_markup(site_with_places):
+    out = site_with_places / "_site"
+    assert build(site_with_places, out) == 0
+    html = (out / "torfa" / "index.html").read_text(encoding="utf-8")
+    assert html.count('<dialog class="viewer"') == 1
+    for cls, label in (("viewer-prev", "Previous photo"), ("viewer-next", "Next photo"), ("viewer-close", "Close")):
+        assert re.search(rf'<button[^>]*class="{cls}"[^>]*aria-label="{label}"', html)
+    assert "<dialog" not in (out / "index.html").read_text(encoding="utf-8")

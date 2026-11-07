@@ -188,4 +188,97 @@
       img.after(mv);
     });
   });
+
+  // 7. Photo viewer (place pages): the grid links stay plain links to the large
+  // image; with <dialog> support a click opens them in one shared viewer.
+  // The hash (#photo-3) records the open photo, so Back closes the viewer.
+  var viewer = document.querySelector('dialog.viewer');
+  var photoLinks = document.querySelectorAll('.gallery a[data-index]');
+  if (viewer && photoLinks.length && typeof HTMLDialogElement === 'function' && viewer.showModal) {
+    var vImg = viewer.querySelector('img');
+    var vCaption = viewer.querySelector('.viewer-caption');
+    var vCredit = viewer.querySelector('.viewer-credit');
+    var current = 0;
+    var opener = null;       // the link that opened the viewer: focus goes back to it
+    var pushed = false;      // true when opening added a history entry
+    var hashRe = /^#photo-(\d+)$/;
+
+    var show = function (i) {
+      var n = photoLinks.length;
+      current = (i + n) % n; // wraps at both ends
+      var a = photoLinks[current];
+      var thumb = a.querySelector('img');
+      vImg.srcset = a.dataset.srcset || '';
+      vImg.sizes = '100vw';
+      vImg.src = a.href;
+      vImg.alt = thumb ? thumb.alt : '';
+      vCaption.textContent = a.querySelector('.gallery-caption').textContent;
+      vCredit.textContent = a.querySelector('.gallery-credit').textContent;
+      var next = photoLinks[(current + 1) % n]; // preload the next one
+      var pre = new Image();
+      pre.sizes = '100vw';
+      pre.srcset = next.dataset.srcset || '';
+      pre.src = next.href;
+    };
+    var openAt = function (i, fromHistory) {
+      if (!viewer.open) {
+        opener = photoLinks[((i % photoLinks.length) + photoLinks.length) % photoLinks.length];
+        viewer.showModal();
+      }
+      show(i);
+      var hash = '#photo-' + (current + 1);
+      if (fromHistory) return;
+      if (hashRe.test(location.hash) || pushed) {
+        history.replaceState(null, '', hash); // moving between photos: keep one entry
+      } else {
+        history.pushState(null, '', hash);
+        pushed = true;
+      }
+    };
+    var step = function (d) { openAt(current + d); };
+
+    photoLinks.forEach(function (a) {
+      a.addEventListener('click', function (event) {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.button) return; // keep "open in new tab"
+        event.preventDefault();
+        openAt(parseInt(a.dataset.index, 10));
+      });
+    });
+    viewer.querySelector('.viewer-prev').addEventListener('click', function () { step(-1); });
+    viewer.querySelector('.viewer-next').addEventListener('click', function () { step(1); });
+    viewer.querySelector('.viewer-close').addEventListener('click', function () { viewer.close(); });
+    viewer.addEventListener('click', function (event) {
+      if (event.target === viewer) viewer.close(); // click on the backdrop
+    });
+    viewer.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowLeft') { event.preventDefault(); step(-1); }
+      else if (event.key === 'ArrowRight') { event.preventDefault(); step(1); }
+    });
+    // Swipe: a mostly horizontal move of more than 50px.
+    var startX = 0, startY = 0;
+    viewer.addEventListener('pointerdown', function (event) { startX = event.clientX; startY = event.clientY; });
+    viewer.addEventListener('pointerup', function (event) {
+      var dx = event.clientX - startX, dy = event.clientY - startY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+    });
+    // Esc, the close button and Back all end here.
+    viewer.addEventListener('close', function () {
+      if (opener) opener.focus();
+      if (hashRe.test(location.hash)) {
+        if (pushed) history.back(); else history.replaceState(null, '', location.pathname + location.search);
+      }
+      pushed = false;
+    });
+    window.addEventListener('popstate', function () {
+      var m = hashRe.exec(location.hash);
+      if (!m) {
+        pushed = false; // the entry is already gone
+        if (viewer.open) viewer.close();
+      } else if (+m[1] >= 1 && +m[1] <= photoLinks.length) {
+        openAt(+m[1] - 1, true);
+      }
+    });
+    var first = hashRe.exec(location.hash); // a link to one photo
+    if (first && +first[1] >= 1 && +first[1] <= photoLinks.length) openAt(+first[1] - 1, true);
+  }
 })();
