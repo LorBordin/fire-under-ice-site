@@ -255,9 +255,16 @@
       else if (event.key === 'ArrowRight') { event.preventDefault(); step(1); }
     });
     // Swipe: a mostly horizontal move of more than 50px.
-    var startX = 0, startY = 0;
-    viewer.addEventListener('pointerdown', function (event) { startX = event.clientX; startY = event.clientY; });
+    // Only the first finger counts; a cancelled gesture (e.g. a pinch) is forgotten.
+    var startX = 0, startY = 0, tracking = false;
+    viewer.addEventListener('pointerdown', function (event) {
+      if (!event.isPrimary) { tracking = false; return; }
+      tracking = true; startX = event.clientX; startY = event.clientY;
+    });
+    viewer.addEventListener('pointercancel', function () { tracking = false; });
     viewer.addEventListener('pointerup', function (event) {
+      if (!event.isPrimary || !tracking) return;
+      tracking = false;
       var dx = event.clientX - startX, dy = event.clientY - startY;
       if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
     });

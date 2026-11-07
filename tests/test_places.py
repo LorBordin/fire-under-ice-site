@@ -180,3 +180,39 @@ def test_todo_in_caption(static_dir):
     c = with_places(static_dir, place())
     c["places"][0]["photos"][0]["caption"] = "TODO"
     assert "places[0].photos[0].caption: contains TODO" in validate(c, static_dir)
+
+
+# ------------------------------------------------------------ review fixes
+
+def test_slugify_icelandic_letters():
+    assert slugify("Þórsmörk") == "thorsmork"
+    assert slugify("ðæ") == "dae"
+    assert slugify("IMG 01 ß") == "img-01-ss"
+    assert slugify("Øræfi") == "oraefi"
+
+
+def test_empty_image_name_rejected(static_dir):
+    c = with_places(static_dir, place())
+    c["places"][0]["photos"][1]["source"] = "photos/torfa/---.JPG"
+    errors = validate(c, static_dir)
+    assert any(e.startswith("places[0].photos[1].source:") and "empty" in e for e in errors), errors
+
+
+def test_unused_gallery_file_rejected(static_dir):
+    c = with_places(static_dir, place())
+    stray = static_dir / "img" / "places" / "torfa" / "removed-800.webp"
+    Image.new("RGB", (800, 600)).save(stray)
+    gone = static_dir / "img" / "places" / "oldplace" / "x-800.webp"
+    gone.parent.mkdir(parents=True)
+    Image.new("RGB", (800, 600)).save(gone)
+    errors = validate(c, static_dir)
+    assert any("img/places/torfa/removed-800.webp" in e and "prepare_images.py" in e for e in errors), errors
+    assert any("img/places/oldplace/x-800.webp" in e for e in errors), errors
+
+
+def test_unused_gallery_files_checked_without_places(static_dir):
+    stray = static_dir / "img" / "places" / "torfa" / "a-800.webp"
+    stray.parent.mkdir(parents=True)
+    Image.new("RGB", (800, 600)).save(stray)
+    errors = validate(minimal_content(), static_dir)
+    assert any("img/places/torfa/a-800.webp" in e for e in errors), errors

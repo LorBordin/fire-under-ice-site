@@ -1,6 +1,8 @@
 """Tests for prepare_images.py, using small Pillow-generated sources."""
 from pathlib import Path
 
+import pytest
+
 from PIL import Image
 
 from prepare_images import (
@@ -148,3 +150,19 @@ def test_gallery_removes_stale(tmp_path):
     assert not (out / "places/torfa/old-800.webp").exists()
     assert not (out / "places/gone").exists()
     assert (out / "places/torfa/p1-800.webp").exists()
+
+
+def test_watermark_rejects_letters_missing_from_font():
+    badge = Image.new("RGBA", (216, 206), (0, 0, 0, 255))
+    im = Image.new("RGB", (800, 600), "white")
+    with pytest.raises(ValueError, match="Ł"):
+        watermark(im, "Łukasz Čech", badge, FONT)
+
+
+def test_guide_jobs_examples_use_expedition_root():
+    import re
+    guide = (Path(__file__).parent.parent / "GUIDE.md").read_text(encoding="utf-8")
+    sources = re.findall(r'\("(?:responsive|square|logo|pdf)", "([^"]+)"', guide)
+    assert sources, "GUIDE.md should show a JOBS example"
+    for s in sources:
+        assert s.startswith(("brochure/", "photos/")), s

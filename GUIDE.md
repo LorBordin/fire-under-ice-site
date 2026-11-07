@@ -78,7 +78,7 @@ Commit message prefixes, by convention: `content:` text changes, `feat:` new fea
 ## 4. Seasonal update checklist
 
 1. **Photos.** Put originals in the brochure folder (never in this repo). Add one line per photo to `JOBS` in `prepare_images.py`, e.g.
-   `("responsive", "figures/photos/p05-recon.jpg", "p05-recon"),` and run `uv run prepare_images.py`.
+   `("responsive", "brochure/2027/figures/photos/p05-recon.jpg", "p05-recon"),` and run `uv run prepare_images.py`.
    Check each photo for rival-brand logos if a sponsor's gear is in the season.
    Place gallery photos are not in `JOBS`: see "Adding a photo to a place" below.
 2. **Text.** Edit `content.yaml`: the new year in `years:`, figures in `project.stats`, new articles and talks in `press:`.
@@ -138,7 +138,7 @@ Each place in `places:` (in `content.yaml`) has a gallery on its own page. Every
 ### Adding a sponsor
 
 1. Get the sponsor's agreement and logo (PNG with transparency, or SVG exported to PNG).
-2. Add a `logo` job: `("logo", "logos/brand.png", "logos/brand.png"),` and run `uv run prepare_images.py`.
+2. Add a `logo` job: `("logo", "brochure/2027/logos/brand.png", "logos/brand.png"),` (logo file in the brochure's `logos/` folder) and run `uv run prepare_images.py`.
 3. In `content.yaml` under `sponsors:` add
    `- {name: Brand, logo: img/logos/brand.png, url: https://brand.example, consent: true}`.
 4. Build, preview, commit, push.

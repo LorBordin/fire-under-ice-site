@@ -374,3 +374,13 @@ def test_photo_credits_footer(site):
 
 def test_no_photo_credit_without_photos(site):
     assert "Photos:" not in build_html(site)
+
+
+def test_viewer_touch_rules():
+    """Pinch-zoom stays possible; swipes work anywhere in the viewer; second fingers ignored."""
+    real = REAL_TEMPLATES.parent / "static"
+    css = (real / "style.css").read_text(encoding="utf-8")
+    js = (real / "script.js").read_text(encoding="utf-8")
+    assert re.search(r"\.viewer\{[^}]*touch-action:pan-y pinch-zoom", css)
+    assert not re.search(r"\.viewer-figure img\{[^}]*touch-action:pan-y\b(?! pinch)", css)
+    assert "pointercancel" in js and "isPrimary" in js

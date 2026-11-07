@@ -209,6 +209,7 @@ def watermark(im: Image.Image, author: str, badge: Image.Image, font_path: Path)
     # Text: right edge a small gap left of the badge, centred on its height.
     font = ImageFont.truetype(str(font_path), round(base * 0.02))
     text = f"\u00a9 {author}"
+    _check_glyphs(font, text)
     left, top, right, bottom = font.getbbox(text)
     tx = bx - round(base * 0.012) - (right - left)
     ty = by + (badge.height - (bottom - top)) // 2 - top
@@ -222,6 +223,23 @@ def watermark(im: Image.Image, author: str, badge: Image.Image, font_path: Path)
     ImageDraw.Draw(layer).text((tx, ty), text, font=font, fill=(255, 255, 255, 220))
     layer.alpha_composite(badge, (bx, by))
     return Image.alpha_composite(im.convert("RGBA"), layer).convert("RGB")
+
+
+def _check_glyphs(font: ImageFont.FreeTypeFont, text: str) -> None:
+    """Stop if the font cannot draw a letter (it would print an empty box).
+
+    A missing letter is drawn with the font's "not defined" glyph, so it looks
+    exactly like a code point no font has.
+    """
+    def shape(ch: str) -> bytes:
+        return bytes(font.getmask(ch))
+    notdef = shape("\U0010fffd")
+    missing = sorted({ch for ch in text if not ch.isspace() and shape(ch) == notdef})
+    if missing:
+        raise ValueError(
+            f"the watermark font has no letter for {' '.join(missing)} in {text!r}; "
+            "write the name without it or add a font that has it"
+        )
 
 
 def gallery_jobs(content: dict) -> list[tuple[str, str, str]]:

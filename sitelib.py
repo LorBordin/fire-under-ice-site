@@ -75,9 +75,13 @@ RESERVED_SLUGS = ("static",)
 MAX_FEATURED = 3
 
 
+# Letters that have no accent-free form in Unicode: spelled out first.
+_SPELL_OUT = str.maketrans({"ð": "d", "þ": "th", "æ": "ae", "ø": "o", "ß": "ss", "œ": "oe", "ł": "l", "đ": "d"})
+
+
 def slugify(text: str) -> str:
-    """"Copia di Vatnajökull (113)" -> "copia-di-vatnajokull-113"."""
-    decomposed = unicodedata.normalize("NFKD", text.lower())
+    """"Copia di Vatnajökull (113)" -> "copia-di-vatnajokull-113", "Þórsmörk" -> "thorsmork"."""
+    decomposed = unicodedata.normalize("NFKD", text.lower().translate(_SPELL_OUT))
     ascii_only = "".join(ch for ch in decomposed if not unicodedata.combining(ch))
     return re.sub(r"[^a-z0-9]+", "-", ascii_only).strip("-")
 
@@ -249,6 +253,7 @@ def _validate_places(content: dict, static_dir: Path) -> list[str]:
 
     places = content.get("places") or []
     seen_slugs: set[str] = set()
+    used_refs: set[str] = set()
     for i, pl in enumerate(places):
         if not isinstance(pl, dict):
             continue
@@ -282,6 +287,12 @@ def _validate_places(content: dict, static_dir: Path) -> list[str]:
             if not isinstance(source, str) or not source:
                 continue
             ref = gallery_ref(slug, source)
+            if not slugify(Path(source).stem):
+                errors.append(
+                    f"places[{i}].photos[{j}].source: the file name gives an empty image name; "
+                    "rename the original with some letters or digits"
+                )
+                continue
             if ref in stems:
                 errors.append(
                     f"places[{i}].photos[{j}]: same image name as photos[{stems[ref]}] "
@@ -295,6 +306,26 @@ def _validate_places(content: dict, static_dir: Path) -> list[str]:
                 errors.append(
                     f"places[{i}].photos[{j}]: image not found: {ref} (run uv run prepare_images.py)"
                 )
+            used_refs.add(ref)
+    errors += _unused_gallery_files(static_dir, used_refs)
+    return errors
+
+
+def _unused_gallery_files(static_dir: Path, used_refs: set[str]) -> list[str]:
+    """Gallery images no photo uses any more, e.g. after deleting an entry.
+
+    They would still be published at a guessable address, so the build refuses
+    until prepare_images.py has removed them (important if consent is withdrawn).
+    """
+    places_dir = static_dir / "img" / "places"
+    if not places_dir.is_dir():
+        return []
+    errors = []
+    for f in sorted(p for p in places_dir.rglob("*") if p.is_file()):
+        rel = f.relative_to(static_dir).as_posix()
+        ref = re.sub(r"-\d+\.webp$", "", rel)
+        if ref not in used_refs:
+            errors.append(f"{rel}: not used by any photo in places (run uv run prepare_images.py to remove it)")
     return errors
 
 
