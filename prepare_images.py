@@ -4,7 +4,7 @@ Reads from the brochure folder (never modifies it) and writes WebP/PNG files
 under static/img/. Run with:  uv run prepare_images.py
 
 To add a photo: add one line to JOBS below, e.g.
-    ("responsive", "figures/photos/my-photo.jpg", "my-photo"),
+    ("responsive", "brochure/2027/figures/photos/my-photo.jpg", "my-photo"),
 then reference it in content.yaml as `img/my-photo` (no extension; the site
 picks up the -800/-1400/-2000 versions automatically).
 
@@ -14,6 +14,8 @@ Job kinds:
   logo        PNG, 160 px high, transparency kept
   pdf         first page of a PDF, then responsive
   thumbnail   downloaded from YouTube, then responsive
+  gallery     place photos listed in content.yaml, watermarked, widths
+              400/800/1400/2000, written to static/img/places/<slug>/
 """
 import subprocess
 import sys
@@ -21,52 +23,59 @@ import tempfile
 import urllib.request
 from pathlib import Path
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
+
+from sitelib import gallery_ref, load_content
 
 HERE = Path(__file__).parent
-BROCHURE = Path.home() / "expeditions/Iceland/brochure/2027"
+EXPEDITION = Path.home() / "expeditions/Iceland"
+BROCHURE = EXPEDITION / "brochure/2027"
 OUT_DIR = HERE / "static" / "img"
 
 WIDTHS = (800, 1400, 2000)
+GALLERY_WIDTHS = (400, 800, 1400, 2000)
+# The badge and font of the watermark on gallery photos.
+BADGE = BROCHURE / "logos/csi_logo_crop.png"
+FONT = HERE / "fonts/Cabin-SemiBold.otf"
 QUALITY = 78
 # The thumbnail follows video.youtube_id in content.yaml (rerun this script after changing it).
 THUMB_URL = "https://i.ytimg.com/vi/{id}/maxresdefault.jpg"
 
-# (kind, source relative to BROCHURE, output relative to static/img)
+# (kind, source relative to EXPEDITION, output relative to static/img)
 JOBS: list[tuple[str, str, str]] = [
-    ("responsive", "figures/photos/p01-cover.jpg", "p01-cover"),
-    ("responsive", "figures/photos/p06-lake.jpg", "p06-lake"),
-    ("responsive", "figures/photos/p08-cauldron.jpg", "p08-cauldron"),
-    ("responsive", "figures/photos/p08-sala-rosa.jpg", "p08-sala-rosa"),
-    ("responsive", "figures/composites/f7_3d.jpg", "f7-3d"),
-    ("responsive", "figures/composites/f7_ortho.jpg", "f7-ortho"),
-    ("responsive", "figures/composites/f3_lake_overlay.jpg", "f3-lake-overlay"),
+    ("responsive", "brochure/2027/figures/photos/p01-cover.jpg", "p01-cover"),
+    ("responsive", "brochure/2027/figures/photos/p06-lake.jpg", "p06-lake"),
+    ("responsive", "brochure/2027/figures/photos/p08-cauldron.jpg", "p08-cauldron"),
+    ("responsive", "brochure/2027/figures/photos/p08-sala-rosa.jpg", "p08-sala-rosa"),
+    ("responsive", "brochure/2027/figures/composites/f7_3d.jpg", "f7-3d"),
+    ("responsive", "brochure/2027/figures/composites/f7_ortho.jpg", "f7-ortho"),
+    ("responsive", "brochure/2027/figures/composites/f3_lake_overlay.jpg", "f3-lake-overlay"),
     # The 2006 vs 2025 slider images are built by make_comparison.py.
-    ("pdf", "figures/composites/f2_iceland_map.pdf", "map-iceland"),
-    ("pdf", "figures/composites/f6_targets_map.pdf", "map-targets-2027"),
-    ("responsive", "figures/composites/f1_schema.jpg", "f1-schema"),
-    ("responsive", "figures/composites/f_p05_hveradalur2025.png", "survey-hveradalur-2025"),
+    ("pdf", "brochure/2027/figures/composites/f2_iceland_map.pdf", "map-iceland"),
+    ("pdf", "brochure/2027/figures/composites/f6_targets_map.pdf", "map-targets-2027"),
+    ("responsive", "brochure/2027/figures/composites/f1_schema.jpg", "f1-schema"),
+    ("responsive", "brochure/2027/figures/composites/f_p05_hveradalur2025.png", "survey-hveradalur-2025"),
     # Team portraits: source file in people/ -> team/<surname>.webp
-    ("square", "people/benassi.png", "team/benassi.webp"),
-    ("square", "people/lorenzo.png", "team/bordin.webp"),
-    ("square", "people/jerba.png", "team/gerbaudo.webp"),
-    ("square", "people/lazzaro.jpeg", "team/monticone.webp"),
-    ("square", "people/maria.png", "team/trombini.webp"),
-    ("square", "people/marco.png", "team/ettrapini.webp"),
-    ("square", "people/urbanet.jpg", "team/urbanet.webp"),
-    ("square", "people/paco.png", "team/vicenzi.webp"),
-    ("square", "people/scialo.png", "team/scialo.webp"),
-    ("square", "people/turrini.png", "team/turrini.webp"),
-    ("square", "people/Katia.png", "team/zampatti.webp"),
-    ("square", "people/tommi.png", "team/biondi.webp"),
-    ("square", "people/testa.png", "team/testa.webp"),
+    ("square", "brochure/2027/people/benassi.png", "team/benassi.webp"),
+    ("square", "brochure/2027/people/lorenzo.png", "team/bordin.webp"),
+    ("square", "brochure/2027/people/jerba.png", "team/gerbaudo.webp"),
+    ("square", "brochure/2027/people/lazzaro.jpeg", "team/monticone.webp"),
+    ("square", "brochure/2027/people/maria.png", "team/trombini.webp"),
+    ("square", "brochure/2027/people/marco.png", "team/ettrapini.webp"),
+    ("square", "brochure/2027/people/urbanet.jpg", "team/urbanet.webp"),
+    ("square", "brochure/2027/people/paco.png", "team/vicenzi.webp"),
+    ("square", "brochure/2027/people/scialo.png", "team/scialo.webp"),
+    ("square", "brochure/2027/people/turrini.png", "team/turrini.webp"),
+    ("square", "brochure/2027/people/Katia.png", "team/zampatti.webp"),
+    ("square", "brochure/2027/people/tommi.png", "team/biondi.webp"),
+    ("square", "brochure/2027/people/testa.png", "team/testa.webp"),
     # (people/maria.jpeg is deliberately ignored)
-    ("logo", "logos/SSI.png", "logos/ssi.png"),
-    ("logo", "logos/FVG.png", "logos/fvg.png"),
-    ("logo", "logos/cai_logo.png", "logos/cai_logo.png"),
-    ("logo", "logos/soc_geo_logo_crop.png", "logos/soc_geo_logo_crop.png"),
-    ("logo", "logos/gaibana_logo.png", "logos/gaibana_logo.png"),
-    ("logo", "logos/csi_logo_crop.png", "logos/csi_logo_crop.png"),
+    ("logo", "brochure/2027/logos/SSI.png", "logos/ssi.png"),
+    ("logo", "brochure/2027/logos/FVG.png", "logos/fvg.png"),
+    ("logo", "brochure/2027/logos/cai_logo.png", "logos/cai_logo.png"),
+    ("logo", "brochure/2027/logos/soc_geo_logo_crop.png", "logos/soc_geo_logo_crop.png"),
+    ("logo", "brochure/2027/logos/gaibana_logo.png", "logos/gaibana_logo.png"),
+    ("logo", "brochure/2027/logos/csi_logo_crop.png", "logos/csi_logo_crop.png"),
     ("thumbnail", THUMB_URL, "video-thumb"),
 ]
 
@@ -83,16 +92,22 @@ def _save_webp(im: Image.Image, out: Path) -> None:
     im.save(out, "WEBP", quality=QUALITY, method=6)
 
 
-def _responsive_image(im: Image.Image, out_stem: Path) -> list[Path]:
-    widths = [w for w in WIDTHS if w <= im.width] or [im.width]
-    if im.width < WIDTHS[0]:
+def _responsive_image(im: Image.Image, out_stem: Path, widths_set=WIDTHS,
+                      finish=lambda im: im) -> list[Path]:
+    """Write one WebP per width in `widths_set` that does not upscale.
+
+    `finish` is applied to each resized image before saving (the gallery
+    uses it to add the watermark at every size).
+    """
+    widths = [w for w in widths_set if w <= im.width] or [im.width]
+    if im.width < widths_set[0]:
         widths = [im.width]
     outs = []
     for w in widths:
         h = round(im.height * w / im.width)
         small = im.resize((w, h), Image.LANCZOS) if w != im.width else im.copy()
         out = out_stem.parent / f"{out_stem.name}-{w}.webp"
-        _save_webp(small, out)
+        _save_webp(finish(small), out)
         outs.append(out)
     return outs
 
@@ -151,7 +166,7 @@ def _download_thumbnail(out_stem: Path) -> list[Path]:
 
 def run_job(kind: str, source: str, output: str) -> list[Path]:
     out = OUT_DIR / output
-    src = BROCHURE / source
+    src = EXPEDITION / source
     if kind == "responsive":
         return responsive(src, out)
     if kind == "square":
@@ -163,6 +178,98 @@ def run_job(kind: str, source: str, output: str) -> list[Path]:
     if kind == "thumbnail":
         return _download_thumbnail(out)
     raise ValueError(f"unknown job kind: {kind}")
+
+
+def watermark(im: Image.Image, author: str, badge: Image.Image, font_path: Path) -> Image.Image:
+    """Return a copy of `im` with the badge and "(c) author" at bottom right.
+
+    All sizes scale with `base`, the shorter side of a 4:3 frame, so the mark
+    looks equally big on landscape and portrait photos.
+    """
+    im = im.convert("RGB")
+    W, H = im.size
+    base = min(W, H * 4 / 3)
+    margin = round(base * 0.025)
+
+    # Badge: resized, 80 % opaque.
+    bw = round(base * 0.08)
+    badge = badge.convert("RGBA")
+    badge = badge.resize((bw, round(badge.height * bw / badge.width)), Image.LANCZOS)
+    badge.putalpha(badge.getchannel("A").point(lambda v: int(v * 0.8)))
+    bx, by = W - margin - bw, H - margin - badge.height
+
+    # Text: right edge a small gap left of the badge, centred on its height.
+    font = ImageFont.truetype(str(font_path), round(base * 0.02))
+    text = f"\u00a9 {author}"
+    left, top, right, bottom = font.getbbox(text)
+    tx = bx - round(base * 0.012) - (right - left)
+    ty = by + (badge.height - (bottom - top)) // 2 - top
+
+    # Draw on transparent layers: a blurred black shadow, white text, badge.
+    shadow = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    ImageDraw.Draw(shadow).text((tx, ty), text, font=font, fill=(0, 0, 0, 170))
+    shadow = shadow.filter(ImageFilter.GaussianBlur(base * 0.003))
+    layer = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    layer = Image.alpha_composite(layer, shadow)
+    ImageDraw.Draw(layer).text((tx, ty), text, font=font, fill=(255, 255, 255, 220))
+    layer.alpha_composite(badge, (bx, by))
+    return Image.alpha_composite(im.convert("RGBA"), layer).convert("RGB")
+
+
+def gallery_jobs(content: dict) -> list[tuple[str, str, str]]:
+    """(source, author, web image ref) for every place photo, in content order."""
+    return [
+        (ph["source"], ph["author"], gallery_ref(pl["slug"], ph["source"]))
+        for pl in content.get("places", [])
+        for ph in pl["photos"]
+    ]
+
+
+def run_gallery(content: dict, root: Path, out_dir: Path,
+                badge: Image.Image, font_path: Path) -> list[Path]:
+    """Write the watermarked sets for all place photos; delete leftovers.
+
+    Sources are read from `root`, outputs go under `out_dir` (static/img).
+    Files in places/<slug>/ that no photo produces, and folders of places no
+    longer in content.yaml, are removed so they are not committed or served.
+    """
+    written: list[Path] = []
+    keep_old: list[Path] = []
+    for source, author, ref in gallery_jobs(content):
+        out_stem = out_dir / ref.removeprefix("img/")
+        try:
+            with _open(root / source) as im:
+                written += _responsive_image(
+                    im.convert("RGB"), out_stem, GALLERY_WIDTHS,
+                    finish=lambda small, a=author: watermark(small, a, badge, font_path),
+                )
+        except Exception as exc:  # one bad photo must not stop the rest
+            print(f"WARNING: gallery {source} failed: {exc}", file=sys.stderr)
+            # keep its previous files rather than deleting them as stale
+            keep_old += out_stem.parent.glob(f"{out_stem.name}-*.webp")
+    keep = set(written) | set(keep_old)
+    places_dir = out_dir / "places"
+    slugs = {pl["slug"] for pl in content.get("places", [])}
+    if places_dir.is_dir():
+        for folder in places_dir.iterdir():
+            if not folder.is_dir():
+                continue
+            for f in folder.iterdir():
+                if f.is_file() and (folder.name not in slugs or f not in keep):
+                    f.unlink()
+            if folder.name not in slugs and not any(folder.iterdir()):
+                folder.rmdir()
+    return written
+
+
+def _report(paths: list[Path]) -> int:
+    """Print each written file with its size; return the total in bytes."""
+    total = 0
+    for p in paths:
+        size = p.stat().st_size
+        total += size
+        print(f"{p.relative_to(HERE)}  {size / 1024:.0f} KB")
+    return total
 
 
 def main() -> None:
@@ -177,6 +284,12 @@ def main() -> None:
             size = p.stat().st_size
             total += size
             print(f"{p.relative_to(HERE)}  {size / 1024:.0f} KB")
+    try:
+        outs = run_gallery(load_content(HERE / "content.yaml"), EXPEDITION,
+                           OUT_DIR, Image.open(BADGE), FONT)
+        total += _report(outs)
+    except Exception as exc:
+        print(f"WARNING: gallery failed: {exc}", file=sys.stderr)
     print(f"Total: {total / 1024 / 1024:.2f} MB")
 
 
