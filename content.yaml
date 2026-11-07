@@ -53,6 +53,12 @@ headings:
     kicker: Watch
     title: Kverkfjöll over time
     intro: Photogrammetry, cave surveys and timelapse.
+  places:
+    kicker: Places
+    title: Where we work
+  field:                                 # brochure p12
+    kicker: In the field
+    title: What the ice demands
   science:                               # brochure p9
     kicker: Science and monitoring
     title: From 0.2 °C to 59.4 °C in one cave.
@@ -132,6 +138,163 @@ map:                                     # brochure p4
   image_alt: Map of Iceland marking Kverkfjöll and Dyngjujökull (2025), the Torfa caldera (2026 and 2027) and the 2027 reconnaissance options.
   caption: "2025: Kverkfjöll, Dyngjujökull. 2026: Kverkfjöll, Torfa caldera. 2027: Torfajökull, plus one reconnaissance target."
 
+# Places: one page each (fireunderice.org/<slug>/), teaser cards on the home page.
+# Every photo here is watermarked with "© author" and the CSI badge by
+# prepare_images.py. source: relative to ~/expeditions/Iceland/ (originals,
+# never in this repository). One photo per place has cover: true (the card's
+# large image) and exactly three have featured: true (the card's thumbnails).
+# Rule: a photo replaced elsewhere on the site moves here, never dropped.
+places:
+  - slug: torfa                          # brochure p6, p8, p9, p10
+    name: Torfa caldera
+    years: 2026–2027
+    teaser: >-
+      Freyja Hellir, a new glaciovolcanic cave on Kaldaklofsjökull: almost
+      1500 m surveyed, with a hall about 50 m across.
+    intro:
+      - >-
+        On Kaldaklofsjökull, in the Torfa caldera, we found Freyja Hellir in
+        2026: a new glaciovolcanic cave, almost 1500 m surveyed. From the
+        surface, only a faint hollow in the snow. Below it, a hall about 50 m
+        across and roughly 40 m high.
+      - >-
+        In 2027 we go back to the caldera, this time on its main glacier,
+        Torfajökull.
+    photos:
+      - source: photos/torfa/river_crossing.JPG
+        author: Paolo Testa
+        caption: River crossing on the way to the Torfa caldera, 2026.
+        alt: Two people with yellow rucksacks wade across a wide, shallow river below green hills.
+        featured: true
+      - source: brochure/2027/figures/photos/p08-cauldron.jpg
+        author: Maria F. Trombini
+        caption: The faint cauldron above the hall of Freyja Hellir, July 2026.
+        alt: A wide oval hollow in the snow under a hazy sun, with three small figures at its edge.
+      - source: brochure/2027/figures/photos/p08-sala-rosa.jpg
+        author: Maria F. Trombini
+        caption: "Sala Rosa dei Beati, Freyja Hellir, July 2026: about 50 m across."
+        alt: A domed ice ceiling seen from below, with concentric blue rings around a bright opening.
+      - source: photos/torfa/P7110912.JPG
+        author: Andrea Benassi
+        caption: Sala del Graal, Freyja Hellir, July 2026.
+        alt: Two cavers on a dark mound under a scalloped ice ceiling, orange mineral crust below.
+        cover: true
+      - source: photos/torfa/P7110909.JPG
+        author: Andrea Benassi
+        caption: Sala del Graal, Freyja Hellir, July 2026.
+        alt: A caver in red lights the ground with a headlamp while another stands above, in a dark ice hall.
+      - source: photos/torfa/20260711_143730.jpg
+        author: Maria F. Trombini
+        caption: Sala del Graal, Freyja Hellir, July 2026.
+        alt: A caver in yellow stands on a dark mound beneath a huge scalloped ice ceiling; another in red stands to the right.
+      - source: photos/torfa/20260711_144140.jpg
+        author: Maria F. Trombini
+        caption: Sala del Graal, Freyja Hellir, July 2026.
+        alt: Two cavers on a rocky rise under a curved ice wall, a thin orange stream below them.
+      - source: photos/torfa/RIMG0247.JPG
+        author: Ivan Vicenzi
+        caption: The hot pool at the centre of the Sala del Graal, July 2026. It melted the hall.
+        alt: A thermometer probe held into a dark rippled pool rimmed with orange and rust-coloured mineral deposits.
+        featured: true
+      - source: photos/torfa/thermal_camera.JPG
+        author: Paolo Testa
+        caption: Thermal camera inside a cave, Torfa caldera, 2026.
+        alt: A hand holds a thermal camera whose screen shows a warm stream in rainbow colours, inside an ice cave.
+        featured: true
+
+  - slug: kverkfjoll                     # brochure p5, p6
+    name: Kverkfjöll
+    years: 2025–2026
+    teaser: >-
+      On the trail of Gérald Favre's Swiss team: the Hveradalur system, almost
+      1 km, then flooded by a thaw lake.
+    intro:
+      - >-
+        In 2025, four of us went on the trail of Gérald Favre's Swiss team,
+        which explored Kverkfjöll from the 1980s to 2008. The great cave stayed
+        closed. Near the hut, on top of the volcano, we found the Hveradalur
+        system: almost 1 km.
+      - >-
+        In 2026 a thaw lake had flooded most of it: of almost 1 km, 150 m
+        remained above water.
+    photos:
+      - source: brochure/2027/figures/photos/p05-recon.jpg
+        author: Andrea Benassi
+        caption: Kverkfjöll, 2025 reconnaissance.
+        alt: A caver stands in a dark ice cave whose scalloped ceiling glows white, the floor lit orange.
+        featured: true
+      - source: brochure/2027/figures/photos/p01-cover.jpg
+        author: Andrea Benassi
+        caption: Ice cave, Kverkfjöll, 2026.
+        alt: A caver stands at the foot of a large ice cave, on orange ground.
+      - source: photos/kverkfjoll/P7161033.JPG
+        author: Andrea Benassi
+        caption: The Encelado cauldron, Kverkfjöll, July 2026.
+        alt: Steam rises from a deep ice cauldron with a green lake at its bottom; a caver in yellow watches from the rim.
+        cover: true
+      - source: photos/kverkfjoll/20260716_093800.jpg
+        author: Maria F. Trombini
+        caption: The Encelado cauldron, Kverkfjöll, July 2026.
+        alt: Three people walk towards a steaming ice cauldron, small against its walls.
+      - source: photos/kverkfjoll/P7171153.JPG
+        author: Andrea Benassi
+        caption: Lake at the glacier's edge, Kverkfjöll, July 2026.
+        alt: A turquoise lake below a glacier front, with red volcanic slopes on the left and dark rocks in front.
+        featured: true
+      - source: brochure/2027/figures/photos/p06-lake.jpg
+        author: Ivan Vicenzi
+        caption: The thaw lake that flooded Hveradalur, July 2026.
+        alt: A blue lake in a basin of ice and snow, seen from a rocky brown ridge under a grey sky.
+      - source: photos/kverkfjoll/P7161066.JPG
+        author: Andrea Benassi
+        caption: Rope work on an ice wall, Kverkfjöll, July 2026.
+        alt: A caver in red on a rope at an ice wall above red ground, another below at a cave opening in the mist.
+      - source: photos/kverkfjoll/P7161094.JPG
+        author: Andrea Benassi
+        caption: Steam and volcanic gas, Kverkfjöll, July 2026.
+        alt: A caver with a respirator points into thick steam rising from the ground.
+      - source: photos/kverkfjoll/P7181204.JPG
+        author: Andrea Benassi
+        caption: Full-face respirator beside a fumarole, Kverkfjöll, July 2026.
+        alt: A caver in a full-face respirator stands on orange ground beside an ice wall, steam behind.
+        featured: true
+      - source: photos/kverkfjoll/blue_ice.jpg
+        author: Maria F. Trombini
+        caption: Blue ice, Kverkfjöll, July 2026.
+        alt: The silhouette of a caver against glowing blue ice.
+
+# In the field: what the conditions demand (brochure p12 variants).
+# The gas text is from the page owned by Mattia Gerbaudo: publish only once he agrees.
+field:
+  - title: Rivers
+    text: Gear carried on foot for days, through glacial rivers.
+    image: img/field-river
+    image_alt: Two people with yellow rucksacks wade across a wide, shallow river.
+    credit: Paolo Testa
+  - title: Rotten ice
+    text: Anchors in poor ice and firn have to hold.
+    image: img/field-rope
+    image_alt: A caver on a rope at an ice wall above red ground.
+    credit: Andrea Benassi
+  - title: Air you cannot trust
+    text: >-
+      Cavities under the ice trap CO₂, H₂S and SO₂. In Freyja Hellir the
+      detector alarmed at 5 % CO₂ and we turned back. Respirators are only a
+      safety layer: any alarm, we leave.
+    image: img/field-gas
+    image_alt: A caver in a full-face respirator beside steam and an ice wall.
+    credit: Andrea Benassi
+  - title: Heat
+    text: Water from 0.2 to 59.4 °C, ground up to 47 °C.
+    image: img/field-heat
+    image_alt: A caver with a respirator in thick steam rising from the ground.
+    credit: Andrea Benassi
+
+contact_image:
+  image: img/contact-blue-ice
+  image_alt: The silhouette of a caver against glowing blue ice.
+  credit: Maria F. Trombini
+
 video:
   youtube_id: 913rFrz9-xo
   title: Kverkfjöll over time
@@ -143,15 +306,23 @@ science:                                 # brochure p9, p11
     text: >-
       Samples from every cave explored, at Kverkfjöll and Torfa, for the
       University of Milano-Bicocca.
+    image: img/science-pool
+    image_alt: A thermometer probe held into a dark pool rimmed with orange mineral deposits.
+    credit: Ivan Vicenzi
   - title: Monitoring
     text: >-
       Air and water temperature sensors and timelapse cameras, placed in July and
       recovered in September by a team led by Lee J. Florea, PhD, Christian
       Stenner and Linda Sobolewski, PhD (University of Iceland).
+    image: img/science-thermal
+    image_alt: A hand holds a thermal camera whose screen shows a warm stream in rainbow colours, inside an ice cave.
+    credit: Paolo Testa
   - title: Photogrammetry
     text: >-
       Drone models of the Encelado cauldron, July and September 2026. In 2027 we
       add lidar: the same voids in three dimensions, from the inside.
+    image: img/f7-ortho
+    image_alt: Drone orthophoto of Efri Hveradalur, Kverkfjöll, seen from above, north up.
     figure: img/f7-3d
     figure_alt: 3D model of Efri Hveradalur, Kverkfjöll, from drone photogrammetry, with Lake Galtarlón in front.
     figure_caption: "Efri Hveradalur, Kverkfjöll, 2026: 3D model from drone photogrammetry, Lake Galtarlón in front."

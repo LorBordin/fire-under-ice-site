@@ -4,7 +4,7 @@
   <ul class="cards">
     {% for f in c.field %}
     <li class="card">
-      {{ image(f.image, f.image_alt, sizes="(min-width: 48rem) 33vw, 100vw", root=root) }}
+      {{ image(f.image, f.image_alt, sizes="(min-width: 72rem) 25vw, (min-width: 48rem) 50vw, 100vw", root=root) }}
       <h3>{{ f.title | md }}</h3>
       <p>{{ f.text | md }}</p>
     </li>
