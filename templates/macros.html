@@ -37,3 +37,23 @@
   {%- endfor %}
 </ul>
 {%- endmacro %}
+
+{# place_card(place, root): teaser card of one place on the home page. The link
+   around the cover is stretched over the whole card by CSS (::after). #}
+{% macro place_card(place, root) -%}
+{%- set cover = place.photos | selectattr("cover", "defined") | selectattr("cover") | first %}
+<article class="place-card">
+  <a class="place-card-link" href="{{ root }}{{ place.slug }}/" aria-label="{{ place.name }}, {{ place.photos|length }} photos">
+    {{ image(gallery_ref(place.slug, cover.source), cover.alt, sizes="(min-width: 48rem) 50vw, 100vw", root=root) }}
+  </a>
+  <p class="kicker">{{ place.years | md }}</p>
+  <h3>{{ place.name | md }}</h3>
+  <p>{{ place.teaser | md }}</p>
+  <ul class="place-thumbs">
+    {%- for ph in place.photos | selectattr("featured", "defined") | selectattr("featured") %}
+    <li>{{ image(gallery_ref(place.slug, ph.source), ph.alt, sizes="8rem", root=root) }}</li>
+    {%- endfor %}
+  </ul>
+  <p class="place-more">See all {{ place.photos|length }} photos <span aria-hidden="true">→</span></p>
+</article>
+{%- endmacro %}

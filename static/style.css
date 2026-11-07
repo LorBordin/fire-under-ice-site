@@ -79,6 +79,24 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.5}
 .card h3{margin-bottom:.5rem}
 .card p:last-child{color:var(--muted);margin-bottom:0}
 
+/* Places: teaser cards on the home page, thumbnail grid on a place page */
+.place-cards{display:grid;gap:2.5rem;margin-top:2.5rem}
+.place-card{position:relative}
+.place-card-link{display:block}
+.place-card-link::after{content:"";position:absolute;inset:0}
+.place-card-link:focus-visible{outline:none}
+.place-card-link:focus-visible::after{outline:2px solid var(--ice);outline-offset:6px}
+.place-card>img,.place-card-link img{width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1rem;background:var(--bg)}
+.place-card:hover h3{color:var(--ice)}
+.place-card p:not(.kicker):not(.place-more){color:var(--muted)}
+.place-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:1rem 0}
+.place-thumbs img{width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg)}
+.place-more{color:var(--ice);font-weight:600;margin:0}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-top:2.5rem}
+.gallery a{display:block}
+.gallery img{width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg)}
+.gallery-caption,.gallery-credit{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
 /* Compare. Default (no JS): stacked, each with its label. */
 .compare-switch{display:flex;flex-wrap:wrap;gap:.5rem;margin:4rem 0 1rem}
 .compare-switch[hidden]{display:none}
@@ -175,11 +193,14 @@ model-viewer.model-view{display:block;width:100%;height:auto;max-width:70rem;asp
   .hero-logo{width:4.5rem}
   .project-body{grid-template-columns:1.1fr 1fr;gap:3rem;align-items:start}
   .cards{grid-template-columns:repeat(3,1fr);gap:2rem}
+  .place-cards{grid-template-columns:repeat(2,1fr);gap:2rem}
+  .gallery{grid-template-columns:repeat(3,1fr)}
   .compare{grid-template-columns:1fr 1fr}
   .compare figcaption{grid-column:1/-1}
   .team{grid-template-columns:repeat(2,1fr)}
 }
 @media (min-width:72rem){
+  .gallery{grid-template-columns:repeat(4,1fr)}
   .team{grid-template-columns:repeat(3,1fr)}
   .hero-text{padding-left:6rem}
 }

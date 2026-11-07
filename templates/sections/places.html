@@ -1,0 +1,8 @@
+{% from "macros.html" import header, place_card %}
+<section id="places" class="reveal">
+  {{ header(c.headings.places) }}
+  <div class="place-cards">
+    {% for p in c.places %}{{ place_card(p, root) }}
+    {% endfor %}
+  </div>
+</section>

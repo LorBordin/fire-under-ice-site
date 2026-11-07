@@ -289,3 +289,20 @@ def test_no_places_no_nav_link(site):
     assert build(site, out) == 0
     assert 'href="#places"' not in (out / "index.html").read_text(encoding="utf-8")
     assert len(built_pages(out)) == 1
+
+
+def test_places_section(site_with_places):
+    html = build_html(site_with_places)
+    assert 'id="places"' in html
+    assert html.count('class="place-card"') == 2
+    assert 'href="torfa/"' in html and 'href="kverkfjoll/"' in html
+    assert "See all 4 photos" in html and "See all 5 photos" in html
+    for card in re.findall(r'<article class="place-card">.*?</article>', html, re.S):
+        thumbs = re.search(r'<ul class="place-thumbs">(.*?)</ul>', card, re.S).group(1)
+        assert thumbs.count("<img") == 3
+    first = re.search(r'<article class="place-card">.*?</article>', html, re.S).group(0)
+    assert re.search(r'<a class="place-card-link"[^>]*>\s*<img src="static/img/places/torfa/p0-', first)
+
+
+def test_places_nav_link(site_with_places):
+    assert 'href="#places"' in build_html(site_with_places)
