@@ -78,8 +78,8 @@ def minimal_content() -> dict:
             {
                 "title": "Mapping",
                 "text": "Surveying caves.",
-                "image": "img/a",
-                "image_alt": "Surveyor at work",
+                "figure": "img/a",
+                "figure_alt": "Surveyor at work",
             },
         ],
         "csi": {

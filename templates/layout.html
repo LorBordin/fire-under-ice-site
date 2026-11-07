@@ -38,6 +38,10 @@
 <footer class="site-footer">
   {{ image(c.csi.logo, c.csi.name, cls="footer-logo", root=root) }}
   <ul class="credits">
+    {% set authors = photo_authors(c) %}
+    {% if authors %}<li>Photos: {{ authors | join(", ") }}.</li>
+    <li>Photos © their authors. For use, write to <a href="mailto:{{ c.site.contact_email }}">{{ c.site.contact_email }}</a>.</li>
+    {% endif %}
     {% for line in c.credits %}<li>{{ line | md }}</li>
     {% endfor %}
   </ul>

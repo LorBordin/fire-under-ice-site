@@ -59,9 +59,9 @@ OPTIONAL_SECTIONS = ("sponsors", "places", "field")
 FORBIDDEN: tuple[str, ...] = ("heart of europe", "2000 mw", "kinetic trigger", "extremophile")
 
 # Any dict key with one of these names holds an image path.
-IMAGE_KEYS = ("image", "photo", "logo", "thumbnail", "before", "after")
+IMAGE_KEYS = ("image", "photo", "logo", "thumbnail", "before", "after", "figure")
 # These get alt text from a sibling key "<key>_alt"; photo/logo use "name".
-ALT_FROM_SIBLING = ("image", "thumbnail", "before", "after")
+ALT_FROM_SIBLING = ("image", "thumbnail", "before", "after", "figure")
 
 # Any dict key with one of these names holds a plain file path under static/ (no alt text).
 FILE_KEYS = ("model",)

@@ -1,5 +1,6 @@
-{% from "macros.html" import header %}
-<section id="contact" class="reveal">
+{% from "macros.html" import image, header %}
+<section id="contact" class="reveal{% if c.get('contact_image') %} has-bg{% endif %}">
+  {% if c.get("contact_image") %}{{ image(c.contact_image.image, c.contact_image.image_alt, sizes="100vw", cls="contact-bg", root=root) }}{% endif %}
   {{ header(c.headings.contact) }}
   <p><a class="email" href="mailto:{{ c.site.contact_email }}">{{ c.site.contact_email }}</a></p>
 </section>

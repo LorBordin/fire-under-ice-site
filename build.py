@@ -33,7 +33,21 @@ def make_environment(root: Path) -> Environment:
     env.globals["filesize"] = lambda ref: file_size(static_dir, ref)
     env.globals["gallery_ref"] = gallery_ref
     env.globals["prefixed_srcset"] = prefixed_srcset
+    env.globals["photo_authors"] = photo_authors
     return env
+
+
+def photo_authors(c: dict) -> list[str]:
+    """Unique photo authors (places, field, science, contact image), sorted by surname."""
+    names: list[str] = []
+    for pl in c.get("places") or []:
+        names += [ph["author"] for ph in pl["photos"]]
+    names += [f["credit"] for f in c.get("field") or []]
+    names += [s["credit"] for s in c.get("science") or [] if s.get("credit")]
+    if c.get("contact_image"):
+        names.append(c["contact_image"].get("credit"))
+    unique = {n.strip() for n in names if n and n.strip()}
+    return sorted(unique, key=lambda n: (n.split()[-1].casefold(), n.casefold()))
 
 
 def prefixed_srcset(srcset: str, root: str) -> str:

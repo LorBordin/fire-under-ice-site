@@ -316,3 +316,61 @@ def test_viewer_markup(site_with_places):
     for cls, label in (("viewer-prev", "Previous photo"), ("viewer-next", "Next photo"), ("viewer-close", "Close")):
         assert re.search(rf'<button[^>]*class="{cls}"[^>]*aria-label="{label}"', html)
     assert "<dialog" not in (out / "index.html").read_text(encoding="utf-8")
+
+
+# ------------------------------------------------ field, science, contact, credits
+
+def _field_item(title="Rivers", credit="Andrea Benassi"):
+    return {"title": title, "text": f"{title} text.", "image": "img/a", "image_alt": f"{title} photo", "credit": credit}
+
+
+def test_field_section(site):
+    c = minimal_content()
+    c["headings"]["field"] = {"kicker": "In the field", "title": "What it takes"}
+    c["field"] = [_field_item("Rivers"), _field_item("Heat")]
+    write_content(site, c)
+    html = build_html(site)
+    assert 'id="field"' in html
+    section = re.search(r'<section id="field".*?</section>', html, re.S).group(0)
+    assert section.count("<img") == 2
+    assert "Rivers photo" in section and "<h3>Heat</h3>" in section
+
+
+def test_science_card_images(site):
+    c = minimal_content()
+    c["science"][0]["image"] = "img/a"
+    c["science"][0]["image_alt"] = "Hot pool"
+    c["science"][1]["model"] = "model/x.glb"
+    write_content(site, c)
+    (site / "static" / "model").mkdir()
+    (site / "static" / "model" / "x.glb").write_bytes(b"glTF")
+    html = build_html(site)
+    card = re.search(r'<li class="card">(?:(?!</li>).)*Glaciology.*?</li>', html, re.S).group(0)
+    assert 'alt="Hot pool"' in card
+    # The wide figure of the entry with a model still renders, outside the cards.
+    assert re.search(r'<figure class="science-figure" data-model="static/model/x.glb"[^>]*>\s*<img[^>]*alt="Surveyor at work"', html)
+    assert html.count('class="science-figure"') == 1
+
+
+def test_contact_background(site):
+    c = minimal_content()
+    c["contact_image"] = {"image": "img/a", "image_alt": "Blue ice", "credit": "Maria F. Trombini"}
+    write_content(site, c)
+    html = build_html(site)
+    assert '<img src="static/img/a-800.webp"' in html
+    assert re.search(r'<img [^>]*class="contact-bg"', html)
+
+
+def test_photo_credits_footer(site):
+    c = minimal_content()
+    c["headings"]["field"] = {"kicker": "In the field", "title": "What it takes"}
+    c["field"] = [_field_item("Rivers", "Maria F. Trombini"), _field_item("Heat", "Andrea Benassi")]
+    c["contact_image"] = {"image": "img/a", "image_alt": "Blue ice", "credit": "Ivan Vicenzi"}
+    write_content(site, c)
+    html = build_html(site)
+    assert "<li>Photos: Andrea Benassi, Maria F. Trombini, Ivan Vicenzi.</li>" in html
+    assert 'Photos © their authors. For use, write to <a href="mailto:info@fireunderice.org">' in html
+
+
+def test_no_photo_credit_without_photos(site):
+    assert "Photos:" not in build_html(site)

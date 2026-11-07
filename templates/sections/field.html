@@ -1,0 +1,13 @@
+{% from "macros.html" import image, header %}
+<section id="field" class="reveal">
+  {{ header(c.headings.field) }}
+  <ul class="cards">
+    {% for f in c.field %}
+    <li class="card">
+      {{ image(f.image, f.image_alt, sizes="(min-width: 48rem) 33vw, 100vw", root=root) }}
+      <h3>{{ f.title | md }}</h3>
+      <p>{{ f.text | md }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
