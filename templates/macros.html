@@ -1,9 +1,10 @@
-{# image(ref, alt, sizes, cls, priority, lazy): one <img> tag, always with
-   width/height (no layout shift), srcset when the image has several sizes. #}
-{% macro image(ref, alt, sizes="100vw", cls=None, priority=False, lazy=True) -%}
+{# image(ref, alt, sizes, cls, priority, lazy, root): one <img> tag, always with
+   width/height (no layout shift), srcset when the image has several sizes.
+   `root` ("" or "../") is put in front of every file path. #}
+{% macro image(ref, alt, sizes="100vw", cls=None, priority=False, lazy=True, root="") -%}
 {%- set i = img(ref) -%}
-<img src="{{ i.src }}"
-  {%- if i.srcset %} srcset="{{ i.srcset }}" sizes="{{ sizes }}"{% endif %}
+<img src="{{ root }}{{ i.src }}"
+  {%- if i.srcset %} srcset="{{ prefixed_srcset(i.srcset, root) }}" sizes="{{ sizes }}"{% endif %}
   width="{{ i.width }}" height="{{ i.height }}" alt="{{ alt }}"
   {%- if cls %} class="{{ cls }}"{% endif %}
   {%- if priority %} fetchpriority="high"{% elif lazy %} loading="lazy"{% endif %}>
@@ -17,4 +18,22 @@
 {%- if h.intro is defined %}
 <p class="intro">{{ h.intro | md }}</p>
 {%- endif %}
+{%- endmacro %}
+
+{# gallery_grid(place, root): the photos of one place. Each thumbnail is a plain
+   link to the largest image (works without JavaScript); script.js turns the
+   links into a full-screen viewer, reading data-srcset and the hidden spans. #}
+{% macro gallery_grid(place, root) -%}
+<ul class="gallery">
+  {%- for ph in place.photos %}
+  {%- set ref = gallery_ref(place.slug, ph.source) %}
+  {%- set big = img(ref) %}
+  <li><a href="{{ root }}{{ big.src }}" data-index="{{ loop.index0 }}" id="photo-{{ loop.index }}"
+      data-srcset="{{ prefixed_srcset(big.srcset, root) }}" aria-label="{{ ph.caption }} © {{ ph.author }}">
+    {{ image(ref, ph.alt, sizes="(min-width: 72rem) 18rem, (min-width: 48rem) 33vw, 50vw", root=root) }}
+    <span class="gallery-caption">{{ ph.caption | md }}</span>
+    <span class="gallery-credit">© {{ ph.author }}</span>
+  </a></li>
+  {%- endfor %}
+</ul>
 {%- endmacro %}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{#- Shared by every page. `root` is "" on the home page and "../" on a place
+    page, so every link stays relative and works on any address. -#}
+{%- set page_title %}{% block title %}{{ c.site.title }}{% endblock %}{% endset %}
+{%- set page_description %}{% block description %}{{ c.site.description }}{% endblock %}{% endset %}
+<title>{{ page_title }}</title>
+<meta name="description" content="{{ page_description }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:description" content="{{ page_description }}">
+<meta property="og:image" content="{{ c.site.url }}/{% block og_image %}{{ img(c.hero.image).src }}{% endblock %}">
+<link rel="preload" href="{{ root }}static/fonts/cabin-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ root }}static/style.css">
+<script src="{{ root }}static/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <nav aria-label="Main">
+    <a class="brand" href="{{ root }}#top">{{ c.site.title }}</a>
+    <ul>
+      <li><a href="{{ root }}#project">Project</a></li>
+      <li><a href="{{ root }}#years">Years</a></li>
+      {% if c.get("places") %}<li><a href="{{ root }}#places">Places</a></li>{% endif %}
+      <li><a href="{{ root }}#science">Science</a></li>
+      <li><a href="{{ root }}#team">Team</a></li>
+      <li><a href="{{ root }}#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+{% block main %}{% endblock %}
+</main>
+{% from "macros.html" import image %}
+<footer class="site-footer">
+  {{ image(c.csi.logo, c.csi.name, cls="footer-logo", root=root) }}
+  <ul class="credits">
+    {% for line in c.credits %}<li>{{ line | md }}</li>
+    {% endfor %}
+  </ul>
+  <p><a href="mailto:{{ c.site.contact_email }}">{{ c.site.contact_email }}</a></p>
+  <p>&copy; 2025-2027 CSI</p>
+</footer>
+</body>
+</html>

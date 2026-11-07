@@ -198,3 +198,94 @@ def test_comparison_switch(site):
     assert re.search(r'<button[^>]*aria-pressed="false"[^>]*>Drone 2026</button>', html)
     assert 'data-credit="Background: drone."' in html
     assert '<span class="compare-credit">Background: satellite.</span>' in html
+
+
+# ------------------------------------------------------------ place pages
+
+from tests.test_places import place, with_places  # noqa: E402
+
+
+@pytest.fixture
+def site_with_places(site):
+    # The real fonts, CSS and JS, so the link check covers the <head> too.
+    real_static = REAL_TEMPLATES.parent / "static"
+    shutil.copytree(real_static / "fonts", site / "static" / "fonts")
+    for name in ("style.css", "script.js"):
+        shutil.copy(real_static / name, site / "static" / name)
+    c = with_places(site / "static", place("torfa"), place("kverkfjoll", n=5))
+    write_content(site, c)
+    return site
+
+
+def built_pages(out: Path) -> list[Path]:
+    return sorted(out.rglob("*.html"))
+
+
+def test_writes_place_pages(site_with_places):
+    out = site_with_places / "_site"
+    assert build(site_with_places, out) == 0
+    assert (out / "index.html").is_file()
+    assert (out / "torfa" / "index.html").is_file()
+    assert (out / "kverkfjoll" / "index.html").is_file()
+
+
+_URL_ATTR = re.compile(r'\b(src|href|srcset|data-srcset)="([^"]*)"')
+
+
+def test_all_local_links_resolve(site_with_places):
+    out = site_with_places / "_site"
+    assert build(site_with_places, out) == 0
+    pages = [p for p in built_pages(out) if p.parent == out or p.parent.parent == out]
+    assert len(pages) == 3
+    checked = 0
+    for page in pages:
+        html = page.read_text(encoding="utf-8")
+        for attr, value in _URL_ATTR.findall(html):
+            urls = [part.strip().split(" ")[0] for part in value.split(",")] if "srcset" in attr else [value]
+            for url in urls:
+                if not url or url.startswith(("http:", "https:", "mailto:", "#")):
+                    continue
+                path = url.split("#")[0]
+                target = (page.parent / path).resolve()
+                if path == "" or path.endswith("/"):
+                    target = target / "index.html"
+                assert target.is_file(), f"{page.relative_to(out)}: {attr}={url}"
+                checked += 1
+    assert checked > 20
+
+
+def test_place_page_title_and_og(site_with_places):
+    out = site_with_places / "_site"
+    assert build(site_with_places, out) == 0
+    html = (out / "torfa" / "index.html").read_text(encoding="utf-8")
+    assert "<title>Torfa place · Fire Under Ice</title>" in html
+    assert 'content="https://fireunderice.org/static/img/places/torfa/p0-' in html
+    assert '<meta name="description" content="One sentence.">' in html
+
+
+def test_place_nav_points_home(site_with_places):
+    out = site_with_places / "_site"
+    assert build(site_with_places, out) == 0
+    html = (out / "torfa" / "index.html").read_text(encoding="utf-8")
+    assert 'href="../#team"' in html
+    assert 'href="../#places"' in html
+    assert 'href="../kverkfjoll/"' in html
+
+
+def test_gallery_links_without_js(site_with_places):
+    out = site_with_places / "_site"
+    assert build(site_with_places, out) == 0
+    html = (out / "kverkfjoll" / "index.html").read_text(encoding="utf-8")
+    links = re.findall(r'<a href="([^"]+)" data-index="(\d+)"[^>]*aria-label="([^"]+)"', html)
+    assert [int(i) for _, i, _ in links] == list(range(5))
+    for href, _, label in links:
+        assert href.startswith("../static/img/places/kverkfjoll/") and href.endswith("-800.webp")
+        assert "©" in label or "&copy;" in label
+    assert 'id="photo-1"' in html and 'id="photo-5"' in html
+
+
+def test_no_places_no_nav_link(site):
+    out = site / "_site"
+    assert build(site, out) == 0
+    assert 'href="#places"' not in (out / "index.html").read_text(encoding="utf-8")
+    assert len(built_pages(out)) == 1

@@ -4,8 +4,9 @@ The flow, step by step (see build() below):
   1. load content.yaml                      (sitelib.load_content)
   2. validate it; on any error print them all and stop   (sitelib.validate)
   3. drop people/partners without `consent: true`       (sitelib.filter_consented)
-  4. render templates/base.html with Jinja2 into one HTML string
-  5. delete the old _site/, write index.html, copy static/ next to it
+  4. render templates/index.html (home page) and templates/place.html (once
+     per place) with Jinja2; both extend templates/layout.html
+  5. delete the old _site/, write index.html and <slug>/index.html, copy static/
 
 Run it with:  uv run build.py
 Preview with: uv run python -m http.server -d _site 8000
@@ -16,7 +17,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
-from sitelib import file_size, filter_consented, image_info, inline_md, load_content, validate
+from sitelib import file_size, filter_consented, gallery_ref, image_info, inline_md, load_content, validate
 
 
 def make_environment(root: Path) -> Environment:
@@ -30,7 +31,16 @@ def make_environment(root: Path) -> Environment:
     static_dir = root / "static"
     env.globals["img"] = lambda ref: image_info(static_dir, ref)
     env.globals["filesize"] = lambda ref: file_size(static_dir, ref)
+    env.globals["gallery_ref"] = gallery_ref
+    env.globals["prefixed_srcset"] = prefixed_srcset
     return env
+
+
+def prefixed_srcset(srcset: str, root: str) -> str:
+    """Put `root` ("" or "../") in front of every URL of a srcset."""
+    if not root or not srcset:
+        return srcset
+    return ", ".join(root + part.strip() for part in srcset.split(","))
 
 
 def build(root: Path, out: Path) -> int:
@@ -47,12 +57,20 @@ def build(root: Path, out: Path) -> int:
     if skipped:
         print("Skipped (no consent): " + ", ".join(skipped))
 
-    html = make_environment(root).get_template("base.html").render(c=content)
+    env = make_environment(root)
+    # {output path: html}. Place pages live one folder down, hence root="../".
+    pages = {"index.html": env.get_template("index.html").render(c=content, root="")}
+    for place in content.get("places") or []:
+        pages[f"{place['slug']}/index.html"] = env.get_template("place.html").render(
+            c=content, root="../", place=place
+        )
 
     if out.exists():
         shutil.rmtree(out)            # so files removed from static/ do not linger
     out.mkdir(parents=True)
-    (out / "index.html").write_text(html, encoding="utf-8")
+    for name, html in pages.items():
+        (out / name).parent.mkdir(parents=True, exist_ok=True)
+        (out / name).write_text(html, encoding="utf-8")
     shutil.copytree(root / "static", out / "static")
 
     print(f"Built {out / 'index.html'}")

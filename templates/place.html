@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% from "macros.html" import gallery_grid %}
+{%- set cover = place.photos | selectattr("cover", "defined") | selectattr("cover") | first %}
+{% block title %}{{ place.name }} · {{ c.site.title }}{% endblock %}
+{% block description %}{{ place.teaser }}{% endblock %}
+{% block og_image %}{{ img(gallery_ref(place.slug, cover.source)).src }}{% endblock %}
+{% block main %}
+<section class="place" id="top">
+  <p class="kicker">{{ place.years | md }}</p>
+  <h1>{{ place.name | md }}</h1>
+  {% for para in place.intro %}<p class="intro">{{ para | md }}</p>
+  {% endfor %}
+  {{ gallery_grid(place, root) }}
+  <nav class="place-next" aria-label="More places">
+    <a href="{{ root }}">← Home</a>
+    {% for other in c.places if other.slug != place.slug %}
+    <a href="{{ root }}{{ other.slug }}/">Next: {{ other.name }} →</a>
+    {% endfor %}
+  </nav>
+</section>
+{% endblock %}
