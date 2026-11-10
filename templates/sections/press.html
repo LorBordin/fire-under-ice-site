@@ -1,4 +1,4 @@
-{% from "macros.html" import header %}
+{% from "macros.html" import image, header %}
 <section id="press" class="reveal">
   {{ header(c.headings.press) }}
   <h3>Articles</h3>
@@ -6,7 +6,8 @@
     {% for a in c.press.articles %}
     <li><span class="year">{{ a.year }}</span>
       {% if a.url is defined %}<a href="{{ a.url }}" rel="noopener">{{ a.title | md }}</a>{% else %}{{ a.title | md }}{% endif %}
-      <span class="meta">{{ a.byline | md }}</span></li>
+      <span class="meta">{{ a.byline | md }}</span>
+      {% if a.status is defined %}<span class="status">{{ a.status }}</span>{% endif %}</li>
     {% endfor %}
   </ul>
   <h3>Talks</h3>
@@ -16,6 +17,16 @@
       <span class="meta">{{ t.venue | md }}, {{ t.place | md }}</span></li>
     {% endfor %}
   </ul>
+  {% if c.press.photos is defined %}
+  <div class="press-photos">
+    {% for p in c.press.photos %}
+    <figure>
+      {{ image(p.image, p.image_alt, sizes="(min-width: 48rem) 45vw, 100vw") }}
+      <figcaption>{{ p.caption | md }} © {{ p.credit }}</figcaption>
+    </figure>
+    {% endfor %}
+  </div>
+  {% endif %}
   <h3>TV</h3>
   <ul class="press-list">
     {% for v in c.press.tv %}

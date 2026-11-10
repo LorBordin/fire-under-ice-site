@@ -395,3 +395,24 @@ def test_stat_note(site):
     html = build_html(site)
     assert "1984–2026*" in re.sub(r"<[^>]+>", "", html)
     assert '<p class="note stats-note">* Surveys up to 2008 by others.</p>' in html
+
+
+def test_article_status(site):
+    c = minimal_content()
+    c["press"]["articles"][0]["status"] = "in press"
+    write_content(site, c)
+    assert '<span class="status">in press</span>' in build_html(site)
+
+
+def test_press_photos(site):
+    c = minimal_content()
+    c["press"]["photos"] = [
+        {"image": "img/a", "image_alt": "Hall", "caption": "Costacciaro.", "credit": "Paolo Testa"}
+    ]
+    write_content(site, c)
+    html = build_html(site)
+    section = html[html.index('id="press"'):html.index('id="partners"')]
+    assert 'alt="Hall"' in section
+    assert "Costacciaro." in section and "Paolo Testa" in section
+    footer = html[html.index('class="site-footer"'):]
+    assert "Paolo Testa" in footer

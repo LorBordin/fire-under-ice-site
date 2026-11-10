@@ -42,6 +42,7 @@ def photo_authors(c: dict) -> list[str]:
     names: list[str] = []
     for pl in c.get("places") or []:
         names += [ph["author"] for ph in pl["photos"]]
+    names += [p["credit"] for p in (c.get("press") or {}).get("photos") or []]
     names += [f["credit"] for f in c.get("field") or []]
     names += [s["credit"] for s in c.get("science") or [] if s.get("credit")]
     if c.get("contact_image"):

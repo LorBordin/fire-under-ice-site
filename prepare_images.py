@@ -44,6 +44,8 @@ THUMB_URL = "https://i.ytimg.com/vi/{id}/maxresdefault.jpg"
 # (kind, source relative to EXPEDITION, output relative to static/img)
 JOBS: list[tuple[str, str, str]] = [
     ("responsive", "brochure/2027/figures/photos/p01-cover.jpg", "p01-cover"),
+    ("responsive", "photos/press/people.JPG", "press-hall"),
+    ("responsive", "photos/press/presentazione_2.JPG", "press-talk"),
     ("responsive", "brochure/2027/figures/photos/p06-lake.jpg", "p06-lake"),
     ("responsive", "brochure/2027/figures/photos/p08-cauldron.jpg", "p08-cauldron"),
     ("responsive", "brochure/2027/figures/photos/p08-sala-rosa.jpg", "p08-sala-rosa"),

@@ -286,3 +286,9 @@ def test_comparison_background_needs_credit(static_dir):
     c = minimal_content()
     del c["comparison"]["backgrounds"][0]["credit"]
     assert validate(c, static_dir) == ["comparison.backgrounds[0].credit: missing"]
+
+
+def test_press_photo_needs_credit(static_dir):
+    c = minimal_content()
+    c["press"]["photos"] = [{"image": "img/a", "image_alt": "Hall", "caption": "Costacciaro."}]
+    assert "press.photos[0].credit: missing" in validate(c, static_dir)

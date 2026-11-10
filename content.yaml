@@ -422,6 +422,10 @@ team:                                    # order: by role, as given by Lorenzo
 
 press:                                   # brochure p14
   articles:
+    - year: 2027
+      title: "Freyja Hellir: magia tra ghiaccio e riolite (Islanda)"
+      byline: Benassi A., Bordin L., Monticone C., Gerbaudo M., Turrini P. · *Speleologia*, issue 95, March 2027
+      status: in press
     - year: 2026
       title: "Ghiaccio Bollente: esplorazioni glaciovulcaniche in Islanda"
       byline: Monticone C., Benassi A., Bordin L., Trombini M. · *La Rivista* del CAI, issue 18
@@ -444,6 +448,15 @@ press:                                   # brochure p14
     - {year: 2026, venue: "CAI UGET Torino, Gruppo Speleologico Piemontese", place: Torino, title: "*Tra ghiaccio e fuoco*"}
     - {year: 2025, venue: "Mese Montagna 2025, SAT Lavis", place: Lavis (TN), title: "*Ghiaccio bollente: esplorazioni glaciovulcaniche*"}
     - {year: 2025, venue: "Capovolta, national speleology gathering", place: Volta Mantovana (MN), title: "*Di ghiaccio e di fuoco*"}
+  photos:
+    - image: img/press-hall
+      image_alt: A packed hall of people listening to a talk under a white tent roof.
+      caption: National speleology gathering, Costacciaro, October 2026.
+      credit: Paolo Testa
+    - image: img/press-talk
+      image_alt: Two speakers in front of a large screen showing a glacier photo, at a talk under a tent.
+      caption: National speleology gathering, Costacciaro, October 2026.
+      credit: Paolo Testa
   tv:
     - title: "*Tra fuoco e ghiaccio*"
       outlet: TG5 report

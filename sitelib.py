@@ -45,6 +45,7 @@ REQUIRED: dict[str, list[str]] = {
     "partners": ["name", "logo"],
     "sponsors": ["name", "logo"],
     "press.articles": ["year", "title", "byline"],
+    "press.photos": ["image", "image_alt", "caption", "credit"],
     "press.talks": ["year", "venue", "place", "title"],
     # Place galleries (one page each) and the In the field section.
     "places": ["slug", "name", "years", "teaser", "intro", "photos"],
