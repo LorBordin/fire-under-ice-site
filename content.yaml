@@ -525,3 +525,234 @@ credits:
   - "Survey drawings: Cristian Monticone. 2006 survey: G. Favre et al., Hypogées 69."
   - "Basemaps: Landmælingar Íslands, IS 50V, CC BY 4.0."
   - "2024 satellite image: Google Earth, Image © 2026 Airbus."
+
+# Science pages (one page each at fireunderice.org/<slug>/). Shown only with
+# `reviewed: true` (exactly true). Drafts may contain TODO. Numbers in [ ]
+# point to the references list of the same topic. See GUIDE.md, "Science pages".
+topics:
+  - slug: microbiology
+    kicker: Science
+    title: Life without light
+    teaser: >-
+      No sunlight reaches the floor of a glaciovolcanic cave. Microbes live
+      there on chemistry. In 2026 we sampled them in every cave we explored.
+    intro:
+      - >-
+        Under the ice, nothing can live on sunlight. Yet where volcanic heat and
+        gas reach the cave floor, microbes live on chemical energy. In 2026 we
+        sampled them at Kverkfjöll and in the Torfa caldera [1].
+      - >-
+        Why these places matter to microbiologists, what we collected, and what
+        happens to the samples now.
+    chapters:
+      - heading: Dark, poor, volcanic
+        paragraphs:
+          - >-
+            Scientists call these places DOVEs: dark oligotrophic volcanic
+            ecosystems. Dark, because no light reaches them. Oligotrophic,
+            because they are poor in organic matter. Volcanic, because heat and
+            gas come from below. They are rich in chemical reactants, which makes
+            them good places to study life without sunlight [2, 3].
+          - >-
+            Without light there is no photosynthesis. Microbes take their energy
+            from chemistry instead, for example by oxidising gases such as
+            hydrogen sulfide, and some build their bodies from CO₂. This way of
+            life is called chemolithoautotrophy [2, 4].
+          - >-
+            In our caves the range is extreme within a few metres. The air stays
+            at 1–4 °C, next to ice at melting point, while the ground at the
+            fumarole vents reached 94.5 °C, boiling point at about 1700 m. Our
+            gas detectors found hydrogen, methane, hydrogen sulfide and carbon
+            dioxide. Heat-loving (thermophilic), acid-loving (acidophilic) and
+            cold-loving (psychrophilic) microbes can live side by side [1].
+          - >-
+            Sulfur-rich glaciovolcanic caves are rare. Only one comparable system
+            has been studied in detail: the fumarole ice cave on Mount Meager,
+            Canada, where microbes that oxidise sulfur and microbes that reduce
+            sulfate point to life on chemical energy [4]. At Kverkfjöll itself, a
+            hot spring fed by the ice hosts communities that live on volcanic
+            sulfur [5].
+        photo:
+          source: photos/torfa/RIMG0247.JPG
+          author: Ivan Vicenzi
+          caption: The hot pool at the centre of the Sala del Graal, Freyja Hellir, July 2026.
+          alt: A thermometer probe held into a dark rippled pool rimmed with orange and rust-coloured mineral deposits.
+      - heading: What we sampled in 2026
+        paragraphs:
+          - >-
+            At Kverkfjöll we sampled near fumaroles and boiling pools inside the
+            caves. We took sediment in triplicate at increasing distances from
+            the vents, following the drop in temperature; sediment from the rims
+            of boiling pools; biofilm from ice walls in well-ventilated spots;
+            and hot water from a large pool fed by a methane-rich fumarole [1].
+          - >-
+            At the bottom of the Encelado cauldron, a spring at about 74 °C, with
+            a flow of many litres per second, melts a lake under the glacier. We
+            sampled around it [1].
+          - >-
+            In Freyja Hellir, in the Torfa caldera, fumaroles and hot springs at
+            different distances from the entrance host soft, creamy, coloured
+            microbial mats. Outside the cave, at the edge of an acidic fumarole
+            rich in hydrogen sulfide, we sampled snottites: jelly-like microbial
+            colonies that hang like small stalactites. Along a thermal stream we
+            sampled filamentous communities [1].
+          - >-
+            The biological material was collected with the agreement of
+            Vatnajökull National Park [1].
+        photo:
+          source: photos/science/sampling_1.JPG
+          author: Cristian Monticone
+          caption: Sampling at a hot pool, July 2026.
+          alt: Gloved hands take a sample with a pipette from an orange hot pool.
+      - heading: What comes next
+        paragraphs:
+          - >-
+            The samples are waiting for DNA sequencing and metagenomic analysis,
+            in a collaboration with Prof. Andrea Franzetti, a glacial
+            microbiologist at the University of Milano-Bicocca. In the team,
+            sampling is led by Paolo Turrini, PhD in microbiology [1].
+          - >-
+            Why it matters. Microbes that live at such extremes may resemble early
+            life on Earth, so they help with questions about its origin. They are
+            candidate analogues in the search for life elsewhere (see *Other
+            worlds on Earth*). And enzymes that keep working in heat, acid or cold
+            are useful in biotechnology [1].
+        photo:
+          source: photos/science/sampling_2.jpg
+          author: Cristian Monticone
+          caption: Collecting sediment under the ice, 2026.
+          alt: A caver in a red helmet and half-mask collects sediment from rocky ground under an ice arch.
+      - heading: In 2027
+        paragraphs:
+          - >-
+            TODO (Paolo Turrini): sampling plans for 2027 on Torfajökull (sites,
+            what will be sampled, and how), and any first results from the 2026
+            samples that can be shared.
+    references:
+      - text: "Consorzio Speleologi Ipogenici (2026). Vatnajökull 2026 – Fire Under Ice: notes on the expedition. Report to the Società Geografica Italiana, unpublished."
+      - text: "Tebo, B. M., Davis, R. E., Anitori, R. P., Connell, L. B., Schiffman, P., & Staudigel, H. (2015). Microbial communities in dark oligotrophic volcanic ice cave ecosystems of Mt. Erebus, Antarctica. *Frontiers in Microbiology*, 6, 179."
+        url: https://doi.org/10.3389/fmicb.2015.00179
+      - text: "Connell, L., & Staudigel, H. (2013). Fungal diversity in a dark oligotrophic volcanic ecosystem (DOVE) on Mount Erebus, Antarctica. *Biology*, 2(2), 798–809."
+        url: https://doi.org/10.3390/biology2020798
+      - text: "Clance, J. J., Shaffer, J. M. C., Cable, M. L., et al. (2024). Biogeochemistry of the rare sulfidic glaciovolcanic cave system on Mount Meager, British Columbia, Canada. *Frontiers in Geochemistry*, 2, 1410338."
+        url: https://doi.org/10.3389/fgeoc.2024.1410338
+      - text: "Cousins, C. R., Fogel, M., Bowden, R., et al. (2018). Biogeochemical probing of microbial communities in a basalt-hosted hot spring at Kverkfjöll volcano, Iceland. *Geobiology*, 16(5), 507–521."
+        url: https://doi.org/10.1111/gbi.12291
+    reviewers: Paolo Turrini, then Prof. Andrea Franzetti
+    reviewed: false
+
+  - slug: analogues
+    kicker: Science
+    title: Other worlds on Earth
+    teaser: >-
+      Icy moons hide oceans warmed from below. Iceland's glaciovolcanic caves are
+      among the few places on Earth where ice sits over volcanic heat.
+    intro:
+      - >-
+        Some moons of the outer Solar System hide oceans under their ice, warmed
+        from below. On Earth, few places put ice directly over volcanic heat.
+        Iceland's glaciovolcanic caves are among them, which makes them useful
+        to planetary scientists, as long as one is careful about what carries
+        over and what does not.
+    chapters:
+      - heading: Ice over heat, elsewhere
+        paragraphs:
+          - >-
+            Enceladus, a small moon of Saturn, has an ocean under its ice. Flying
+            through the plume that jets from its south pole, the Cassini
+            spacecraft found tiny grains of silica that point to hydrothermal
+            reactions above 90 °C on the ocean floor [1], and molecular hydrogen,
+            a sign that water is reacting with rock, as around hydrothermal vents
+            on Earth [2]. Ice grains from the plume also carry phosphates, at
+            concentrations at least 100 times those of Earth's oceans [3].
+          - >-
+            The *Encelado* cauldron at Kverkfjöll takes its name from this moon:
+            a steaming pit in the glacier with a hot spring at its bottom.
+          - >-
+            Jupiter's moon Europa gives strong evidence of an ocean too: the
+            Galileo spacecraft measured a magnetic signal that changes the way a
+            buried, electrically conducting ocean would make it change [4]. On
+            Mars there is widespread evidence that volcanoes and ice met in the
+            past. Volcano–ice interaction makes liquid water and steep gradients
+            of heat and chemistry, so it may once have offered habitats for
+            life [5].
+        photo:
+          source: photos/kverkfjoll/P7161033.JPG
+          author: Andrea Benassi
+          caption: The Encelado cauldron, Kverkfjöll, July 2026.
+          alt: Steam rises from a deep ice cauldron with a green lake at its bottom; a caver in yellow watches from the rim.
+      - heading: What carries over, and what doesn't
+        paragraphs:
+          - >-
+            What carries over: darkness, cold ice, liquid water made by heat from
+            below, and energy from chemistry rather than light. Microbes that
+            live this way on Earth show what kind of life could live that way
+            elsewhere [5, 6].
+          - >-
+            Minerals carry over too. At Kverkfjöll and Askja, hot water altering
+            basalt under the ice leaves minerals similar to those found on Mars;
+            knowing how they form here helps recognise them there [7]. Gas rising
+            through the ice may carry traces of life up to the surface, where a
+            spacecraft could one day sample them [8].
+          - >-
+            What does not carry over: our caves breathe Earth's atmosphere, with
+            its oxygen, pressure and gravity. They are shielded from the
+            radiation that hits icy moons, and they exchange air and microbes
+            with the surface, visitors included [9]. An analogue is a comparison,
+            not a copy.
+      - heading: Caves on other worlds
+        paragraphs:
+          - >-
+            Fumarolic ice caves have a warm, moist, stable microclimate, shielded
+            from radiation, which can be hospitable to life. The highest
+            permanent bodies of liquid water in Antarctica and North America are
+            inside such caves [10].
+          - >-
+            Ocean worlds such as Enceladus and Europa almost certainly have voids
+            in their ice; Mars' polar caps, and perhaps Titan and Pluto, may have
+            them too. Comparing the fumarolic ice caves of Mount Erebus, Mount
+            Rainier, Mount St. Helens and Villarrica helps picture those voids
+            [10]. Iceland's caves add more cases to the comparison.
+        photo:
+          source: photos/torfa/torfa_final_stream.JPG
+          author: Cristian Monticone
+          caption: A stream through the ice, Freyja Hellir, July 2026.
+          alt: A caver in yellow walks beside a stream along a long round ice tunnel, orange sediment on the right.
+      - heading: What we add
+        paragraphs:
+          - >-
+            We are cavers, not planetary scientists. What we bring is access and
+            data: surveys of caves that may vanish within a year, air and water
+            temperatures, gas readings, and samples for microbiologists [11].
+          - >-
+            In 2027 we add lidar: three-dimensional models of the voids, from the
+            inside. Repeated year after year, they show how a cave under the ice
+            forms and disappears, the kind of field data that comparisons with
+            other worlds need.
+          - >-
+            If you work on planetary analogues and could use these data, write
+            to us.
+    references:
+      - text: "Hsu, H.-W., Postberg, F., Sekine, Y., et al. (2015). Ongoing hydrothermal activities within Enceladus. *Nature*, 519(7542), 207–210."
+        url: https://doi.org/10.1038/nature14262
+      - text: "Waite, J. H., Glein, C. R., Perryman, R. S., et al. (2017). Cassini finds molecular hydrogen in the Enceladus plume: Evidence for hydrothermal processes. *Science*, 356(6334), 155–159."
+        url: https://doi.org/10.1126/science.aai8703
+      - text: "Postberg, F., Sekine, Y., Klenner, F., et al. (2023). Detection of phosphates originating from Enceladus's ocean. *Nature*, 618(7965), 489–493."
+        url: https://doi.org/10.1038/s41586-023-05987-9
+      - text: "Kivelson, M. G., Khurana, K. K., Russell, C. T., Volwerk, M., Walker, R. J., & Zimmer, C. (2000). Galileo magnetometer measurements: A stronger case for a subsurface ocean at Europa. *Science*, 289(5483), 1340–1343."
+        url: https://doi.org/10.1126/science.289.5483.1340
+      - text: "Cousins, C. R., & Crawford, I. A. (2011). Volcano-ice interaction as a microbial habitat on Earth and Mars. *Astrobiology*, 11(7), 695–710."
+        url: https://doi.org/10.1089/ast.2010.0550
+      - text: "Tebo, B. M., Davis, R. E., Anitori, R. P., Connell, L. B., Schiffman, P., & Staudigel, H. (2015). Microbial communities in dark oligotrophic volcanic ice cave ecosystems of Mt. Erebus, Antarctica. *Frontiers in Microbiology*, 6, 179."
+        url: https://doi.org/10.3389/fmicb.2015.00179
+      - text: "Cousins, C. R., Crawford, I. A., Carrivick, J. L., et al. (2013). Glaciovolcanic hydrothermal environments in Iceland and implications for their detection on Mars. *Journal of Volcanology and Geothermal Research*, 256, 61–77."
+        url: https://doi.org/10.1016/j.jvolgeores.2013.02.009
+      - text: "Clance, J. J., Shaffer, J. M. C., Cable, M. L., et al. (2024). Biogeochemistry of the rare sulfidic glaciovolcanic cave system on Mount Meager, British Columbia, Canada. *Frontiers in Geochemistry*, 2, 1410338."
+        url: https://doi.org/10.3389/fgeoc.2024.1410338
+      - text: "Connell, L., & Staudigel, H. (2013). Fungal diversity in a dark oligotrophic volcanic ecosystem (DOVE) on Mount Erebus, Antarctica. *Biology*, 2(2), 798–809."
+        url: https://doi.org/10.3390/biology2020798
+      - text: "Curtis, A. G. (2020). Comparison of Earth's fumarolic ice caves and implications for icy voids on other worlds [Abstract 1070]. *3rd International Planetary Caves Conference*, LPI Contribution No. 2197, San Antonio, Texas."
+        url: https://www.hou.usra.edu/meetings/3rdcaves2020/pdf/1070.pdf
+      - text: "Consorzio Speleologi Ipogenici (2026). Vatnajökull 2026 – Fire Under Ice: notes on the expedition. Report to the Società Geografica Italiana, unpublished."
+    reviewers: Lorenzo Bordin
+    reviewed: false
