@@ -64,9 +64,6 @@ headings:
   science:                               # brochure p9
     kicker: Science and monitoring
     title: From 0.2 °C to 59.4 °C in one cave.
-    intro: >-
-      Dark, oligotrophic, volcanic environments: Earth analogues for icy moons
-      such as Enceladus.
   team:                                  # brochure p13
     kicker: The team
     title: Thirteen cavers in 2026
@@ -328,6 +325,29 @@ video:
   title: Kverkfjöll over time
   thumbnail: img/video-thumb-800.webp
   thumbnail_alt: "Video still: Kverkfjöll over time."
+
+# "Why research here" block above the Science cards (brochure p8c).
+# Task 7: uncomment `topic: analogues` once /analogues/ exists.
+science_why:
+  kicker: Why research here
+  title: Where ice meets magma
+  items:
+    - title: Ice and volcanoes
+      text: How geothermal heat and glaciers reshape each other, seen from inside.
+    - title: A changing climate
+      text: Field data for models of how glaciovolcanic systems evolve as the ice retreats.
+    - title: Jökulhlaups
+      text: The meltwater paths behind glacial outburst floods.
+    - title: Other worlds
+      text: "Dark, oligotrophic, volcanic environments: Earth analogues for icy moons such as Enceladus."
+      # topic: analogues
+  photos:
+    - image: img/why-sampling-1
+      image_alt: Gloved hands take a sample with a pipette from an orange hot pool.
+      credit: Cristian Monticone
+    - image: img/why-sampling-2
+      image_alt: A caver in a helmet and half-mask collects sediment at the foot of an ice wall.
+      credit: Cristian Monticone
 
 science:                                 # brochure p9, p11
   - title: Microbiology

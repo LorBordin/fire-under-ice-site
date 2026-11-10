@@ -292,3 +292,9 @@ def test_press_photo_needs_credit(static_dir):
     c = minimal_content()
     c["press"]["photos"] = [{"image": "img/a", "image_alt": "Hall", "caption": "Costacciaro."}]
     assert "press.photos[0].credit: missing" in validate(c, static_dir)
+
+
+def test_science_why_item_needs_text(static_dir):
+    c = minimal_content()
+    c["science_why"] = {"kicker": "Why", "title": "T", "items": [{"title": "A"}]}
+    assert "science_why.items[0].text: missing" in validate(c, static_dir)

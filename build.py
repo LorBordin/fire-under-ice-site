@@ -45,6 +45,7 @@ def photo_authors(c: dict) -> list[str]:
     names += [p["credit"] for p in (c.get("press") or {}).get("photos") or []]
     names += [f["credit"] for f in c.get("field") or []]
     names += [s["credit"] for s in c.get("science") or [] if s.get("credit")]
+    names += [p["credit"] for p in (c.get("science_why") or {}).get("photos") or []]
     if c.get("contact_image"):
         names.append(c["contact_image"].get("credit"))
     unique = {n.strip() for n in names if n and n.strip()}

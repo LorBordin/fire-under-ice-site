@@ -440,3 +440,33 @@ def test_patron_star_exactly_true(site):
     html = build_html(site)
     assert 'class="patron-star"' not in html
     assert "Patronage being sought" not in html
+
+
+def _why_content():
+    c = minimal_content()
+    c["science_why"] = {
+        "kicker": "Why research here",
+        "title": "Where ice meets magma",
+        "items": [
+            {"title": "Ice and volcanoes", "text": "Heat and glaciers."},
+            {"title": "Other worlds", "text": "Icy moons.", "topic": "analogues"},
+        ],
+        "photos": [{"image": "img/a", "image_alt": "Gloved hands", "credit": "Cristian Monticone"}],
+    }
+    return c
+
+
+def test_science_why_block(site):
+    write_content(site, _why_content())
+    html = build_html(site)
+    assert 'id="why"' in html
+    assert "Ice and volcanoes" in html and "Other worlds" in html
+    assert 'href="analogues/"' in html
+    assert 'alt="Gloved hands"' in html
+    footer = html[html.index('class="site-footer"'):]
+    assert "Cristian Monticone" in footer
+
+
+def test_science_why_optional(site):
+    html = build_html(site)
+    assert 'id="why"' not in html

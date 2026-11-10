@@ -36,6 +36,9 @@ REQUIRED: dict[str, list[str]] = {
     "comparison.backgrounds": ["label", "before", "before_alt", "after", "after_alt", "credit"],
     "map": ["image", "image_alt", "caption"],
     "science": ["title", "text"],
+    "science_why": ["kicker", "title", "items"],
+    "science_why.items": ["title", "text"],
+    "science_why.photos": ["image", "image_alt", "credit"],
     "press.tv": ["title", "outlet", "url"],
     "credits": [],
     "years": ["year", "label", "place", "text", "image", "image_alt"],
@@ -54,7 +57,7 @@ REQUIRED: dict[str, list[str]] = {
 }
 
 # Sections that may be absent or empty (an empty list is how "no sponsors yet" is written).
-OPTIONAL_SECTIONS = ("sponsors", "places", "field")
+OPTIONAL_SECTIONS = ("sponsors", "places", "field", "science_why")
 
 # Phrases we never want on the site (compared in lowercase).
 FORBIDDEN: tuple[str, ...] = ("heart of europe", "2000 mw", "kinetic trigger", "extremophile")

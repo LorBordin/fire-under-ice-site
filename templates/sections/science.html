@@ -1,6 +1,27 @@
 {% from "macros.html" import image, header %}
 <section id="science" class="reveal">
   {{ header(c.headings.science) }}
+  {% if c.get("science_why") %}
+  {% set why = c.science_why %}
+  <div class="why" id="why">
+    <h3><span class="kicker">{{ why.kicker | md }}</span> {{ why.title | md }}</h3>
+    <ul class="why-items">
+      {% for it in why["items"] %}
+      <li>
+        <strong>{% if it.topic is defined %}<a href="{{ root }}{{ it.topic }}/">{{ it.title | md }}</a>{% else %}{{ it.title | md }}{% endif %}</strong>
+        <span>{{ it.text | md }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if why.photos %}
+    <div class="why-photos">
+      {% for p in why.photos %}
+      <figure>{{ image(p.image, p.image_alt, sizes="(min-width: 48rem) 40vw, 100vw", root=root) }}</figure>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
   <ul class="cards">
     {% for s in c.science %}
     <li class="card">
