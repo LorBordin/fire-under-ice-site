@@ -70,7 +70,8 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.5}
 .stats li{display:flex;flex-direction:column;min-width:7rem}
 .stats strong{font-size:clamp(2rem,8vw,3.2rem);color:var(--ice);line-height:1;font-weight:700}
 .stats span{color:var(--muted);font-size:.9rem;margin-top:.4rem}
-.note{color:var(--muted);font-size:.9rem;margin-top:1.5rem}
+.note,.stats-note{color:var(--muted);font-size:.9rem;margin-top:1.5rem}
+.stats-note{margin-top:.8rem}
 
 /* Cards */
 .cards{display:grid;gap:2.5rem;margin-top:2.5rem}

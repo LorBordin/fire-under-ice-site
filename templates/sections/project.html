@@ -14,10 +14,20 @@
     {% endif %}
   </div>
   {% if c.project.stats is defined %}
+  {% set ns = namespace(n=0, notes=[]) %}
   <ul class="stats">
-    {% for s in c.project.stats %}<li><strong>{{ s.value | md }}</strong> <span>{{ s.label | md }}</span></li>
+    {% for s in c.project.stats %}
+    {%- set stars = "" -%}
+    {%- if s.note is defined -%}
+      {%- set ns.n = ns.n + 1 -%}
+      {%- set stars = "*" * ns.n -%}
+      {%- set ns.notes = ns.notes + [(stars, s.note)] -%}
+    {%- endif -%}
+    <li><strong>{{ s.value | md }}{{ stars }}</strong> <span>{{ s.label | md }}</span></li>
     {% endfor %}
   </ul>
+  {% for stars, note in ns.notes %}<p class="note stats-note">{{ stars }} {{ note | md }}</p>
+  {% endfor %}
   {% endif %}
   {% if c.project.note is defined %}<p class="note">{{ c.project.note | md }}</p>{% endif %}
 </section>

@@ -42,7 +42,9 @@ project:                                 # brochure p2-p3
     - {value: "2", label: volcanic systems explored}
     - {value: "13", label: cavers in 2026}
     - {value: "~1500 m", label: "Freyja Hellir, new in 2026"}
-    - {value: 1984–2026, label: survey record}
+    - value: 1984–2026
+      label: survey record
+      note: Surveys up to 2008 by Gérald Favre's Swiss team; ours start in 2025.
   note: 2026 fieldwork carried out under a research permit.
 
 headings:

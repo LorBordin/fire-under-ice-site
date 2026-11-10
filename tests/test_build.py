@@ -384,3 +384,14 @@ def test_viewer_touch_rules():
     assert re.search(r"\.viewer\{[^}]*touch-action:pan-y pinch-zoom", css)
     assert not re.search(r"\.viewer-figure img\{[^}]*touch-action:pan-y\b(?! pinch)", css)
     assert "pointercancel" in js and "isPrimary" in js
+
+
+def test_stat_note(site):
+    c = minimal_content()
+    c["project"]["stats"] = [
+        {"value": "1984–2026", "label": "survey record", "note": "Surveys up to 2008 by others."}
+    ]
+    write_content(site, c)
+    html = build_html(site)
+    assert "1984–2026*" in re.sub(r"<[^>]+>", "", html)
+    assert '<p class="note stats-note">* Surveys up to 2008 by others.</p>' in html
