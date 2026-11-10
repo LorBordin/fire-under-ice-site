@@ -9,6 +9,7 @@ from prepare_images import (
     FONT, gallery_jobs, logo, responsive, run_gallery, square, watermark,
 )
 from tests.test_places import place
+from tests.test_topics import topic
 
 # A generated stand-in for the brochure badge, so tests never need the brochure.
 badge = Image.new("RGBA", (216, 206), (0, 0, 0, 255))
@@ -166,3 +167,30 @@ def test_guide_jobs_examples_use_expedition_root():
     assert sources, "GUIDE.md should show a JOBS example"
     for s in sources:
         assert s.startswith(("brochure/", "photos/")), s
+
+
+def topic_content() -> dict:
+    return {"places": [place("torfa", 1)], "topics": [topic("microbiology", photo=True)]}
+
+
+def test_gallery_jobs_include_topics():
+    jobs = gallery_jobs(topic_content())
+    assert ("photos/science/microbiology_sample.JPG", "Cristian Monticone",
+            "img/places/microbiology/microbiology-sample") in jobs
+
+
+def test_run_gallery_keeps_topic_folder_and_removes_deleted_topic(tmp_path):
+    root, out = tmp_path / "root", tmp_path / "out"
+    make_source(root, (900, 600))
+    src = root / "photos/science/microbiology_sample.JPG"
+    src.parent.mkdir(parents=True)
+    Image.new("RGB", (900, 600), "gray").save(src)
+    content = topic_content()
+    content["places"][0]["photos"][0]["source"] = "photos/torfa/P1.JPG"
+    run_gallery(content, root, out, badge, FONT)
+    assert (out / "places/microbiology/microbiology-sample-800.webp").exists()
+    assert (out / "places/torfa/p1-800.webp").exists()
+    del content["topics"]
+    run_gallery(content, root, out, badge, FONT)
+    assert not (out / "places/microbiology").exists()
+    assert (out / "places/torfa/p1-800.webp").exists()

@@ -14,7 +14,7 @@ Job kinds:
   logo        PNG, 160 px high, transparency kept
   pdf         first page of a PDF, then responsive
   thumbnail   downloaded from YouTube, then responsive
-  gallery     place photos listed in content.yaml, watermarked, widths
+  gallery     place and topic photos listed in content.yaml, watermarked, widths
               400/800/1400/2000, written to static/img/places/<slug>/
 """
 import subprocess
@@ -247,12 +247,22 @@ def _check_glyphs(font: ImageFont.FreeTypeFont, text: str) -> None:
 
 
 def gallery_jobs(content: dict) -> list[tuple[str, str, str]]:
-    """(source, author, web image ref) for every place photo, in content order."""
-    return [
+    """(source, author, web image ref) for every place photo and topic chapter photo.
+
+    Topic photos are prepared whether or not the topic is reviewed yet.
+    """
+    jobs = [
         (ph["source"], ph["author"], gallery_ref(pl["slug"], ph["source"]))
-        for pl in content.get("places", [])
+        for pl in content.get("places") or []
         for ph in pl["photos"]
     ]
+    jobs += [
+        (ch["photo"]["source"], ch["photo"]["author"], gallery_ref(t["slug"], ch["photo"]["source"]))
+        for t in content.get("topics") or []
+        for ch in t["chapters"]
+        if ch.get("photo")
+    ]
+    return jobs
 
 
 def run_gallery(content: dict, root: Path, out_dir: Path,
@@ -260,8 +270,8 @@ def run_gallery(content: dict, root: Path, out_dir: Path,
     """Write the watermarked sets for all place photos; delete leftovers.
 
     Sources are read from `root`, outputs go under `out_dir` (static/img).
-    Files in places/<slug>/ that no photo produces, and folders of places no
-    longer in content.yaml, are removed so they are not committed or served.
+    Files in places/<slug>/ that no photo produces, and folders of places and
+    topics no longer in content.yaml, are removed so they are not committed or served.
     """
     written: list[Path] = []
     keep_old: list[Path] = []
@@ -279,7 +289,9 @@ def run_gallery(content: dict, root: Path, out_dir: Path,
             keep_old += out_stem.parent.glob(f"{out_stem.name}-*.webp")
     keep = set(written) | set(keep_old)
     places_dir = out_dir / "places"
-    slugs = {pl["slug"] for pl in content.get("places", [])}
+    slugs = {pl["slug"] for pl in content.get("places") or []} | {
+        t["slug"] for t in content.get("topics") or []
+    }
     if places_dir.is_dir():
         for folder in places_dir.iterdir():
             if not folder.is_dir():
