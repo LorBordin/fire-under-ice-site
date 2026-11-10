@@ -6,7 +6,8 @@
 # Formatting: *text* becomes italic. Everything else is shown as written.
 # Images: paths are relative to static/. No extension (img/p01-cover) means a
 # set of sizes made by prepare_images.py; with an extension it is one file.
-# Facts must come from the brochure (~/expeditions/Iceland/brochure/2027/pages).
+# Facts must come from the brochure (~/expeditions/Iceland/brochure/2027/pages),
+# the team documents (~/expeditions/Iceland/2026/docs) or cited literature (science pages).
 # If you don't know a value, write TODO: the build refuses to publish it.
 
 site:

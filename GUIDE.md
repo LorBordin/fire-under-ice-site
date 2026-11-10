@@ -28,6 +28,8 @@ static/     ──┘   (checks, then fills the templates)    (git push triggers
 | `make_model.py`, `geo.py` | Builds the interactive 3D model (`static/model/*.glb`) from the ODM OBJ, and prints the cave marker position | Only for a new model |
 | `static/vendor/` | `<model-viewer>` 4.0.0 (Google, Apache-2.0), the 3D viewer, kept here so no other server is contacted | No |
 | `build.py`, `sitelib.py` | The generator: load, validate, filter consent, render | No |
+| `review_copy.py` | Writes a plain-text copy of each science page for the reviewers (`uv run review_copy.py`) | Run it before sending a draft |
+| `docs/review/` | Output of `review_copy.py`, one `<slug>.md` per science page | No (the script writes it) |
 | `check_links.py` | Checks that external links (YouTube, TG5, …) still work | No, just run it |
 | `tests/` | Automatic checks of the generator (`uv run pytest`) | No |
 | `.github/workflows/deploy.yml` | Instructions for GitHub: test, build, publish on every push | No |
@@ -50,6 +52,7 @@ Run these in `~/expeditions/Iceland/website`.
 | `uv run python -m http.server -d _site 8000` | Preview at <http://localhost:8000> (Ctrl+C to stop) |
 | `uv run pytest` | Run the automatic checks |
 | `uv run prepare_images.py` | Regenerate web images: brochure originals (`JOBS`) and place galleries |
+| `uv run review_copy.py` | Write `docs/review/<slug>.md` for every science page |
 | `uv run check_links.py` | Check external links (some sites block robots: open those by hand) |
 | `uv run --group assets make_model.py` | Rebuild the 3D model (~30 s; installs pymeshlab the first time). Paste the printed `model_marker` into `content.yaml` |
 | `git status` | What changed since the last commit |
@@ -82,7 +85,7 @@ Commit message prefixes, by convention: `content:` text changes, `feat:` new fea
    Check each photo for rival-brand logos if a sponsor's gear is in the season.
    Place gallery photos are not in `JOBS`: see "Adding a photo to a place" below.
 2. **Text.** Edit `content.yaml`: the new year in `years:`, figures in `project.stats`, new articles and talks in `press:`.
-   Facts come from the brochure or from you, never guessed; unknown means `TODO` until you know.
+   Facts come from the brochure, the team documents, cited literature (science pages) or from you, never guessed; unknown means `TODO` until you know.
 3. **People.** New team members: add them with `consent: false`, switch to `true` once they agree. Each needs a
    `role:` (their job in the expedition, shown in red) and a `line:` (short bio). Team photos go through
    the `square` job in `prepare_images.py` (400×400).
@@ -134,6 +137,31 @@ Each place in `places:` (in `content.yaml`) has a gallery on its own page. Every
 - **A photo replaced elsewhere moves into its place's gallery.** If a photo leaves a background or a section picture (for example a home-page section photo), it goes into its place's gallery, never just deleted. Section photos are clean; their gallery copies carry the watermark.
 
 **Open item.** Five gallery photos are still read from the brochure's cropped copies: `p01-cover`, `p05-recon`, `p06-lake`, `p08-cauldron`, `p08-sala-rosa`. When the full-size originals are available: copy each into `~/expeditions/Iceland/photos/<place>/`, change its `source:` line to the copy, and rerun `uv run prepare_images.py`.
+
+### Science pages
+
+The science pages (e.g. `/microbiology/`, `/analogues/`) are the `topics:` list in `content.yaml`. Each topic has a title, a short teaser, an intro, chapters (a heading, paragraphs, optionally one photo) and references. A reviewer's name goes in `reviewers:`.
+
+**Other text keys worth knowing** (all in `content.yaml`):
+
+- `science_why`: the "Why research here" block above the Science cards. An item with `topic: <slug>` links to that science page, but only once the page is published; before that it is plain text.
+- `press.photos`: the photos shown in the press section.
+- `press.articles[].status`: optional, e.g. `status: in press`, printed next to the article.
+- `partners[].patron_2027: true` marks a partner as a 2027 patron. `headings.partners.patron_note` is the line shown with them ("Patronage being sought for 2027").
+- `project.stats[].note`: optional small footnote under a figure.
+
+**Review flow**
+
+1. Write or edit the topic in `content.yaml`. Leave `reviewed: false`.
+2. Run `uv run review_copy.py`. It writes `docs/review/<slug>.md`.
+3. Send that file to the people named in the topic's `reviewers:` line.
+4. Put their corrections into `content.yaml` and repeat until they are happy.
+
+**Publish.** When the reviewers agree, set `reviewed: true` (exactly that; quoted `"true"`, `yes` or a typo keeps the page hidden). Then build, check, commit and push (section 3). Until then the page does not exist on the site: no page, no Research menu link, no card on the home page. The Research menu link and the home cards appear only for published pages.
+
+**Drafts.** A draft may contain `TODO`; it never blocks the build. But forbidden phrases such as "extremophile" are refused even in a draft. Write "thermophiles", "acidophiles" or "psychrophiles" instead.
+
+**Photos.** A draft's photos are made by `uv run prepare_images.py`, like gallery photos (original in `~/expeditions/Iceland/photos/science/`, `source:` relative to `~/expeditions/Iceland/`). They carry the same watermark.
 
 ### Adding a sponsor
 
