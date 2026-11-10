@@ -35,7 +35,7 @@ h3{font-size:1.2rem;font-weight:600;color:var(--text);margin-bottom:.4em}
 .intro{font-size:1.2rem;color:var(--muted);max-width:65ch}
 
 /* Sections */
-main>section:not(.hero){padding:clamp(3.5rem,10vw,7rem) var(--gutter);max-width:76rem;margin:0 auto}
+main>section:not(.hero),main>article.topic{padding:clamp(3.5rem,10vw,7rem) var(--gutter);max-width:76rem;margin:0 auto}
 section>p,.project-text,.csi p{max-width:65ch}
 
 /* Nav */
