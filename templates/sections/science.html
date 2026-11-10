@@ -34,7 +34,7 @@
   {% if c.get("topics") %}
   <div class="topic-cards" id="research">
     {% for t in c.topics %}
-    {%- set first = t.chapters | selectattr("photo", "defined") | map(attribute="photo") | first %}
+    {%- set first = t.chapters | selectattr("photo", "defined") | map(attribute="photo") | first | default(none) %}
     <article class="topic-card">
       {% if first %}<a class="topic-card-link" href="{{ root }}{{ t.slug }}/" tabindex="-1" aria-hidden="true">{{ image(gallery_ref(t.slug, first.source), first.alt, sizes="(min-width: 48rem) 50vw, 100vw", root=root) }}</a>{% endif %}
       <p class="kicker">{{ t.kicker | md }}</p>

@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% from "macros.html" import image %}
-{%- set first = topic.chapters | selectattr("photo", "defined") | map(attribute="photo") | first %}
+{%- set first = topic.chapters | selectattr("photo", "defined") | map(attribute="photo") | first | default(none) %}
 {% block title %}{{ topic.title }} · {{ c.site.title }}{% endblock %}
 {% block description %}{{ topic.teaser }}{% endblock %}
-{% if first %}{% block og_image %}{{ img(gallery_ref(topic.slug, first.source)).src }}{% endblock %}{% endif %}
+{% block og_image %}{% if first %}{{ img(gallery_ref(topic.slug, first.source)).src }}{% else %}{{ super() }}{% endif %}{% endblock %}
 {% block main %}
 <article class="topic" id="top">
   <p class="kicker">{{ topic.kicker | md }}</p>

@@ -564,3 +564,25 @@ def test_topic_reference_links(real_site):
     html = (out / "microbiology" / "index.html").read_text(encoding="utf-8")
     assert '<a href="https://doi.org/10.1/x" rel="noopener">' in html
     assert "Plain ref." in html
+
+
+def test_topic_without_photos_builds(real_site):
+    write_topics_site(real_site, topic("microbiology", True, photo=False))
+    out = real_site / "_site"
+    assert build(real_site, out) == 0
+    page = out / "microbiology" / "index.html"
+    assert page.is_file()
+    home = (out / "index.html").read_text(encoding="utf-8")
+    card = home[home.index('class="topic-card"'):]
+    card = card[:card.index("</article>")]
+    assert "<img" not in card and "Microbiology title" in card
+    og = re.compile(r'<meta property="og:image" content="([^"]*)"')
+    assert og.search(page.read_text(encoding="utf-8")).group(1) == og.search(home).group(1)
+
+
+def test_topic_og_image_is_first_chapter_photo(site_with_topics):
+    out = site_with_topics / "_site"
+    assert build(site_with_topics, out) == 0
+    html = (out / "microbiology" / "index.html").read_text(encoding="utf-8")
+    m = re.search(r'<meta property="og:image" content="([^"]*)"', html)
+    assert "/static/img/" in m.group(1) and "microbiology" in m.group(1)
