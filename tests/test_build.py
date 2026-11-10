@@ -461,7 +461,7 @@ def test_science_why_block(site):
     html = build_html(site)
     assert 'id="why"' in html
     assert "Ice and volcanoes" in html and "Other worlds" in html
-    assert 'href="analogues/"' in html
+    assert 'href="analogues/"' not in html  # no published topic: plain text (see test_why_link_only_when_published)
     assert 'alt="Gloved hands"' in html
     footer = html[html.index('class="site-footer"'):]
     assert "Cristian Monticone" in footer

@@ -54,10 +54,15 @@ REQUIRED: dict[str, list[str]] = {
     "places": ["slug", "name", "years", "teaser", "intro", "photos"],
     "places.photos": ["source", "author", "caption", "alt"],
     "field": ["title", "text", "image", "image_alt", "credit"],
+    # Science pages (one each); shown only when reviewed: true.
+    "topics": ["slug", "kicker", "title", "teaser", "intro", "chapters", "references", "reviewers"],
+    "topics.chapters": ["heading", "paragraphs"],
+    "topics.chapters.photo": ["source", "author", "caption", "alt"],
+    "topics.references": ["text"],
 }
 
 # Sections that may be absent or empty (an empty list is how "no sponsors yet" is written).
-OPTIONAL_SECTIONS = ("sponsors", "places", "field", "science_why")
+OPTIONAL_SECTIONS = ("sponsors", "places", "field", "science_why", "topics")
 
 # Phrases we never want on the site (compared in lowercase).
 FORBIDDEN: tuple[str, ...] = ("heart of europe", "2000 mw", "kinetic trigger", "extremophile")
@@ -206,7 +211,7 @@ def validate(content: dict, static_dir: Path) -> list[str]:
                     errors.append(f"{path}.{key}: missing")
 
     # 2. Walk the whole tree for TODO, forbidden phrases, images and alts.
-    def walk(node: Any, path: str) -> None:
+    def walk(node: Any, path: str, todo: bool = True) -> None:
         if isinstance(node, dict):
             for key, value in node.items():
                 child = f"{path}.{key}" if path else str(key)
@@ -214,12 +219,14 @@ def validate(content: dict, static_dir: Path) -> list[str]:
                     check_image(node, key, value, child, path)
                 if key in FILE_KEYS and isinstance(value, str) and not (static_dir / value).is_file():
                     errors.append(f"{child}: file not found: {value}")
-                walk(value, child)
+                walk(value, child, todo)
         elif isinstance(node, list):
             for i, value in enumerate(node):
-                walk(value, f"{path}[{i}]")
+                # Draft topics may still hold TODO notes; only reviewed ones must not.
+                item_todo = (value.get("reviewed") is True) if path == "topics" and isinstance(value, dict) else todo
+                walk(value, f"{path}[{i}]", item_todo)
         elif isinstance(node, str):
-            if "TODO" in node:
+            if todo and "TODO" in node:
                 errors.append(f"{path}: contains TODO")
             lowered = node.lower()
             for phrase in FORBIDDEN:
@@ -240,15 +247,35 @@ def validate(content: dict, static_dir: Path) -> list[str]:
             errors.append(f"{parent + '.' if parent else ''}{alt_key}: missing")
 
     walk(content, "")
-    errors += _validate_places(content, static_dir)
+    place_errors, place_refs = _validate_places(content, static_dir)
+    topic_errors, topic_refs = _validate_topics(content, static_dir)
+    errors += place_errors + topic_errors
+    errors += _unused_gallery_files(static_dir, place_refs | topic_refs)
 
     # The same problem can be found twice (e.g. a missing alt is both
     # "required" and "alt text"); keep the first of each, in order.
     return list(dict.fromkeys(errors))
 
 
-def _validate_places(content: dict, static_dir: Path) -> list[str]:
-    """Rules for places and field that the generic checks above cannot express."""
+def _check_slug(path: str, slug: Any, seen: set[str]) -> list[str]:
+    """Slug rules shared by places and topics; adds a good slug to `seen`."""
+    errors: list[str] = []
+    if isinstance(slug, str) and slug:
+        if not SLUG_RE.match(slug):
+            errors.append(f"{path}: use lowercase letters, digits and hyphens only: {slug}")
+        elif slug in RESERVED_SLUGS:
+            errors.append(f"{path}: reserved name: {slug}")
+        elif slug in seen:
+            errors.append(f"{path}: used twice: {slug}")
+        seen.add(slug)
+    return errors
+
+
+def _validate_places(content: dict, static_dir: Path) -> tuple[list[str], set[str]]:
+    """Rules for places and field that the generic checks above cannot express.
+
+    Returns (errors, gallery image refs in use).
+    """
     errors: list[str] = []
     headings = content.get("headings") or {}
     for section in ("places", "field"):
@@ -262,14 +289,7 @@ def _validate_places(content: dict, static_dir: Path) -> list[str]:
         if not isinstance(pl, dict):
             continue
         slug = pl.get("slug")
-        if isinstance(slug, str) and slug:
-            if not SLUG_RE.match(slug):
-                errors.append(f"places[{i}].slug: use lowercase letters, digits and hyphens only: {slug}")
-            elif slug in RESERVED_SLUGS:
-                errors.append(f"places[{i}].slug: reserved name: {slug}")
-            elif slug in seen_slugs:
-                errors.append(f"places[{i}].slug: used twice: {slug}")
-            seen_slugs.add(slug)
+        errors += _check_slug(f"places[{i}].slug", slug, seen_slugs)
         photos = [p for p in (pl.get("photos") or []) if isinstance(p, dict)]
         if not photos:
             continue
@@ -311,8 +331,54 @@ def _validate_places(content: dict, static_dir: Path) -> list[str]:
                     f"places[{i}].photos[{j}]: image not found: {ref} (run uv run prepare_images.py)"
                 )
             used_refs.add(ref)
-    errors += _unused_gallery_files(static_dir, used_refs)
-    return errors
+    return errors, used_refs
+
+
+def _validate_topics(content: dict, static_dir: Path) -> tuple[list[str], set[str]]:
+    """Slugs and chapter photos of topics. Returns (errors, gallery image refs in use).
+
+    Drafts (reviewed not true) are checked too, so their images are never
+    reported as unused and the build never fails on a draft later.
+    """
+    errors: list[str] = []
+    used_refs: set[str] = set()
+    place_slugs = {pl.get("slug") for pl in content.get("places") or [] if isinstance(pl, dict)}
+    seen_slugs: set[str] = set()
+    for i, t in enumerate(content.get("topics") or []):
+        if not isinstance(t, dict):
+            continue
+        slug = t.get("slug")
+        errors += _check_slug(f"topics[{i}].slug", slug, seen_slugs)
+        if isinstance(slug, str) and slug in place_slugs:
+            errors.append(f"topics[{i}].slug: same as a place: {slug}")
+        if not (isinstance(slug, str) and SLUG_RE.match(slug)):
+            continue
+        stems: dict[str, str] = {}
+        for j, ch in enumerate(c for c in (t.get("chapters") or [])):
+            ph = ch.get("photo") if isinstance(ch, dict) else None
+            if not isinstance(ph, dict):
+                continue
+            source = ph.get("source")
+            if not isinstance(source, str) or not source:
+                continue
+            where = f"topics[{i}].chapters[{j}].photo"
+            if not slugify(Path(source).stem):
+                errors.append(
+                    f"{where}.source: the file name gives an empty image name; "
+                    "rename the original with some letters or digits"
+                )
+                continue
+            ref = gallery_ref(slug, source)
+            if ref in stems:
+                errors.append(f"{where}: same image name as {stems[ref]} ({Path(ref).name}); rename one source file")
+                continue
+            stems[ref] = where
+            try:
+                image_info(static_dir, ref)
+            except FileNotFoundError:
+                errors.append(f"{where}: image not found: {ref} (run uv run prepare_images.py)")
+            used_refs.add(ref)
+    return errors, used_refs
 
 
 def _unused_gallery_files(static_dir: Path, used_refs: set[str]) -> list[str]:
@@ -360,6 +426,18 @@ def filter_consented(content: dict) -> tuple[dict, list[str]]:
     out["team"] = [g for g in groups if g["members"]]  # drop empty groups
     out["partners"] = keep(out.get("partners") or [])
     out["sponsors"] = keep(out.get("sponsors") or [])
+
+    # Topics need reviewed: true. Links from "Why research here" to a topic that
+    # is hidden (or does not exist) are removed, so no dead link is rendered.
+    topics = out.get("topics") or []
+    for t in topics:
+        if t.get("reviewed") is not True:
+            skipped.append(f"topic:{t.get('slug', '?')}")
+    out["topics"] = [t for t in topics if t.get("reviewed") is True]
+    published = {t.get("slug") for t in out["topics"]}
+    for item in (out.get("science_why") or {}).get("items") or []:
+        if item.get("topic") not in published:
+            item.pop("topic", None)
     return out, skipped
 
 
