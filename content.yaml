@@ -181,7 +181,6 @@ places:
         author: Andrea Benassi
         caption: Sala del Graal, Freyja Hellir, July 2026.
         alt: Two cavers on a dark mound under a scalloped ice ceiling, orange mineral crust below.
-        cover: true
       - source: photos/torfa/P7110909.JPG
         author: Andrea Benassi
         caption: Sala del Graal, Freyja Hellir, July 2026.
@@ -204,6 +203,27 @@ places:
         caption: Thermal camera inside a cave, Torfa caldera, 2026.
         alt: A hand holds a thermal camera whose screen shows a warm stream in rainbow colours, inside an ice cave.
         featured: true
+      - source: photos/torfa/torfa_entrance_andrea.jpg
+        author: Cristian Monticone
+        caption: Entrance, Freyja Hellir, July 2026.
+        alt: A caver stands small at the bottom of a tall ice passage whose ceiling glows turquoise.
+        cover: true
+      - source: photos/torfa/ingresso_torfa_jerba.jpg
+        author: Andrea Benassi
+        caption: Entrance gallery, Freyja Hellir, July 2026.
+        alt: A caver with a headlamp climbs dark ground under a ribbed ice tunnel that opens to daylight.
+      - source: photos/torfa/sala_graal.jpg
+        author: Andrea Benassi
+        caption: Sala del Graal, Freyja Hellir, July 2026.
+        alt: Two cavers, in yellow and red, on a dark mound under a vast scalloped ice ceiling, an orange stream below.
+      - source: photos/torfa/waterfall_torfa_cave.JPG
+        author: Andrea Benassi
+        caption: Waterfall inside the ice, Freyja Hellir, July 2026.
+        alt: Water falls from a hole in a scalloped ice ceiling onto rocks where two cavers crouch with lights.
+      - source: photos/torfa/torfa_final_stream.JPG
+        author: Cristian Monticone
+        caption: A stream through the ice, Freyja Hellir, July 2026.
+        alt: A caver in yellow walks beside a stream along a long round ice tunnel, orange sediment on the right.
 
   - slug: kverkfjoll                     # brochure p5, p6
     name: Kverkfjöll
@@ -265,9 +285,12 @@ places:
         author: Maria F. Trombini
         caption: Blue ice, Kverkfjöll, July 2026.
         alt: The silhouette of a caver against glowing blue ice.
+      - source: photos/kverkfjoll/lazzaro_mask_calderone.JPG
+        author: Andrea Benassi
+        caption: A boiling vent in a cauldron, Kverkfjöll, July 2026.
+        alt: A caver in a helmet and respirator points at a boiling vent in thick steam.
 
 # In the field: what the conditions demand (brochure p12 variants).
-# The gas text is from the page owned by Mattia Gerbaudo: publish only once he agrees.
 field:
   - title: Rivers
     text: Gear carried on foot for days, through glacial rivers.
@@ -276,16 +299,18 @@ field:
     credit: Paolo Testa
   - title: Rotten ice
     text: Anchors in poor ice and firn have to hold.
-    image: img/field-rope
-    image_alt: A caver on a rope at an ice wall above red ground.
-    credit: Andrea Benassi
+    image: img/field-descent
+    image_alt: A caver hangs on a rope inside a deep shaft in white glacier ice.
+    credit: Lorenzo Bordin
   - title: Air you cannot trust
     text: >-
       Cavities under the ice trap CO₂, H₂S and SO₂. In Freyja Hellir the
-      detector alarmed at 5 % CO₂ and we turned back. Respirators are only a
-      safety layer: any alarm, we leave.
+      detector alarmed at 5 % CO₂, above the 4 % NIOSH lists as immediately
+      dangerous, and we turned back. We monitor gas continuously. Full-face
+      respirators with ABEKP filters are a safety layer only: they do not stop
+      CO₂, CO or low oxygen. Any alarm, we leave.
     image: img/field-gas
-    image_alt: A caver in a full-face respirator beside steam and an ice wall.
+    image_alt: A caver in a helmet and respirator points at a boiling vent in thick steam.
     credit: Andrea Benassi
   - title: Heat
     text: Water from 0.2 to 59.4 °C, ground up to 47 °C.
