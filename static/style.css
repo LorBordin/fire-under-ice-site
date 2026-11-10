@@ -187,7 +187,9 @@ model-viewer.model-view{display:block;width:100%;height:auto;max-width:70rem;asp
 #partners h3{margin-top:2.5rem;color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.15em}
 .logos{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
 #partners h3+.logos{margin-top:1rem}
-.logos li{background:var(--tile);border-radius:.6rem;height:72px;padding:8px 14px;display:flex;align-items:center;justify-content:center}
+.logos li{position:relative;background:var(--tile);border-radius:.6rem;height:72px;padding:8px 14px;display:flex;align-items:center;justify-content:center}
+.patron-star{position:absolute;top:.2rem;left:.45rem;color:var(--magma);font-size:.9rem;line-height:1}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .logos a{display:flex;align-items:center;height:100%}
 .logos img{flex:none;height:56px;width:auto;max-width:9rem;object-fit:contain}
 

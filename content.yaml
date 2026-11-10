@@ -76,6 +76,7 @@ headings:
   partners:                              # brochure p14
     kicker: Partners
     title: Who backs us
+    patron_note: Patronage being sought for 2027
   contact:                               # brochure p16
     kicker: Contact
     title: Write to us
@@ -464,11 +465,11 @@ press:                                   # brochure p14
 
 # Partners and sponsors: shown only with `consent: true`.
 partners:                                # brochure p14
-  - {name: Società Speleologica Italiana, logo: img/logos/ssi.png, consent: true}
-  - {name: Regione Friuli Venezia Giulia, logo: img/logos/fvg.png, consent: true}
-  - {name: Club Alpino Italiano, logo: img/logos/cai_logo.png, consent: true}
-  - {name: Società Geografica Italiana, logo: img/logos/soc_geo_logo_crop.png, consent: true}
-  - {name: Università di Milano-Bicocca, logo: img/logos/bicocca_logo.png, consent: true}
+  - {name: Società Speleologica Italiana, logo: img/logos/ssi.png, consent: true, patron_2027: true}
+  - {name: Regione Friuli Venezia Giulia, logo: img/logos/fvg.png, consent: true, patron_2027: true}
+  - {name: Club Alpino Italiano, logo: img/logos/cai_logo.png, consent: true, patron_2027: true}
+  - {name: Società Geografica Italiana, logo: img/logos/soc_geo_logo_crop.png, consent: true, patron_2027: true}
+  - {name: Università di Milano-Bicocca, logo: img/logos/bicocca_logo.png, consent: true, patron_2027: true}
   - {name: Gaibana, logo: img/logos/gaibana_logo.png, consent: true}
 
 sponsors: []                             # 2027 sponsors, once confirmed

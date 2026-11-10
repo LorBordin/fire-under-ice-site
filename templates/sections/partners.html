@@ -3,6 +3,7 @@
 <ul class="logos">
   {% for p in items %}
   <li>
+    {% if p.patron_2027 is sameas true %}<span class="patron-star" aria-hidden="true">★</span><span class="visually-hidden">(patronage being sought for 2027)</span>{% endif %}
     {% if p.url is defined %}<a href="{{ p.url }}" rel="noopener">{{ image(p.logo, p.name, sizes="160px") }}</a>
     {% else %}{{ image(p.logo, p.name, sizes="160px") }}{% endif %}
   </li>
@@ -12,6 +13,9 @@
 <section id="partners" class="reveal">
   {{ header(c.headings.partners) }}
   {{ logos(c.partners) }}
+  {% if c.headings.partners.patron_note is defined and c.partners | selectattr("patron_2027", "sameas", true) | list %}
+  <p class="note">★ {{ c.headings.partners.patron_note | md }}</p>
+  {% endif %}
   {% if c.sponsors %}
   <h3>Sponsors</h3>
   {{ logos(c.sponsors) }}

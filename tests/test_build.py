@@ -416,3 +416,27 @@ def test_press_photos(site):
     assert "Costacciaro." in section and "Paolo Testa" in section
     footer = html[html.index('class="site-footer"'):]
     assert "Paolo Testa" in footer
+
+
+def _patron_content(flag):
+    c = minimal_content()
+    c["partners"] = [
+        {"name": "Partner One", "logo": "img/logo.png", "consent": True, "patron_2027": flag},
+        {"name": "Partner Two", "logo": "img/logo.png", "consent": True},
+    ]
+    c["headings"]["partners"]["patron_note"] = "Patronage being sought for 2027"
+    return c
+
+
+def test_patron_star(site):
+    write_content(site, _patron_content(True))
+    html = build_html(site)
+    assert html.count('class="patron-star"') == 1
+    assert "Patronage being sought for 2027" in html
+
+
+def test_patron_star_exactly_true(site):
+    write_content(site, _patron_content("true"))
+    html = build_html(site)
+    assert 'class="patron-star"' not in html
+    assert "Patronage being sought" not in html
