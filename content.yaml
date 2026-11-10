@@ -534,13 +534,15 @@ topics:
     kicker: Science
     title: Life without light
     teaser: >-
-      No sunlight reaches the floor of a glaciovolcanic cave. Microbes live
-      there on chemistry. In 2026 we sampled them in every cave we explored.
+      No sunlight reaches the floor of a glaciovolcanic cave, yet microbes
+      live there. In 2026 we sampled them at many sites, to learn how.
     intro:
       - >-
         Under the ice, nothing can live on sunlight. Yet where volcanic heat and
-        gas reach the cave floor, microbes live on chemical energy. In 2026 we
-        sampled them at Kverkfjöll and in the Torfa caldera [1].
+        gas reach the cave floor we found microbial mats and biofilms [1], and
+        in places like these life can run on chemical energy instead [2]. In
+        2026 we sampled them at many sites, at Kverkfjöll and in the Torfa
+        caldera [1].
       - >-
         Why these places matter to microbiologists, what we collected, and what
         happens to the samples now.
@@ -559,17 +561,18 @@ topics:
             hydrogen sulfide, and some build their bodies from CO₂. This way of
             life is called chemolithoautotrophy [2, 4].
           - >-
-            In our caves the range is extreme within a few metres. The air stays
+            In our caves the range is extreme. The air stays
             at 1–4 °C, next to ice at melting point, while the ground at the
             fumarole vents reached 94.5 °C, boiling point at about 1700 m. Our
             gas detectors found hydrogen, methane, hydrogen sulfide and carbon
             dioxide. Heat-loving (thermophilic), acid-loving (acidophilic) and
             cold-loving (psychrophilic) microbes can live side by side [1].
           - >-
-            Sulfur-rich glaciovolcanic caves are rare. Only one comparable system
-            has been studied in detail: the fumarole ice cave on Mount Meager,
-            Canada, where microbes that oxidise sulfur and microbes that reduce
-            sulfate point to life on chemical energy [4]. At Kverkfjöll itself, a
+            Sulfur-rich glaciovolcanic caves are rare. One of the few studied in
+            detail is the fumarole ice cave on Mount Meager, Canada, the only
+            known glaciovolcanic cave system in North America that steadily
+            releases sulfur-rich gases. There, microbes that oxidise sulfur and
+            microbes that reduce sulfate point to life on chemical energy [4]. At Kverkfjöll itself, a
             hot spring fed by the ice hosts communities that live on volcanic
             sulfur [5].
         photo:
@@ -584,7 +587,9 @@ topics:
             caves. We took sediment in triplicate at increasing distances from
             the vents, following the drop in temperature; sediment from the rims
             of boiling pools; biofilm from ice walls in well-ventilated spots;
-            and hot water from a large pool fed by a methane-rich fumarole [1].
+            and hot water from a large pool fed by a methane-rich fumarole. This
+            material was collected with the agreement of Vatnajökull National
+            Park [1].
           - >-
             At the bottom of the Encelado cauldron, a spring at about 74 °C, with
             a flow of many litres per second, melts a lake under the glacier. We
@@ -596,9 +601,6 @@ topics:
             rich in hydrogen sulfide, we sampled snottites: jelly-like microbial
             colonies that hang like small stalactites. Along a thermal stream we
             sampled filamentous communities [1].
-          - >-
-            The biological material was collected with the agreement of
-            Vatnajökull National Park [1].
         photo:
           source: photos/science/sampling_1.JPG
           author: Cristian Monticone
@@ -612,11 +614,11 @@ topics:
             microbiologist at the University of Milano-Bicocca. In the team,
             sampling is led by Paolo Turrini, PhD in microbiology [1].
           - >-
-            Why it matters. Microbes that live at such extremes may resemble early
-            life on Earth, so they help with questions about its origin. They are
-            candidate analogues in the search for life elsewhere (see *Other
-            worlds on Earth*). And enzymes that keep working in heat, acid or cold
-            are useful in biotechnology [1].
+            Why it matters. Life that runs on chemistry in the dark, where ice
+            meets volcanic heat, is a model for habitats that may once have
+            existed on Mars [6]. Microbes adapted to heat, acid or cold may also
+            resemble early life on Earth, and their enzymes, which keep working
+            in such conditions, interest biotechnology [1].
         photo:
           source: photos/science/sampling_2.jpg
           author: Cristian Monticone
@@ -627,7 +629,9 @@ topics:
           - >-
             TODO (Paolo Turrini): sampling plans for 2027 on Torfajökull (sites,
             what will be sampled, and how), and any first results from the 2026
-            samples that can be shared.
+            samples that can be shared. Also: which permit covered the Torfa
+            samples, and a literature reference for early life and
+            biotechnology in "What comes next".
     references:
       - text: "Consorzio Speleologi Ipogenici (2026). Vatnajökull 2026 – Fire Under Ice: notes on the expedition. Report to the Società Geografica Italiana, unpublished."
       - text: "Tebo, B. M., Davis, R. E., Anitori, R. P., Connell, L. B., Schiffman, P., & Staudigel, H. (2015). Microbial communities in dark oligotrophic volcanic ice cave ecosystems of Mt. Erebus, Antarctica. *Frontiers in Microbiology*, 6, 179."
@@ -638,6 +642,8 @@ topics:
         url: https://doi.org/10.3389/fgeoc.2024.1410338
       - text: "Cousins, C. R., Fogel, M., Bowden, R., et al. (2018). Biogeochemical probing of microbial communities in a basalt-hosted hot spring at Kverkfjöll volcano, Iceland. *Geobiology*, 16(5), 507–521."
         url: https://doi.org/10.1111/gbi.12291
+      - text: "Cousins, C. R., & Crawford, I. A. (2011). Volcano-ice interaction as a microbial habitat on Earth and Mars. *Astrobiology*, 11(7), 695–710."
+        url: https://doi.org/10.1089/ast.2010.0550
     reviewers: Paolo Turrini, then Prof. Andrea Franzetti
     reviewed: false
 
@@ -658,13 +664,14 @@ topics:
       - heading: Ice over heat, elsewhere
         paragraphs:
           - >-
-            Enceladus, a small moon of Saturn, has an ocean under its ice. Flying
-            through the plume that jets from its south pole, the Cassini
-            spacecraft found tiny grains of silica that point to hydrothermal
-            reactions above 90 °C on the ocean floor [1], and molecular hydrogen,
-            a sign that water is reacting with rock, as around hydrothermal vents
-            on Earth [2]. Ice grains from the plume also carry phosphates, at
-            concentrations at least 100 times those of Earth's oceans [3].
+            Enceladus, a small moon of Saturn, has an ocean under its ice. The
+            Cassini spacecraft detected tiny grains of silica, traced back to
+            Enceladus, that point to hydrothermal reactions above 90 °C on the
+            ocean floor [1]. Flying through the plume that jets from the moon's
+            south pole, it found molecular hydrogen, a sign that water is
+            reacting with rock, as around hydrothermal vents on Earth [2]. Ice
+            grains from the plume carry phosphates too: the ocean water holds at
+            least 100 times more phosphorus than Earth's oceans [3].
           - >-
             The *Encelado* cauldron at Kverkfjöll takes its name from this moon:
             a steaming pit in the glacier with a hot spring at its bottom.
@@ -672,10 +679,10 @@ topics:
             Jupiter's moon Europa gives strong evidence of an ocean too: the
             Galileo spacecraft measured a magnetic signal that changes the way a
             buried, electrically conducting ocean would make it change [4]. On
-            Mars there is widespread evidence that volcanoes and ice met in the
-            past. Volcano–ice interaction makes liquid water and steep gradients
-            of heat and chemistry, so it may once have offered habitats for
-            life [5].
+            Mars there is widespread evidence of possible volcano–ice
+            interaction in the past. Where volcanoes and ice meet, they make
+            liquid water and steep gradients of heat and chemistry, so on Mars
+            they may once have offered habitats for life [5].
         photo:
           source: photos/kverkfjoll/P7161033.JPG
           author: Andrea Benassi
@@ -691,9 +698,10 @@ topics:
           - >-
             Minerals carry over too. At Kverkfjöll and Askja, hot water altering
             basalt under the ice leaves minerals similar to those found on Mars;
-            knowing how they form here helps recognise them there [7]. Gas rising
-            through the ice may carry traces of life up to the surface, where a
-            spacecraft could one day sample them [8].
+            knowing how they form here helps recognise them there [7]. On icy
+            moons, activity under the ice may carry traces of life from below and
+            leave them on the surface ice, as proposed for the sulfur-rich cave
+            on Mount Meager [8].
           - >-
             What does not carry over: our caves breathe Earth's atmosphere, with
             its oxygen, pressure and gravity. They are shielded from the

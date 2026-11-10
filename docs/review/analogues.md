@@ -6,11 +6,11 @@ Some moons of the outer Solar System hide oceans under their ice, warmed from be
 
 ## Ice over heat, elsewhere
 
-Enceladus, a small moon of Saturn, has an ocean under its ice. Flying through the plume that jets from its south pole, the Cassini spacecraft found tiny grains of silica that point to hydrothermal reactions above 90 °C on the ocean floor [1], and molecular hydrogen, a sign that water is reacting with rock, as around hydrothermal vents on Earth [2]. Ice grains from the plume also carry phosphates, at concentrations at least 100 times those of Earth's oceans [3].
+Enceladus, a small moon of Saturn, has an ocean under its ice. The Cassini spacecraft detected tiny grains of silica, traced back to Enceladus, that point to hydrothermal reactions above 90 °C on the ocean floor [1]. Flying through the plume that jets from the moon's south pole, it found molecular hydrogen, a sign that water is reacting with rock, as around hydrothermal vents on Earth [2]. Ice grains from the plume carry phosphates too: the ocean water holds at least 100 times more phosphorus than Earth's oceans [3].
 
 The *Encelado* cauldron at Kverkfjöll takes its name from this moon: a steaming pit in the glacier with a hot spring at its bottom.
 
-Jupiter's moon Europa gives strong evidence of an ocean too: the Galileo spacecraft measured a magnetic signal that changes the way a buried, electrically conducting ocean would make it change [4]. On Mars there is widespread evidence that volcanoes and ice met in the past. Volcano–ice interaction makes liquid water and steep gradients of heat and chemistry, so it may once have offered habitats for life [5].
+Jupiter's moon Europa gives strong evidence of an ocean too: the Galileo spacecraft measured a magnetic signal that changes the way a buried, electrically conducting ocean would make it change [4]. On Mars there is widespread evidence of possible volcano–ice interaction in the past. Where volcanoes and ice meet, they make liquid water and steep gradients of heat and chemistry, so on Mars they may once have offered habitats for life [5].
 
 [Photo: The Encelado cauldron, Kverkfjöll, July 2026. © Andrea Benassi]
 
@@ -18,7 +18,7 @@ Jupiter's moon Europa gives strong evidence of an ocean too: the Galileo spacecr
 
 What carries over: darkness, cold ice, liquid water made by heat from below, and energy from chemistry rather than light. Microbes that live this way on Earth show what kind of life could live that way elsewhere [5, 6].
 
-Minerals carry over too. At Kverkfjöll and Askja, hot water altering basalt under the ice leaves minerals similar to those found on Mars; knowing how they form here helps recognise them there [7]. Gas rising through the ice may carry traces of life up to the surface, where a spacecraft could one day sample them [8].
+Minerals carry over too. At Kverkfjöll and Askja, hot water altering basalt under the ice leaves minerals similar to those found on Mars; knowing how they form here helps recognise them there [7]. On icy moons, activity under the ice may carry traces of life from below and leave them on the surface ice, as proposed for the sulfur-rich cave on Mount Meager [8].
 
 What does not carry over: our caves breathe Earth's atmosphere, with its oxygen, pressure and gravity. They are shielded from the radiation that hits icy moons, and they exchange air and microbes with the surface, visitors included [9]. An analogue is a comparison, not a copy.
 
