@@ -13,7 +13,7 @@
       </li>
       {% endfor %}
     </ul>
-    {% if why.photos %}
+    {% if why.get("photos") %}
     <div class="why-photos">
       {% for p in why.photos %}
       <figure>{{ image(p.image, p.image_alt, sizes="(min-width: 48rem) 40vw, 100vw", root=root) }}</figure>
@@ -31,6 +31,20 @@
     </li>
     {% endfor %}
   </ul>
+  {% if c.get("topics") %}
+  <div class="topic-cards" id="research">
+    {% for t in c.topics %}
+    {%- set first = t.chapters | selectattr("photo", "defined") | map(attribute="photo") | first %}
+    <article class="topic-card">
+      {% if first %}<a class="topic-card-link" href="{{ root }}{{ t.slug }}/" tabindex="-1" aria-hidden="true">{{ image(gallery_ref(t.slug, first.source), first.alt, sizes="(min-width: 48rem) 50vw, 100vw", root=root) }}</a>{% endif %}
+      <p class="kicker">{{ t.kicker | md }}</p>
+      <h3><a href="{{ root }}{{ t.slug }}/">{{ t.title | md }}</a></h3>
+      <p>{{ t.teaser | md }}</p>
+      <p class="place-more"><a href="{{ root }}{{ t.slug }}/">Read <span aria-hidden="true">→</span></a></p>
+    </article>
+    {% endfor %}
+  </div>
+  {% endif %}
   {# The wide figure (e.g. the 3D model) is shown below the cards. #}
   {% for s in c.science if s.figure is defined %}
   <figure class="science-figure"{% if s.model is defined %} data-model="static/{{ s.model }}" data-model-alt="{{ s.figure_alt }}"{% if s.model_marker is defined %} data-model-marker="{{ s.model_marker }}"{% endif %}{% endif %}>

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% from "macros.html" import image %}
+{%- set first = topic.chapters | selectattr("photo", "defined") | map(attribute="photo") | first %}
+{% block title %}{{ topic.title }} · {{ c.site.title }}{% endblock %}
+{% block description %}{{ topic.teaser }}{% endblock %}
+{% if first %}{% block og_image %}{{ img(gallery_ref(topic.slug, first.source)).src }}{% endblock %}{% endif %}
+{% block main %}
+<article class="topic" id="top">
+  <p class="kicker">{{ topic.kicker | md }}</p>
+  <h1>{{ topic.title | md }}</h1>
+  {% for para in topic.intro %}<p class="intro">{{ para | md }}</p>
+  {% endfor %}
+  {% for ch in topic.chapters %}
+  <section class="chapter">
+    <h2>{{ ch.heading | md }}</h2>
+    {% for para in ch.paragraphs %}<p>{{ para | md }}</p>
+    {% endfor %}
+    {% if ch.photo is defined %}
+    {%- set ph = ch.photo %}
+    <figure>
+      {{ image(gallery_ref(topic.slug, ph.source), ph.alt, sizes="(min-width: 72rem) 70rem, 100vw", root=root) }}
+      <figcaption>{{ ph.caption | md }} © {{ ph.author }}</figcaption>
+    </figure>
+    {% endif %}
+  </section>
+  {% endfor %}
+  <section class="chapter">
+    <h2>References</h2>
+    <ol class="references">
+      {% for ref in topic.references %}
+      <li>{{ ref.text | md }}{% if ref.url is defined %} <a href="{{ ref.url }}" rel="noopener">{{ ref.url }}</a>{% endif %}</li>
+      {% endfor %}
+    </ol>
+  </section>
+  <nav class="place-next" aria-label="More research">
+    <a href="{{ root }}">← Home</a>
+    {% for other in c.topics if other.slug != topic.slug %}
+    <a href="{{ root }}{{ other.slug }}/">Next: {{ other.title | md }} →</a>
+    {% endfor %}
+  </nav>
+</article>
+{% endblock %}

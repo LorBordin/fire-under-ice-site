@@ -327,7 +327,7 @@ video:
   thumbnail_alt: "Video still: Kverkfjöll over time."
 
 # "Why research here" block above the Science cards (brochure p8c).
-# Task 7: uncomment `topic: analogues` once /analogues/ exists.
+# `topic: analogues` links to /analogues/ once that topic is reviewed (inert before).
 science_why:
   kicker: Why research here
   title: Where ice meets magma
@@ -340,7 +340,7 @@ science_why:
       text: The meltwater paths behind glacial outburst floods.
     - title: Other worlds
       text: "Dark, oligotrophic, volcanic environments: Earth analogues for icy moons such as Enceladus."
-      # topic: analogues
+      topic: analogues
   photos:
     - image: img/why-sampling-1
       image_alt: Gloved hands take a sample with a pipette from an orange hot pool.

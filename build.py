@@ -5,7 +5,7 @@ The flow, step by step (see build() below):
   2. validate it; on any error print them all and stop   (sitelib.validate)
   3. drop people/partners without `consent: true`       (sitelib.filter_consented)
   4. render templates/index.html (home page) and templates/place.html (once
-     per place) with Jinja2; both extend templates/layout.html
+     per place) and templates/topic.html (once per reviewed topic) with Jinja2; both extend templates/layout.html
   5. delete the old _site/, write index.html and <slug>/index.html, copy static/
 
 Run it with:  uv run build.py
@@ -42,6 +42,8 @@ def photo_authors(c: dict) -> list[str]:
     names: list[str] = []
     for pl in c.get("places") or []:
         names += [ph["author"] for ph in pl["photos"]]
+    for t in c.get("topics") or []:
+        names += [ch["photo"]["author"] for ch in t["chapters"] if ch.get("photo")]
     names += [p["credit"] for p in (c.get("press") or {}).get("photos") or []]
     names += [f["credit"] for f in c.get("field") or []]
     names += [s["credit"] for s in c.get("science") or [] if s.get("credit")]
@@ -71,7 +73,7 @@ def build(root: Path, out: Path) -> int:
 
     content, skipped = filter_consented(content)
     if skipped:
-        print("Skipped (no consent): " + ", ".join(skipped))
+        print("Skipped (no consent or not reviewed): " + ", ".join(skipped))
 
     env = make_environment(root)
     # {output path: html}. Place pages live one folder down, hence root="../".
@@ -79,6 +81,11 @@ def build(root: Path, out: Path) -> int:
     for place in content.get("places") or []:
         pages[f"{place['slug']}/index.html"] = env.get_template("place.html").render(
             c=content, root="../", place=place
+        )
+
+    for topic in content.get("topics") or []:
+        pages[f"{topic['slug']}/index.html"] = env.get_template("topic.html").render(
+            c=content, root="../", topic=topic
         )
 
     if out.exists():

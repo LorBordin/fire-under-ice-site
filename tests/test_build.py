@@ -203,6 +203,7 @@ def test_comparison_switch(site):
 # ------------------------------------------------------------ place pages
 
 from tests.test_places import place, with_places  # noqa: E402
+from tests.test_topics import make_topic_images, topic  # noqa: E402
 
 
 @pytest.fixture
@@ -215,6 +216,32 @@ def site_with_places(site):
     c = with_places(site / "static", place("torfa"), place("kverkfjoll", n=5))
     write_content(site, c)
     return site
+
+
+def write_topics_site(site, *topics, why=None, places=("torfa",)):
+    """Write a content.yaml with places and topics (and their derived images)."""
+    c = with_places(site / "static", *[place(slug) for slug in places])
+    c["topics"] = list(topics)
+    if why:
+        c["science_why"] = why
+    make_topic_images(site / "static", c["topics"])
+    write_content(site, c)
+
+
+@pytest.fixture
+def real_site(site):
+    # The real fonts, CSS and JS, so the link check covers the <head> too.
+    real_static = REAL_TEMPLATES.parent / "static"
+    shutil.copytree(real_static / "fonts", site / "static" / "fonts")
+    for name in ("style.css", "script.js"):
+        shutil.copy(real_static / name, site / "static" / name)
+    return site
+
+
+@pytest.fixture
+def site_with_topics(real_site):
+    write_topics_site(real_site, topic("microbiology", True), topic("analogues", False))
+    return real_site
 
 
 def built_pages(out: Path) -> list[Path]:
@@ -232,11 +259,14 @@ def test_writes_place_pages(site_with_places):
 _URL_ATTR = re.compile(r'\b(src|href|srcset|data-srcset)="([^"]*)"')
 
 
-def test_all_local_links_resolve(site_with_places):
-    out = site_with_places / "_site"
-    assert build(site_with_places, out) == 0
+def test_all_local_links_resolve(real_site):
+    # Two places and a published topic, so topic pages and their links are checked too.
+    site = real_site
+    write_topics_site(site, topic("microbiology", True), places=("torfa", "kverkfjoll"))
+    out = site / "_site"
+    assert build(site, out) == 0
     pages = [p for p in built_pages(out) if p.parent == out or p.parent.parent == out]
-    assert len(pages) == 3
+    assert len(pages) == 4
     checked = 0
     for page in pages:
         html = page.read_text(encoding="utf-8")
@@ -470,3 +500,67 @@ def test_science_why_block(site):
 def test_science_why_optional(site):
     html = build_html(site)
     assert 'id="why"' not in html
+
+
+# ------------------------------------------------ topics
+
+def test_writes_topic_pages(site_with_topics):
+    out = site_with_topics / "_site"
+    assert build(site_with_topics, out) == 0
+    html = (out / "microbiology" / "index.html").read_text(encoding="utf-8")
+    t = topic("microbiology", True)
+    assert f"<h1>{t['title']}</h1>" in html
+    for ch in t["chapters"]:
+        assert f"<h2>{ch['heading']}</h2>" in html
+    assert '<ol class="references">' in html and "Doe 2020. A paper." in html
+    assert "© Cristian Monticone" in html
+
+
+def test_unreviewed_topic_leaves_no_trace(real_site):
+    site = real_site
+    draft = topic("analogues", False)
+    draft["title"] = "Zzdraft title"
+    draft["chapters"][0]["photo"]["author"] = "Zzauthor Unique"
+    why = {"kicker": "k", "title": "t", "items": [{"title": "A", "text": "a", "topic": "analogues"}]}
+    write_topics_site(site, draft, why=why)
+    out = site / "_site"
+    assert build(site, out) == 0
+    assert not (out / "analogues").exists()
+    for page in out.rglob("*.html"):
+        html = page.read_text(encoding="utf-8")
+        for needle in ("Zzdraft", "#research", "Zzauthor"):
+            assert needle not in html, f"{page}: {needle}"
+
+
+def test_topic_card_and_menu(site_with_topics):
+    html = build_html(site_with_topics)
+    block = html[html.index('id="research"'):]
+    assert 'href="microbiology/"' in block
+    assert 'href="analogues/"' not in html
+    assert '<a href="#research">Research</a>' in html
+
+
+def test_no_topics_no_research_link(site):
+    html = build_html(site)
+    assert "#research" not in html and 'id="research"' not in html
+
+
+def test_why_link_only_when_published(real_site):
+    site = real_site
+    why = {"kicker": "k", "title": "t", "items": [{"title": "Other worlds", "text": "a", "topic": "analogues"}]}
+    write_topics_site(site, topic("analogues", False), why=why)
+    html = build_html(site)
+    assert 'href="analogues/"' not in html
+    assert "Other worlds" in html
+
+
+def test_topic_reference_links(real_site):
+    site = real_site
+    t = topic("microbiology", True)
+    t["references"] = [{"text": "Doe 2020.", "url": "https://doi.org/10.1/x"}, {"text": "Plain ref."}]
+    write_topics_site(site, t)
+    out = site / "_site"
+    assert build(site, out) == 0
+    html = (out / "microbiology" / "index.html").read_text(encoding="utf-8")
+    assert '<a href="https://doi.org/10.1/x" rel="noopener">' in html
+    assert "Plain ref." in html

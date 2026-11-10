@@ -261,3 +261,23 @@ main>#contact.has-bg{position:relative;isolation:isolate;max-width:none;overflow
 /* Place page: title spacing and the Home / Next links under the gallery. */
 .place h1{margin-bottom:1rem}
 .place-next{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem 2rem;margin-top:2.5rem}
+/* Research: teaser cards on the home page and the topic pages. */
+.topic-cards{display:grid;gap:2.5rem;margin-top:2.5rem}
+.topic-card{position:relative}
+.topic-card-link{display:block}
+.topic-card-link img{width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1rem;background:var(--bg)}
+.topic-card h3 a{color:inherit;text-decoration:none}
+.topic-card h3 a::after{content:"";position:absolute;inset:0}
+.topic-card:hover h3 a{color:var(--ice)}
+.topic-card p:not(.kicker):not(.place-more){color:var(--muted)}
+.topic-card .place-more a{color:var(--ice);text-decoration:none}
+.topic h1{margin-bottom:1rem}
+.topic>p,.topic .chapter>p,.topic .chapter>h2,.topic .references{max-width:40rem}
+.topic .chapter{margin-top:2.5rem}
+.topic figure{margin:1.5rem 0 0}
+.topic figure img{width:100%;height:auto}
+.topic figcaption{color:var(--muted);font-size:.9rem;margin-top:.5rem;max-width:40rem}
+.topic .references{padding-left:1.5rem;font-size:.9rem;color:var(--muted)}
+.topic .references li{margin-bottom:.5rem;overflow-wrap:anywhere}
+.topic .references a{color:var(--ice)}
+@media (min-width:48rem){.topic-cards{grid-template-columns:repeat(2,1fr);gap:2rem}}
