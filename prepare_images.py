@@ -83,7 +83,7 @@ JOBS: list[tuple[str, str, str]] = [
     ("responsive", "photos/torfa/river_crossing.JPG", "field-river"),
     ("responsive", "photos/torfa/descent.jpg", "field-descent"),
     ("responsive", "photos/kverkfjoll/lazzaro_mask_calderone.JPG", "field-gas"),
-    ("responsive", "photos/kverkfjoll/P7161094.JPG", "field-heat"),
+    ("responsive", "photos/kverkfjoll/P7181204.JPG", "field-heat"),
     ("responsive", "photos/torfa/RIMG0247.JPG", "science-pool"),
     ("responsive", "photos/torfa/thermal_camera.JPG", "science-thermal"),
     ("responsive", "photos/science/sampling_1.JPG", "why-sampling-1"),

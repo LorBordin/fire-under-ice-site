@@ -144,7 +144,8 @@ map:                                     # brochure p4
 # prepare_images.py. source: relative to ~/expeditions/Iceland/ (originals,
 # never in this repository). One photo per place has cover: true (the card's
 # large image) and exactly three have featured: true (the card's thumbnails).
-# Rule: a photo replaced elsewhere on the site moves here, never dropped.
+# Rule: a photo replaced elsewhere on the site moves here, never dropped,
+# unless it nearly duplicates another photo (dropped Nov 2026 at Lorenzo's request).
 places:
   - slug: torfa                          # brochure p6, p8, p9, p10
     name: Torfa caldera
@@ -179,18 +180,6 @@ places:
         author: Andrea Benassi
         caption: Sala del Graal, Freyja Hellir, July 2026.
         alt: Two cavers on a dark mound under a scalloped ice ceiling, orange mineral crust below.
-      - source: photos/torfa/P7110909.JPG
-        author: Andrea Benassi
-        caption: Sala del Graal, Freyja Hellir, July 2026.
-        alt: A caver in red lights the ground with a headlamp while another stands above, in a dark ice hall.
-      - source: photos/torfa/20260711_143730.jpg
-        author: Maria F. Trombini
-        caption: Sala del Graal, Freyja Hellir, July 2026.
-        alt: A caver in yellow stands on a dark mound beneath a huge scalloped ice ceiling; another in red stands to the right.
-      - source: photos/torfa/20260711_144140.jpg
-        author: Maria F. Trombini
-        caption: Sala del Graal, Freyja Hellir, July 2026.
-        alt: Two cavers on a rocky rise under a curved ice wall, a thin orange stream below them.
       - source: photos/torfa/RIMG0247.JPG
         author: Ivan Vicenzi
         caption: The hot pool at the centre of the Sala del Graal, July 2026. It melted the hall.
@@ -253,10 +242,6 @@ places:
         caption: The Encelado cauldron, Kverkfjöll, July 2026.
         alt: Steam rises from a deep ice cauldron with a green lake at its bottom; a caver in yellow watches from the rim.
         cover: true
-      - source: photos/kverkfjoll/20260716_093800.jpg
-        author: Maria F. Trombini
-        caption: The Encelado cauldron, Kverkfjöll, July 2026.
-        alt: Three people walk towards a steaming ice cauldron, small against its walls.
       - source: photos/kverkfjoll/P7171153.JPG
         author: Andrea Benassi
         caption: Lake at the glacier's edge, Kverkfjöll, July 2026.
@@ -270,10 +255,6 @@ places:
         author: Andrea Benassi
         caption: Rope work on an ice wall, Kverkfjöll, July 2026.
         alt: A caver in red on a rope at an ice wall above red ground, another below at a cave opening in the mist.
-      - source: photos/kverkfjoll/P7161094.JPG
-        author: Andrea Benassi
-        caption: Steam and volcanic gas, Kverkfjöll, July 2026.
-        alt: A caver with a respirator points into thick steam rising from the ground.
       - source: photos/kverkfjoll/P7181204.JPG
         author: Andrea Benassi
         caption: Full-face respirator beside a fumarole, Kverkfjöll, July 2026.
@@ -285,7 +266,7 @@ places:
         alt: The silhouette of a caver against glowing blue ice.
       - source: photos/kverkfjoll/lazzaro_mask_calderone.JPG
         author: Andrea Benassi
-        caption: A boiling vent in a cauldron, Kverkfjöll, July 2026.
+        caption: The bottom of the Encelado cauldron, Kverkfjöll, July 2026.
         alt: A caver in a helmet and respirator points at a boiling vent in thick steam.
 
 # In the field: what the conditions demand (brochure p12 variants).
@@ -313,7 +294,7 @@ field:
   - title: Heat
     text: Water from 0.2 to 59.4 °C, ground up to 47 °C.
     image: img/field-heat
-    image_alt: A caver with a respirator in thick steam rising from the ground.
+    image_alt: A caver in a full-face respirator stands on orange ground beside an ice wall, steam behind.
     credit: Andrea Benassi
 
 contact_image:
@@ -604,7 +585,7 @@ topics:
         photo:
           source: photos/science/sampling_1.JPG
           author: Cristian Monticone
-          caption: Sampling at a hot pool, July 2026.
+          caption: Sampling at a hot pool in a cave, Kverkfjöll, July 2026.
           alt: Gloved hands take a sample with a pipette from an orange hot pool.
       - heading: What comes next
         paragraphs:
@@ -622,7 +603,7 @@ topics:
         photo:
           source: photos/science/sampling_2.jpg
           author: Cristian Monticone
-          caption: Collecting sediment under the ice, 2026.
+          caption: Collecting sediment in a cave, Kverkfjöll, July 2026.
           alt: A caver in a red helmet and half-mask collects sediment from rocky ground under an ice arch.
       - heading: In 2027
         paragraphs:

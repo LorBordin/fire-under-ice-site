@@ -26,7 +26,7 @@ At the bottom of the Encelado cauldron, a spring at about 74 °C, with a flow of
 
 In Freyja Hellir, in the Torfa caldera, fumaroles and hot springs at different distances from the entrance host soft, creamy, coloured microbial mats. Outside the cave, at the edge of an acidic fumarole rich in hydrogen sulfide, we sampled snottites: jelly-like microbial colonies that hang like small stalactites. Along a thermal stream we sampled filamentous communities [1].
 
-[Photo: Sampling at a hot pool, July 2026. © Cristian Monticone]
+[Photo: Sampling at a hot pool in a cave, Kverkfjöll, July 2026. © Cristian Monticone]
 
 ## What comes next
 
@@ -34,7 +34,7 @@ The samples are waiting for DNA sequencing and metagenomic analysis, in a collab
 
 Why it matters. Life that runs on chemistry in the dark, where ice meets volcanic heat, is a model for habitats that may once have existed on Mars [6]. Microbes adapted to heat, acid or cold may also resemble early life on Earth, and their enzymes, which keep working in such conditions, interest biotechnology [1].
 
-[Photo: Collecting sediment under the ice, 2026. © Cristian Monticone]
+[Photo: Collecting sediment in a cave, Kverkfjöll, July 2026. © Cristian Monticone]
 
 ## In 2027
 
