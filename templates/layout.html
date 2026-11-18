@@ -46,6 +46,7 @@
     {% for line in c.credits %}<li>{{ line | md }}</li>
     {% endfor %}
   </ul>
+  {% if c.get("bibliography") %}<p class="footer-links"><a href="{{ root }}{{ c.bibliography.slug }}/">Bibliography</a> · <a href="{{ root }}static/{{ c.bibliography.report.file }}">{{ c.bibliography.report.title }} (PDF, {{ filesize(c.bibliography.report.file) }})</a></p>{% endif %}
   <p><a href="mailto:{{ c.site.contact_email }}">{{ c.site.contact_email }}</a></p>
   <p>&copy; 2025-2027 CSI</p>
 </footer>

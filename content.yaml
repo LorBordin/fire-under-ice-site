@@ -745,3 +745,192 @@ topics:
       - text: "Consorzio Speleologi Ipogenici (2026). Vatnajökull 2026 – Fire Under Ice: notes on the expedition. Report to the Società Geografica Italiana, unpublished."
     reviewers: Lorenzo Bordin
     reviewed: true
+
+# Bibliography page (fireunderice.org/bibliography/) and the 2026 final report PDF.
+bibliography:
+  slug: bibliography
+  kicker: Sources
+  title: Bibliography
+  intro: The literature behind our work, taken from the 2026 final report. It covers glaciovolcanic caves,
+    Kverkfjöll and the Vatnajökull ice cap, the geothermal systems under the ice, and life and planetary
+    analogues in these caves.
+  report:
+    title: 2026 final report
+    note: In Italian.
+    file: docs/final-report-2026.pdf
+  entries:
+  - text: Anderson, C. H., Behrens, C. J., Floyd, G. A., & Vining, M. R. (1998). Crater firn caves of
+      Mount St. Helens, Washington. Journal of Caves and Karst Studies, 60, 44-50.
+  - text: Badino G. (1998), In Islanda, GROTTE, anno 41, n°128, Torino.
+  - text: 'Badino, G., 2007. Caves of Sky: A Journey Into the Heart of Glaciers. Graffice Tintoretto (TV),
+      Italy.'
+  - text: Bailey, J. P. C. , og 6 aðrir. 1981. A topographical map of Hveradalur, Kverkfjöll, Iceland.
+      (Nýtt kort). Jökull,31, 116–117
+  - text: 'Baldursson, S., Guðnason, J., Hannesdóttir, H., & Þórðarson, Þ. (2018). Nomination of Vatnajökull
+      National Park: Dynamic nature of fire and ice for inclusion in the World Heritage List.'
+  - text: 'Barr, I. D., Lynch, C. M., Mullan, D., De Siena, L., & Spagnolo, M. (2018). Volcanic impacts
+      on modern glaciers: A global synthesis. Earth-Science Reviews, 182, 186-203.'
+  - text: 'Benassi A. (2026), Di ghiaccio e di fuoco: grotte glaciovulcaniche in Islanda, Speleologia
+      93, pp.36-45'
+  - text: Benn, D.I., Evans, D.J., 2010. Glaciers and Glaciation. Oxford University Press, New York.
+  - text: Bishop, M. P., Björnsson, H., Haeberli, W., Oerlemans, J., Shroder, J. F., & Tranter, M. (2011).
+      Encyclopedia of snow, ice and glaciers. Springer Science & Business Media.
+  - text: Björke, J. K., Stefánsson, A., & Arnórsson, S. (2015). Surface water chemistry at Torfajökull,
+      Iceland—quantification of boiling, mixing, oxidation and water–rock interaction and reconstruction
+      of reservoir fluid composition. Geothermics, 58, 75-86.
+  - text: 'Björnsson, H. (2016). The glaciers of Iceland: A historical, cultural and scientific overview.'
+  - text: Burr, D. M., Carling, P. A., & Baker, V. R. (Eds.). (2009). Megaflooding on Earth and Mars.
+      Cambridge University Press.
+  - text: 'Carroll, M., & Lopes, R. (2019). Antarctica: Earth''s Own Ice World. Springer International
+      Publishing.'
+  - text: Clance, J. J., Shaffer, J. M., Cable, M. L., Stenner, C., Williams-Jones, G., Szynkiewicz, A.,
+      ... & Mikucki, J. A. (2024). Biogeochemistry of the rare sulfidic glaciovolcanic cave system on
+      Mount Meager, British Columbia, Canada. Frontiers in Geochemistry, 2, 1410338.
+  - text: Connell, L., & Staudigel, H. (2013). Fungal diversity in a dark oligotrophic volcanic ecosystem
+      (DOVE) on Mount Erebus, Antarctica. Biology, 2(2), 798-809.
+  - text: Cousins, C. R., & Crawford, I. A. (2011). Volcano-ice interaction as a microbial habitat on
+      Earth and Mars. Astrobiology, 11(7), 695-710.
+  - text: Cousins, C. R., Fogel, M., Bowden, R., Crawford, I., Boyce, A., Cockell, C., & Gunn, M. (2018).
+      Biogeochemical probing of microbial communities in a basalt‐hosted hot spring at Kverkfjöll volcano,
+      Iceland. Geobiology, 16(5), 507521.
+  - text: 'Cousins, C.R., Crawford, I.A., Carrivick, J.L., Gunn, M., Harris, J., Kee, T.P., Karlsson,
+      M., Carmody, L., Cockell, C., Herschy, B., Joy, K.H., Glaciovolcanic hydrothermal environments in
+      Iceland and implications for their detection on Mars, Journal of Volcanology and Geothermal Research
+      (2013), doi: 10.1016/j.jvolgeores.2013.02.009'
+  - text: Cuffey, K. M., & Paterson, W. S. B. (2010). The physics of glaciers. Academic Press.
+  - text: Curtis, A. (2015). Dynamics and global relevance of fumarolic ice caves on Erebus Volcano, Antarctica.
+      New Mexico Institute of Mining and Technology.
+  - text: 'Curtis, A., (2020), Comparison of Earth’s fumarolic ice caves, with implications for icy voids
+      on other worlds [abs.]: 3rd International Planetary Caves Conference, San Antonio, Texas. 1 p.'
+  - text: 'Davis, R., Anitori, R., Stenner, C., Smith, J., and Cartaya, E., (2020), Fumarolic glacial
+      and firn ice caves on Mount St. Helens may provide insight into Martian subsurface microbial communities
+      [abs.]: Analog Field Sites Mini Symposium, Houston, Texas. The Lunar and Planetary Institute, Open
+      University Astrobiology, and NASA Johnson Space Center Edwards, B., Kochtitzky, W., Battersby, S.,
+      (2020), Global mapping of future glaciovolcanism: Global and Planetary Change, v. 195, p. 103356.
+      https://doi.org/10.1016/j.gloplacha.2020.103356'
+  - text: 'Einarsson, B., & Íslands, V. (2009). Jökulhlaups in Skaftá: A study of a jökulhlaup from the
+      Western Skaftá cauldron in the Vatnajökull ice cap, Iceland. Reykjavík: Veðurstofa Íslands, 6.'
+  - text: Einarsson, B., Jóhannesson, T., Thorsteinsson, T., Gaidos, E., & Zwinger, T. (2017). Subglacial
+      flood path development during a rapidly rising jökulhlaup from the western Skaftá cauldron, Vatnajökull,
+      Iceland. Journal of Glaciology, 63(240), 670-682.
+  - text: Favre G. (1985) – Kverkfjoll, rivieres géotermiques sous la glace, Islande. Spelunca, 17.
+  - text: Favre G. (2022), Trente-quatre années de spéléologie sous-glaciaire dans et sous le Vatnajökull
+      (Islande) Kverkfjöll 1980-2014, Hypogees, 78, pp.29-40
+  - text: Favre, G. (2022). UIS, La rivière « chaude » supérieure de Kverkfjöll (Vatnajökull, Islande)
+      Le plus profond réseau sous glaciaire connu
+  - text: 'Florea, L. J., Pflitsch, A., Cartaya, E., & Stenner, C. (2021). Microclimates in fumarole ice
+      caves on volcanic edifices— Mount Rainier, Washington, USA. Journal of Geophysical Research: Atmospheres,
+      126(4)'
+  - text: Fraser, C. I., Connell, L., Lee, C. K., & Cary, S. C. (2018). Evidence of plant and animal communities
+      at exposed and subglacial (cave) geothermal sites in Antarctica. Polar Biology, 41(3), 417-421.
+  - text: Fraser, C. I., Terauds, A., Smellie, J., Convey, P., & Chown, S. L. (2014). Geothermal activity
+      helps life survive glacial cycles. Proceedings of the National Academy of Sciences, 111(15), 5634-5639.
+  - text: Gaidos, E., Lanoil, B., Thorsteinsson, T., Graham, A., Skidmore, M., Han, S. K., ... & Popp,
+      B. (2004). A viable microbial community in a subglacial volcanic crater lake, Iceland. Astrobiology,
+      4(3), 327-344.
+  - text: 'Galloway, T., Cousins, C. R., Stüeken, E. E., Telling, J., Boden, J. S., Stead, C. E., ...
+      & Nixon, S. L. (2025). Biological nitrogen cycling within terrestrial hot springs: a Mars analogue
+      system. Earth and Planetary Science Letters, 665, 119461.'
+  - text: Giggenbach, W. F. (1976). Geothermal ice caves on Mt Erebus, Ross Island, Antarctica. New Zealand
+      Journal of Geology and Geophysics, 19(3), 365-372.
+  - text: Giudice, G., Curtis, A., & Peters, N. (2015). Erebus Ice Caves. Speleologia, 72, 30-35.
+  - text: 'Gudmundsson, A. T. (2015). Living Earth: outline of the geology of Iceland.'
+  - text: Gudmundsson, M. T., & Högnadóttir, T. (2009). Jökullón í Vestari Kverkfjöllum, þróun og jökulhlaupahætta.
+      Report for the Road Administration, Iceland.
+  - text: Gudmundsson, M. T., Hognadottir, T., Reynolds, H. I., Magnusson, E., & Palsson, F. (2024). Ice
+      cauldrons and their relationship with volcanic and geothermal activity in ice-covered volcanoes
+      in Iceland (No. EGU24-18805). Copernicus Meetings.
+  - text: 'Gudmundsson, M. T., Sigmundsson, F., Björnsson, H., & Högnadóttir, T. (2004). The 1996 eruption
+      at Gjálp, Vatnajökull ice cap, Iceland: efficiency of heat transfer, ice deformation and subglacial
+      water pressure. Bulletin of Volcanology, 66(1), 46-65.'
+  - text: Gudmundsson, S., Björnsson, H., Magnusson, E., Berthier, E., Palsson, F., Gudmundsson, M. T.,
+      ... & Dall, J. (2011). Response of Eyjafjallajökull, Torfajökull and Tindfjallajökull ice caps in
+      Iceland to regional warming, deduced by remote sensing. Polar Research, 30(1), 7282.
+  - text: Gudmundsson, S., Björnsson, H., Magnússon, E., Berthier, E., Pálsson, F., Gudmundsson, M. T.,
+      & Dall, J. (2011). Response of glacier mass balance to regional warming, deduced by remote sensing
+      on three glaciers in S-Iceland. Polar Research, 30.
+  - text: Gunn, J. (2004). Encyclopedia of caves and karst science. Routledge.
+  - text: Hannesdóttir, H., Sigurðsson, O., Þrastarson, R. H., Guðmundsson, S., Belart, J. M., Pálsson,
+      F., ... & Jóhannesson, T. (2020). A national glacier inventory and variations in glacier extent
+      in Iceland from the Little Ice Age maximum to 2019. Jökull, 12, 1-34.
+  - text: Ilanko, T., Fischer, T. P., Kyle, P., Curtis, A., Lee, H., & Sano, Y. (2019). Modification of
+      fumarolic gases by the icecovered edifice of Erebus volcano, Antarctica. Journal of Volcanology
+      and Geothermal Research, 381, 119-139.
+  - text: Jakobsson, S. P., & Gudmundsson, M. T. (2008). Subglacial and intraglacial volcanic formations
+      in Iceland. Jökull, 58(1), 179-196.
+  - text: 'Jovanelly, T. J. (2020). Iceland: tectonics, volcanics, and glacial features. John Wiley &
+      Sons.'
+  - text: 'Liuzzo, M., Giudice, G., Giuffrida, A.C., 2018, Investigation of Ice-Caves on Melbourne and
+      Rittman volcanoes, Antarctica [presentation]. European Geosciences Union General Assembly 2018,
+      Vienna, Austria, 8−13 Apr. https://www.icevolc-project.com/presentations Magnússon, E., Pálsson,
+      F., Gudmundsson, M. T., Högnadóttir, T., Rossi, C., Thorsteinsson, T., ... & Jóhannesson, T. (2021).
+      Development of a subglacial lake monitored with radio-echo sounding: case study from the eastern
+      Skaftá cauldron in the Vatnajökull ice cap, Iceland. The Cryosphere, 15(8), 3731-3749.'
+  - text: Lyakhnitsky, Y. S., & Agapov, I. A. (2022). PSEUDOKARST FEATURES IN RUSSIA. PSEUDOKARST COMMISSION,
+      39.
+  - text: Marteinsson, V. T., Runarsson, A., Stefánsson, A., Thorsteinsson, T., Johannesson, T., Magnusson,
+      S. H., ... & Gaidos, E. (2013). Microbial communities in the subglacial waters of the Vatnajökull
+      ice cap, Iceland. The ISME journal, 7(2), 427-437.
+  - text: Marti P. (2006) La grotte glacée de Hveradalur. Hypogées N°69, 28-29.
+  - text: Montanaro, C., Scheu, B., Gudmundsson, M. T., Vogfjörd, K., Reynolds, H. I., Dürig, T., ...
+      & Dingwell, D. B. (2016). Multidisciplinary constraints of hydrothermal explosions based on the
+      2013 Gengissig lake events, Kverkfjöll volcano, Iceland. Earth and Planetary Science Letters, 434,
+      308-319.
+  - text: 'Monticone C. Benassi A. Bordin L. Trombini M. (2026) Di ghiaccio e di fuoco: esplorazioni glaciovulcaniche
+      in Islanda. La Rivista del CAI, n°18, Jan 26 Moreras‐Marti, A., Fox-Powell, M., Zerkle, A. L., Stueeken,
+      E., Gazquez, F., Brand, H. E., ... & Cousins, C. R. (2021). Volcanic controls on the microbial habitability
+      of Mars‐analogue hydrothermal environments. Geobiology, 19(5), 489509.'
+  - text: Óladóttir, B. A., Larsen, G., & Sigmarsson, O. (2011). Holocene volcanic activity at Grímsvötn,
+      Bárdarbunga and Kverkfjöll subglacial centres beneath Vatnajökull, Iceland. Bulletin of Volcanology,
+      73(9), 1187-1208.
+  - text: Ólafsson, M., Torfason, H., & Grönvold, K. (2000, May). Surface exploration and monitoring of
+      geothermal activity in the Kverkfjöll geothermal area, central Iceland. In Proceedings of the World
+      Geothermal Congress (Vol. 2000, pp. 1539-1545).
+  - text: Pulina, M., Rehak, J., & Schroeder, J. (2003). Les cavités glaciaires sous le regard spéléologique.
+      Karstologia, 42(1), 23-36.
+  - text: 'Ranta, E., Halldórsson, S. A., Barry, P. H., Ono, S., Robin, J. G.,Kleine, B. I., ... & Stefánsson,
+      A. (2023). Deep magma degassing and volatile fluxes through volcanic hydrothermal systems: Insights
+      from the Askja and Kverkfjöll volcanoes, Iceland. Journal of volcanology and geothermal research,
+      436, 107776.'
+  - text: 'Reynolds, H. I., Gudmundsson, M. T., Högnadóttir, T., & Axelsson, G. (2019). Changes in geothermal
+      activity at Bárdarbunga, Iceland, following the 2014–2015 caldera collapse, investigated using geothermal
+      system modeling. Journal of Geophysical Research: Solid Earth, 124(8), 8187-8204.'
+  - text: Roberts, B., Beckett, J. A., Lewis, W. V., Anderson, F. W., Fleming, W. L. S., & Falk, P. (1933).
+      The Cambridge Expedition to Vatnajökull, 1932. The Geographical Journal, Vol. 81, No. 4 (Apr., 1933),
+      pp. 289-308
+  - text: Shelepin A.L. Vakhrushev B.A., Gunko A.A., Gusev A.S., Prokhorenko A.I., Samokhin G.V., Filippov
+      A.G.,Tsurikhin E.A. ed. 2019. Atlas of caves of Russia. Russian Geographical Society, Russian Union
+      of Speleologists, Moscow, 768 pp.
+  - text: Sobolewski, L., Stenner, C., Hueser, C., Berghaus, T., Cartaya, E., & Pflitsch, A. (2022). ONGOING
+      GENESIS OF A NOVEL GLACIOVOLCANIC CAVE SYSTEM IN THE CRATER OF MOUNT ST. HELENS, WASHINGTON, USA.
+      Journal of Cave & Karst Studies, 84(2).
+  - text: Sobolewski, L., Stenner, C., Hüser, C., Berghaus, T., Cartaya, E., & Pflitsch, A. (2020). Formation
+      and evolution of newly formed glaciovolcanic caves in the crater of Mount St. Helens, Washington,
+      USA. The Cryosphere Discussions, 2020, 1-31.
+  - text: Sobolewski, L., Stenner, C., Williams-Jones, G., Anitori, R., Davis, R. E., & Pflitsch, A. (2022).
+      Implications of the study of subglacial volcanism and glaciovolcanic cave systems. Bulletin of Volcanology,
+      84(3), 21.
+  - text: Stenner, C., Florea, L. J., Pflitsch, A., Cartaya, E., & Riggs, D. A. (2023). MORPHODYNAMICS
+      OF GLACIOVOLCANIC CAVES-MOUNT RAINIER, WASHINGTON, USA. Journal of Cave & Karst Studies, 85.
+  - text: Stenner, C., Florea, L. J., Sobolewski, L., Pflitsch, A., Cable, M., Anitori, R., ... & Williams-Jones,
+      G. The environment of glaciovolcanic caves and their value as planetary analogues.
+  - text: Stenner, C., Florea, L., Sobolewski, L., & Pflitsch, A. (2025), Classification and Characteristics
+      of Glaciovolcanic Caves, iin 19th International Congress of Speleology and 38o Congresso Brasileiro
+      de Espeleologia - Belo Horizonte 2025 - Vol. II, UIS, pp.100-104
+  - text: Stenner, C., Graham, K., Paton, M., Nash, J., Cable, M. L., & Williams-Jones, G. (2025). Morphology
+      and microclimate of a notable glaciovolcanic cave, Mount Meager, Canada, in 19th International Congress
+      of Speleology and 38o Congresso Brasileiro de Espeleologia - Belo Horizonte 2025 - Vol. V, UIS,
+      pp.163-167
+  - text: Stenner, C., Pflitsch, A., Florea, L. J., Graham, K., & Cartaya, E. (2022). DEVELOPMENT AND
+      PERSISTENCE OF HAZARDOUS ATMOSPHERES IN A GLACIOVOLCANIC CAVE SYSTEM--MOUNT RAINIER, WASHINGTON,
+      USA. Journal of Cave & Karst Studies, 84(2).
+  - text: 'Storrie-Lombardi, M. C., Hall, A. P., Hang, S., Lyzenga, G. A., Clark, C. M., Sattler, B. I.,
+      ... & Hoover, R. B. (2011). Spectral profiling and imaging (SPI): extending LIFE technology for
+      the remote exploration of life in ice caves (RELIC) on Earth and Mars. In Instruments, Methods,
+      and Missions for Astrobiology XIV (Vol. 8152, pp. 355-366). SPIE.'
+  - text: Þórarinsson, S. (1954). The Grímsvötn expedition, June–July 1953. Jökull.
+  - text: UIS, PSEUDOKARST COMMISSION, NEWSLETTER, No. 30. March, 2022
+  - text: Unnsteinsson, T. (2022). Modelling glaciovolcanic caves and chimneys.
+  - text: 'Ward, B., Williams-Jones, G., & Geertsema, M. (2020). Moving mountains: Landslides and Volcanoes
+      in a Warming Cryosphere. The State of the Mountains Report, 3, 4-11.'
+  - text: White, W. B., & Culver, D. C. (Eds.). (2012). Encyclopedia of caves. Academic Press.

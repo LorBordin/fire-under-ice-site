@@ -586,3 +586,20 @@ def test_topic_og_image_is_first_chapter_photo(site_with_topics):
     html = (out / "microbiology" / "index.html").read_text(encoding="utf-8")
     m = re.search(r'<meta property="og:image" content="([^"]*)"', html)
     assert "/static/img/" in m.group(1) and "microbiology" in m.group(1)
+
+
+def test_bibliography_page_and_report_link(site):
+    (site / "static" / "docs").mkdir()
+    (site / "static" / "docs" / "r.pdf").write_bytes(b"%PDF-1.4")
+    content = yaml.safe_load((site / "content.yaml").read_text(encoding="utf-8"))
+    content["bibliography"] = {
+        "slug": "bibliography", "kicker": "Sources", "title": "Bibliography", "intro": "Intro.",
+        "report": {"title": "2026 final report", "file": "docs/r.pdf"},
+        "entries": [{"text": "Smith, J. (2020). A paper."}],
+    }
+    write_content(site, content)
+    home = build_html(site)
+    page = (site / "_site" / "bibliography" / "index.html").read_text(encoding="utf-8")
+    assert "Smith, J. (2020). A paper." in page
+    assert 'href="../static/docs/r.pdf"' in page
+    assert 'href="bibliography/"' in home and 'href="static/docs/r.pdf"' in home

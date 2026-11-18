@@ -88,6 +88,12 @@ def build(root: Path, out: Path) -> int:
             c=content, root="../", topic=topic
         )
 
+    if content.get("bibliography"):
+        slug = content["bibliography"]["slug"]
+        pages[f"{slug}/index.html"] = env.get_template("bibliography.html").render(
+            c=content, root="../", bib=content["bibliography"]
+        )
+
     if out.exists():
         shutil.rmtree(out)            # so files removed from static/ do not linger
     out.mkdir(parents=True)

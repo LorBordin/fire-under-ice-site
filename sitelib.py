@@ -59,10 +59,14 @@ REQUIRED: dict[str, list[str]] = {
     "topics.chapters": ["heading", "paragraphs"],
     "topics.chapters.photo": ["source", "author", "caption", "alt"],
     "topics.references": ["text"],
+    # Bibliography page and the 2026 final report (a PDF under static/).
+    "bibliography": ["slug", "kicker", "title", "intro", "report", "entries"],
+    "bibliography.report": ["title", "file"],
+    "bibliography.entries": ["text"],
 }
 
 # Sections that may be absent or empty (an empty list is how "no sponsors yet" is written).
-OPTIONAL_SECTIONS = ("sponsors", "places", "field", "science_why", "topics")
+OPTIONAL_SECTIONS = ("sponsors", "places", "field", "science_why", "topics", "bibliography")
 
 # Phrases we never want on the site (compared in lowercase).
 FORBIDDEN: tuple[str, ...] = ("heart of europe", "2000 mw", "kinetic trigger", "extremophile")
@@ -73,7 +77,7 @@ IMAGE_KEYS = ("image", "photo", "logo", "thumbnail", "before", "after", "figure"
 ALT_FROM_SIBLING = ("image", "thumbnail", "before", "after", "figure")
 
 # Any dict key with one of these names holds a plain file path under static/ (no alt text).
-FILE_KEYS = ("model",)
+FILE_KEYS = ("model", "file")
 
 RESPONSIVE_WIDTHS = (400, 800, 1400, 2000)
 

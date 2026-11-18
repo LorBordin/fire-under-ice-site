@@ -192,13 +192,25 @@ model-viewer.model-view{display:block;width:100%;height:auto;max-width:70rem;asp
 
 /* Partners */
 #partners h3{margin-top:2.5rem;color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.15em}
-.logos{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+.logos{display:flex;flex-wrap:wrap;gap:1.25rem;margin-top:2rem}
 #partners h3+.logos{margin-top:1rem}
-.logos li{position:relative;background:var(--tile);border-radius:.6rem;height:72px;padding:8px 14px;display:flex;align-items:center;justify-content:center}
-.patron-star{position:absolute;top:.2rem;left:.45rem;color:var(--magma);font-size:.9rem;line-height:1}
+.logos li{position:relative;background:var(--tile);border-radius:.8rem;height:128px;padding:14px 26px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px var(--ice),0 8px 28px rgba(0,194,255,.28)}
+.logos-sponsors li{height:160px;padding:18px 32px;box-shadow:0 0 0 3px var(--magma),0 10px 32px rgba(255,69,0,.35)}
+.patron-star{position:absolute;top:.35rem;left:.6rem;color:var(--magma);font-size:1.1rem;line-height:1}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .logos a{display:flex;align-items:center;height:100%}
-.logos img{flex:none;height:56px;width:auto;max-width:9rem;object-fit:contain}
+.logos img{flex:none;height:100px;width:auto;max-width:15rem;object-fit:contain}
+.logos-sponsors img{height:124px;max-width:19rem}
+@media (max-width:30rem){.logos li{height:104px;padding:10px 18px}.logos img{height:80px;max-width:11rem}.logos-sponsors li{height:128px}.logos-sponsors img{height:100px}}
+
+/* Bibliography */
+.report-link{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem 1.2rem;margin:1.5rem 0 0}
+.button{display:inline-block;padding:.7rem 1.4rem;border-radius:2rem;background:var(--ice);color:#0D0D0D;font-weight:700;text-decoration:none}
+.button:hover{background:#fff}
+.report-link span{color:var(--muted);font-size:.9rem}
+.bibliography{list-style:none;padding:0}
+.bibliography li{padding:.7rem 0 .7rem 2rem;text-indent:-2rem;border-bottom:1px solid var(--line);line-height:1.5;font-size:.95rem;overflow-wrap:anywhere}
+.footer-links{margin-bottom:1rem}
 
 /* Contact */
 main>#contact.has-bg{position:relative;isolation:isolate;max-width:none;overflow:hidden;padding-left:max(var(--gutter),calc((100% - 76rem) / 2 + var(--gutter)));padding-right:var(--gutter)}

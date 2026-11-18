@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}{{ bib.title }} · {{ c.site.title }}{% endblock %}
+{% block description %}{{ bib.intro }}{% endblock %}
+{% block main %}
+<article class="topic" id="top">
+  <p class="kicker">{{ bib.kicker | md }}</p>
+  <h1>{{ bib.title | md }}</h1>
+  <p class="intro">{{ bib.intro | md }}</p>
+  <p class="report-link"><a class="button" href="{{ root }}static/{{ bib.report.file }}">{{ bib.report.title }} (PDF, {{ filesize(bib.report.file) }})</a>
+    {% if bib.report.note is defined %}<span>{{ bib.report.note | md }}</span>{% endif %}</p>
+  <section class="chapter">
+    <h2>References</h2>
+    <ul class="references bibliography">
+      {% for e in bib.entries %}<li>{{ e.text | md }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  <nav class="place-next" aria-label="Back">
+    <a href="{{ root }}">← Home</a>
+  </nav>
+</article>
+{% endblock %}

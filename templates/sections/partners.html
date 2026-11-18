@@ -1,11 +1,11 @@
 {% from "macros.html" import image, header %}
-{% macro logos(items) %}
-<ul class="logos">
+{% macro logos(items, cls="") %}
+<ul class="logos {{ cls }}">
   {% for p in items %}
   <li>
     {% if p.patron_2027 is sameas true %}<span class="patron-star" aria-hidden="true">★</span><span class="visually-hidden">(patronage being sought for 2027)</span>{% endif %}
-    {% if p.url is defined %}<a href="{{ p.url }}" rel="noopener">{{ image(p.logo, p.name, sizes="160px") }}</a>
-    {% else %}{{ image(p.logo, p.name, sizes="160px") }}{% endif %}
+    {% if p.url is defined %}<a href="{{ p.url }}" rel="noopener">{{ image(p.logo, p.name, sizes="240px") }}</a>
+    {% else %}{{ image(p.logo, p.name, sizes="240px") }}{% endif %}
   </li>
   {% endfor %}
 </ul>
@@ -18,6 +18,6 @@
   {% endif %}
   {% if c.sponsors %}
   <h3>Sponsors</h3>
-  {{ logos(c.sponsors) }}
+  {{ logos(c.sponsors, "logos-sponsors") }}
   {% endif %}
 </section>

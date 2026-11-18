@@ -175,6 +175,10 @@ The science pages (e.g. `/microbiology/`, `/analogues/`) are the `topics:` list 
 Concretely: when a **footwear** sponsor is confirmed, set Gaibana (footwear) to `consent: false` under `partners:`.
 The brochure does the same in its boots variant (`config/boots.tex`, `\showgaibanafalse`), and that brochure's QR leads here.
 
+### Bibliography and the 2026 report
+
+The `bibliography:` block in `content.yaml` holds the page at `/bibliography/` (one `- text:` per reference, kept alphabetical) and the link to the final report. The PDF lives in `static/docs/final-report-2026.pdf`; to replace it, copy the new file over it. Both links appear in the footer of every page.
+
 ## 5. Where things live
 
 | Thing | Where | Notes |
