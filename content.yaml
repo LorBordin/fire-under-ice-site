@@ -64,7 +64,7 @@ headings:
     title: What the ice demands
   science:                               # brochure p9
     kicker: Science and monitoring
-    title: From 0.2 °C to 59.4 °C in one cave.
+    title: From 0.2 °C to 95 °C in one cave.
   team:                                  # brochure p13
     kicker: The team
     title: Thirteen cavers in 2026
@@ -292,7 +292,7 @@ field:
     image_alt: A caver in a helmet and respirator points at a boiling vent in thick steam.
     credit: Andrea Benassi
   - title: Heat
-    text: Water from 0.2 to 59.4 °C, ground up to 47 °C.
+    text: Water from 0.2 to 95 °C, ground up to 47 °C.
     image: img/field-heat
     image_alt: A caver in a full-face respirator stands on orange ground beside an ice wall, steam behind.
     credit: Andrea Benassi
