@@ -620,3 +620,13 @@ def test_partner_card_tiers(site):
     assert card.index("Main One") < card.index('class="partner-split"') < card.index("Lab One") < card.index("Gear One")
     assert "<h3>Scientific analysis support</h3>" in card and "<h3>Technical sponsors</h3>" in card
     assert "logos-federations" not in card  # empty tiers leave no row
+
+
+def test_science_card_link(site):
+    c = minimal_content()
+    c["science"][0]["url"] = "https://example.org/article"
+    c["science"][0]["link_text"] = "Read the article"
+    c["science"][0]["lang"] = "it"
+    write_content(site, c)
+    html = build_html(site)
+    assert '<a href="https://example.org/article" rel="noopener" hreflang="it">Read the article' in html

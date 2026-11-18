@@ -28,6 +28,7 @@
       {% if s.image is defined %}{{ image(s.image, s.image_alt, sizes="(min-width: 48rem) 33vw, 100vw", root=root) }}{% endif %}
       <h3>{{ s.title | md }}</h3>
       <p>{{ s.text | md }}</p>
+      {% if s.url is defined %}<p class="place-more"><a href="{{ s.url }}" rel="noopener"{% if s.lang is defined %} hreflang="{{ s.lang }}"{% endif %}>{{ s.link_text | default("Read more") }} <span aria-hidden="true">→</span></a></p>{% endif %}
     </li>
     {% endfor %}
   </ul>
