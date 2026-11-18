@@ -202,6 +202,21 @@ model-viewer.model-view{display:block;width:100%;height:auto;max-width:70rem;asp
 .logos img{flex:none;height:100px;width:auto;max-width:15rem;object-fit:contain}
 .logos-sponsors img{height:124px;max-width:19rem}
 @media (max-width:30rem){.logos li{height:104px;padding:10px 18px}.logos img{height:80px;max-width:11rem}.logos-sponsors li{height:128px}.logos-sponsors img{height:100px}}
+/* Partners card (brochure p14): light panel, logos straight on it, rows split by thin rules */
+.partner-card{margin-top:2rem;background:var(--tile);border-radius:1.25rem;padding:clamp(1.5rem,4vw,3.5rem) clamp(1rem,4vw,3.5rem)}
+.partner-card .logos{margin:0;padding:0;list-style:none;justify-content:center;align-items:center;gap:clamp(1rem,3.5vw,3rem)}
+.partner-card .logos li{background:none;box-shadow:none;border-radius:0;padding:0;height:auto}
+.partner-card .logos img{height:clamp(56px,9vw,104px);max-width:min(15rem,40vw)}
+.partner-card .logos-main img{height:clamp(72px,13vw,160px);max-width:min(18rem,42vw)}
+.partner-card .logos-main{padding-bottom:clamp(1.25rem,3vw,2.25rem);margin-bottom:clamp(1.25rem,3vw,2.25rem);border-bottom:1px solid #C8C8C8}
+.partner-card .logos-federations{margin-bottom:clamp(1rem,2.5vw,1.75rem)}
+.partner-card .logos-science img,.partner-card .logos-technical img{height:clamp(44px,6vw,72px)}
+.partner-split{display:grid;grid-template-columns:1fr 2fr;margin-top:clamp(1.5rem,3vw,2.25rem);padding-top:clamp(1.25rem,2.5vw,1.75rem);border-top:1px solid #C8C8C8}
+.partner-split>div{padding:0 1rem;text-align:center}
+.partner-split>div+div{border-left:1px solid #C8C8C8}
+#partners .partner-split h3{margin:0 0 1.25rem;font-size:1.05rem;font-weight:400;font-style:italic;color:#6B6B6B;text-transform:none;letter-spacing:.02em}
+#partners .partner-split h3+.logos{margin-top:0}
+@media (max-width:40rem){.partner-split{grid-template-columns:1fr;gap:1.5rem}.partner-split>div+div{border-left:0;border-top:1px solid #C8C8C8;padding-top:1.5rem}}
 
 /* Bibliography */
 .report-link{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem 1.2rem;margin:1.5rem 0 0}

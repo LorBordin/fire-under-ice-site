@@ -451,8 +451,8 @@ def test_press_photos(site):
 def _patron_content(flag):
     c = minimal_content()
     c["partners"] = [
-        {"name": "Partner One", "logo": "img/logo.png", "consent": True, "patron_2027": flag},
-        {"name": "Partner Two", "logo": "img/logo.png", "consent": True},
+        {"name": "Partner One", "logo": "img/logo.png", "tier": "main", "consent": True, "patron_2027": flag},
+        {"name": "Partner Two", "logo": "img/logo.png", "tier": "main", "consent": True},
     ]
     c["headings"]["partners"]["patron_note"] = "Patronage being sought for 2027"
     return c
@@ -603,3 +603,20 @@ def test_bibliography_page_and_report_link(site):
     assert "Smith, J. (2020). A paper." in page
     assert 'href="../static/docs/r.pdf"' in page
     assert "bibliography/" in home and "static/docs/r.pdf" in home
+
+
+def test_partner_card_tiers(site):
+    c = minimal_content()
+    c["partners"] = [
+        {"name": "Main One", "logo": "img/logo.png", "tier": "main", "consent": True},
+        {"name": "Lab One", "logo": "img/logo.png", "tier": "science", "consent": True},
+        {"name": "Gear One", "logo": "img/logo.png", "tier": "technical", "consent": True},
+    ]
+    c["headings"]["partners"]["science_label"] = "Scientific analysis support"
+    c["headings"]["partners"]["technical_label"] = "Technical sponsors"
+    write_content(site, c)
+    html = build_html(site)
+    card = html[html.index('class="partner-card"'):html.index('</section>', html.index('class="partner-card"'))]
+    assert card.index("Main One") < card.index('class="partner-split"') < card.index("Lab One") < card.index("Gear One")
+    assert "<h3>Scientific analysis support</h3>" in card and "<h3>Technical sponsors</h3>" in card
+    assert "logos-federations" not in card  # empty tiers leave no row

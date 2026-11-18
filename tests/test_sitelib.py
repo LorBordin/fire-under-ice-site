@@ -111,7 +111,7 @@ def minimal_content() -> dict:
             "tv": [{"title": "Report", "outlet": "RAI", "url": "https://example.org/tv"}],
         },
         "partners": [
-            {"name": "Partner One", "logo": "img/logo.png", "consent": True}
+            {"name": "Partner One", "logo": "img/logo.png", "tier": "main", "consent": True}
         ],
         "sponsors": [
             {"name": "Sponsor One", "logo": "img/logo.png", "consent": True}
@@ -207,7 +207,7 @@ def test_empty_group_removed():
 
 def test_partners_and_sponsors_filtered():
     c = minimal_content()
-    c["partners"].append({"name": "Hidden", "logo": "img/logo.png"})
+    c["partners"].append({"name": "Hidden", "logo": "img/logo.png", "tier": "main"})
     c["sponsors"][0]["consent"] = False
     out, skipped = filter_consented(c)
     assert [p["name"] for p in out["partners"]] == ["Partner One"]
@@ -298,3 +298,16 @@ def test_science_why_item_needs_text(static_dir):
     c = minimal_content()
     c["science_why"] = {"kicker": "Why", "title": "T", "items": [{"title": "A"}]}
     assert "science_why.items[0].text: missing" in validate(c, static_dir)
+
+
+def test_partner_tier_must_be_known(static_dir):
+    c = minimal_content()
+    c["partners"][0]["tier"] = "gold"
+    errors = validate(c, static_dir)
+    assert any(e.startswith("partners[0].tier: must be one of") for e in errors), errors
+
+
+def test_partner_tier_required(static_dir):
+    c = minimal_content()
+    del c["partners"][0]["tier"]
+    assert "partners[0].tier: missing" in validate(c, static_dir)

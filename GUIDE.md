@@ -147,7 +147,8 @@ The science pages (e.g. `/microbiology/`, `/analogues/`) are the `topics:` list 
 - `science_why`: the "Why research here" block above the Science cards. An item with `topic: <slug>` links to that science page, but only once the page is published; before that it is plain text.
 - `press.photos`: the photos shown in the press section.
 - `press.articles[].status`: optional, e.g. `status: in press`, printed next to the article.
-- `partners[].patron_2027: true` marks a partner as a 2027 patron. `headings.partners.patron_note` is the line shown with them ("Patronage being sought for 2027").
+- `partners[].tier` places a logo in the partners card (same layout as brochure p14): `main` (top row), `federations`, `groups`, then side by side `science` and `technical`, labelled by `headings.partners.science_label` and `technical_label`. Any other value stops the build.
+- `partners[].patron_2027: true` (optional, none set now) puts a star on a logo; `headings.partners.patron_note` is the line shown with it.
 - `project.stats[].note`: optional small footnote under a figure.
 
 **Review flow**
@@ -163,6 +164,13 @@ The science pages (e.g. `/microbiology/`, `/analogues/`) are the `topics:` list 
 
 **Photos.** A draft's photos are made by `uv run prepare_images.py`, like gallery photos (original in `~/expeditions/Iceland/photos/science/`, `source:` relative to `~/expeditions/Iceland/`). They carry the same watermark.
 
+### Adding a partner logo
+
+1. Put the logo (PNG with transparency) in `brochure/2027/logos/partners/`.
+2. Add a `logo` job to `prepare_images.py`: `("logo", "brochure/2027/logos/partners/name.png", "logos/name.png"),` and run `uv run prepare_images.py`.
+3. In `content.yaml` under `partners:` add `- {name: Full name, logo: img/logos/name.png, tier: groups, consent: true}`.
+4. Add it to the brochure too: one `\logo{x}{y}{max-width}{max-height}{name.png}` line in `pages/14-partners.tex`.
+
 ### Adding a sponsor
 
 1. Get the sponsor's agreement and logo (PNG with transparency, or SVG exported to PNG).
@@ -174,6 +182,7 @@ The science pages (e.g. `/microbiology/`, `/analogues/`) are the `topics:` list 
 **Rival brands.** No competitor's logo next to a sponsor's (also check photos for visible gear brands).
 Concretely: when a **footwear** sponsor is confirmed, set Gaibana (footwear) to `consent: false` under `partners:`.
 The brochure does the same in its boots variant (`config/boots.tex`, `\showgaibanafalse`), and that brochure's QR leads here.
+Likewise Industrial Scientific (gas detection) is hidden in the brochure's gas variant (`config/gas.tex`, `\showisfalse`); when a gas detection sponsor is confirmed, set it to `consent: false` here.
 
 ### Bibliography and the 2026 report
 

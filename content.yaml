@@ -74,7 +74,8 @@ headings:
   partners:                              # brochure p14
     kicker: Partners
     title: Who backs us
-    patron_note: Patronage being sought for 2027
+    science_label: Scientific analysis support
+    technical_label: Technical sponsors
   contact:                               # brochure p16
     kicker: Contact
     title: Write to us
@@ -491,13 +492,24 @@ press:                                   # brochure p14
       url: https://mediasetinfinity.mediaset.it/video/tg5/tra-fuoco-e-ghiaccio-la-bellezza-della-vita_F314202201199D08
 
 # Partners and sponsors: shown only with `consent: true`.
+# tier = row of the partners card: main, federations, groups, science
+# (Scientific analysis support), technical (Technical sponsors).
 partners:                                # brochure p14
-  - {name: Società Speleologica Italiana, logo: img/logos/ssi.png, consent: true, patron_2027: true}
-  - {name: Regione Friuli Venezia Giulia, logo: img/logos/fvg.png, consent: true, patron_2027: true}
-  - {name: Club Alpino Italiano, logo: img/logos/cai_logo.png, consent: true, patron_2027: true}
-  - {name: Società Geografica Italiana, logo: img/logos/soc_geo_logo_crop.png, consent: true, patron_2027: true}
-  - {name: Università di Milano-Bicocca, logo: img/logos/bicocca_logo.png, consent: true, patron_2027: true}
-  - {name: Gaibana, logo: img/logos/gaibana_logo.png, consent: true}
+  - {name: Società Speleologica Italiana, logo: img/logos/ssi.png, tier: main, consent: true}
+  - {name: Club Alpino Italiano, logo: img/logos/cai.png, tier: main, consent: true}
+  - {name: Società Geografica Italiana, logo: img/logos/sgi.png, tier: main, consent: true}
+  - {name: Federazione Speleologica Regionale del Friuli Venezia Giulia, logo: img/logos/fsr_fvg.png, tier: federations, consent: true}
+  - {name: Federazione Umbra Gruppi Speleologici, logo: img/logos/fugs.png, tier: federations, consent: true}
+  - {name: Associazione Gruppi Speleologici Piemontesi, logo: img/logos/agsp.png, tier: federations, consent: true}
+  - {name: Federazione Speleologica del Lazio, logo: img/logos/fsl.png, tier: federations, consent: true}
+  - {name: Ipogenica, logo: img/logos/ipogenica.png, tier: federations, consent: true}
+  - {name: Gruppo Speleologico Piemontese CAI-UGET Torino, logo: img/logos/gsp.png, tier: groups, consent: true}
+  - {name: Gruppo Speleologico CAI Perugia, logo: img/logos/gs_cai_perugia.png, tier: groups, consent: true}
+  - {name: Gruppo Grotte Brescia “Corrado Allegretti”, logo: img/logos/gbg.png, tier: groups, consent: true}
+  - {name: Gruppo Speleologico Sacile, logo: img/logos/gs_sacile.png, tier: groups, consent: true}
+  - {name: Università di Milano-Bicocca, logo: img/logos/bicocca.png, tier: science, consent: true}
+  - {name: Gaibana, logo: img/logos/gaibana.png, tier: technical, consent: true}
+  - {name: Industrial Scientific, logo: img/logos/industrial_scientific.png, tier: technical, consent: true}
 
 sponsors: []                             # 2027 sponsors, once confirmed
 

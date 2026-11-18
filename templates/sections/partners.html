@@ -10,11 +10,32 @@
   {% endfor %}
 </ul>
 {% endmacro %}
+{% set h = c.headings.partners %}
 <section id="partners" class="reveal">
-  {{ header(c.headings.partners) }}
-  {{ logos(c.partners) }}
-  {% if c.headings.partners.patron_note is defined and c.partners | selectattr("patron_2027", "sameas", true) | list %}
-  <p class="note">★ {{ c.headings.partners.patron_note | md }}</p>
+  {{ header(h) }}
+  {% if c.partners %}
+  <div class="partner-card">
+    {% for t in ["main", "federations", "groups"] %}
+    {% set items = c.partners | selectattr("tier", "equalto", t) | list %}
+    {% if items %}{{ logos(items, "logos-" ~ t) }}{% endif %}
+    {% endfor %}
+    {% if c.partners | selectattr("tier", "in", ["science", "technical"]) | list %}
+    <div class="partner-split">
+      {% for t in ["science", "technical"] %}
+      {% set items = c.partners | selectattr("tier", "equalto", t) | list %}
+      {% if items %}
+      <div>
+        {% if h[t ~ "_label"] is defined %}<h3>{{ h[t ~ "_label"] }}</h3>{% endif %}
+        {{ logos(items, "logos-" ~ t) }}
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+  {% if h.patron_note is defined and c.partners | selectattr("patron_2027", "sameas", true) | list %}
+  <p class="note">★ {{ h.patron_note | md }}</p>
   {% endif %}
   {% if c.sponsors %}
   <h3>Sponsors</h3>

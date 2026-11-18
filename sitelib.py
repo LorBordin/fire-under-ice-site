@@ -45,7 +45,7 @@ REQUIRED: dict[str, list[str]] = {
     "video": ["youtube_id", "title", "thumbnail", "thumbnail_alt"],
     "csi": ["name", "logo", "blurb"],
     "team.members": ["name", "role", "line", "photo"],
-    "partners": ["name", "logo"],
+    "partners": ["name", "logo", "tier"],
     "sponsors": ["name", "logo"],
     "press.articles": ["year", "title", "byline"],
     "press.photos": ["image", "image_alt", "caption", "credit"],
@@ -64,6 +64,9 @@ REQUIRED: dict[str, list[str]] = {
     "bibliography.report": ["title", "file"],
     "bibliography.entries": ["text"],
 }
+
+# Rows of the partners card, top to bottom (the last two sit side by side, labelled).
+PARTNER_TIERS = ("main", "federations", "groups", "science", "technical")
 
 # Sections that may be absent or empty (an empty list is how "no sponsors yet" is written).
 OPTIONAL_SECTIONS = ("sponsors", "places", "field", "science_why", "topics", "bibliography")
@@ -254,6 +257,9 @@ def validate(content: dict, static_dir: Path) -> list[str]:
     place_errors, place_refs = _validate_places(content, static_dir)
     topic_errors, topic_refs = _validate_topics(content, static_dir)
     errors += place_errors + topic_errors
+    for i, p in enumerate(content.get("partners") or []):
+        if isinstance(p, dict) and not _is_blank(p.get("tier")) and p["tier"] not in PARTNER_TIERS:
+            errors.append(f"partners[{i}].tier: must be one of {', '.join(PARTNER_TIERS)}: {p['tier']}")
     errors += _unused_gallery_files(static_dir, place_refs | topic_refs)
 
     # The same problem can be found twice (e.g. a missing alt is both
