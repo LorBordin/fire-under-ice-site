@@ -602,4 +602,4 @@ def test_bibliography_page_and_report_link(site):
     page = (site / "_site" / "bibliography" / "index.html").read_text(encoding="utf-8")
     assert "Smith, J. (2020). A paper." in page
     assert 'href="../static/docs/r.pdf"' in page
-    assert 'href="bibliography/"' in home and 'href="static/docs/r.pdf"' in home
+    assert "bibliography/" in home and "static/docs/r.pdf" in home

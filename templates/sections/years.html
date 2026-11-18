@@ -11,6 +11,10 @@
     </li>
     {% endfor %}
   </ol>
+  {% if c.get("bibliography") %}
+  <p class="report-link report-home"><a class="button" href="static/{{ c.bibliography.report.file }}">Read the 2026 final report (PDF, {{ filesize(c.bibliography.report.file) }})</a>
+    <span>{{ c.bibliography.report.note | md }} <a href="{{ c.bibliography.slug }}/">Bibliography</a></span></p>
+  {% endif %}
 
   {% set bgs = c.comparison.backgrounds %}
   {% if bgs | length > 1 %}
