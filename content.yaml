@@ -54,7 +54,7 @@ headings:
     title: Three years, one island
   watch:                                 # brochure p9 (video QR)
     kicker: Watch
-    title: Kverkfjöll over time
+    title: Iceland expedition 2025 – Ghiaccio Bollente
     intro: Photogrammetry, cave surveys and timelapse.
   places:
     kicker: Places
@@ -304,10 +304,10 @@ contact_image:
   credit: Maria F. Trombini
 
 video:
-  youtube_id: 913rFrz9-xo
-  title: Kverkfjöll over time
+  youtube_id: pFsgEZDUxXU
+  title: Iceland expedition 2025 – Ghiaccio Bollente
   thumbnail: img/video-thumb-800.webp
-  thumbnail_alt: "Video still: Kverkfjöll over time."
+  thumbnail_alt: "Video still: Iceland expedition 2025 – Ghiaccio Bollente."
 
 # "Why research here" block above the Science cards (brochure p8c).
 # `topic: analogues` links to /analogues/ once that topic is reviewed (inert before).
