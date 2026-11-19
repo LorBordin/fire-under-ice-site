@@ -22,7 +22,7 @@ def test_collect_urls_nested_and_dedup():
 def test_collect_skips_site_url():
     content = {
         "site": {"url": "https://fireunderice.org"},
-        "tv": [{"url": "https://mediaset.example/v"}],
+        "featured": [{"url": "https://mediaset.example/v"}],
     }
     assert collect_urls(content) == ["https://mediaset.example/v"]
 

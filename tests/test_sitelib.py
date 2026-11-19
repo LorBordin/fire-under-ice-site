@@ -108,7 +108,10 @@ def minimal_content() -> dict:
             "talks": [
                 {"year": 2025, "venue": "Town Hall", "place": "Trieste", "title": "Fire under ice"}
             ],
-            "tv": [{"title": "Report", "outlet": "RAI", "url": "https://example.org/tv"}],
+            "featured": [
+                {"kind": "video", "label": "TV", "title": "Report", "url": "https://example.org/tv",
+                 "link_text": "Watch", "image": "img/a", "image_alt": "Still"}
+            ],
         },
         "partners": [
             {"name": "Partner One", "logo": "img/logo.png", "tier": "main", "consent": True}
@@ -311,3 +314,9 @@ def test_partner_tier_required(static_dir):
     c = minimal_content()
     del c["partners"][0]["tier"]
     assert "partners[0].tier: missing" in validate(c, static_dir)
+
+
+def test_press_featured_requires_fields(static_dir):
+    c = minimal_content()
+    del c["press"]["featured"][0]["link_text"]
+    assert "press.featured[0].link_text: missing" in validate(c, static_dir)

@@ -146,6 +146,7 @@ The science pages (e.g. `/microbiology/`, `/analogues/`) are the `topics:` list 
 
 - `science_why`: the "Why research here" block above the Science cards. An item with `topic: <slug>` links to that science page, but only once the page is published; before that it is plain text.
 - `press.photos`: the photos shown in the press section.
+- `press.featured`: the large cards at the top of Press (TG5 video, Bicocca article). Each opens its URL in a new tab. The TG5 poster `img/tg5-thumb` is downloaded from Mediaset by `prepare_images.py` (job kind `download`).
 - `press.articles[].status`: optional, e.g. `status: in press`, printed next to the article.
 - `partners[].tier` places a logo in the partners card (same layout as brochure p14): `main` (top row), `federations`, `groups`, then side by side `science` and `technical`, labelled by `headings.partners.science_label` and `technical_label`. Any other value stops the build.
 - `partners[].patron_2027: true` (optional, none set now) puts a star on a logo; `headings.partners.patron_note` is the line shown with it.

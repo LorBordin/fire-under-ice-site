@@ -57,3 +57,11 @@
   <p class="place-more">See all {{ place.photos|length }} photos <span aria-hidden="true">→</span></p>
 </article>
 {%- endmacro %}
+
+{# play_icon(): the round play button drawn over video posters. #}
+{% macro play_icon() -%}
+<svg class="play" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" focusable="false">
+  <circle cx="32" cy="32" r="30" fill="currentColor" opacity="0.85"/>
+  <path d="M25 19v26l22-13z" fill="#0D0D0D"/>
+</svg>
+{%- endmacro %}

@@ -14,6 +14,7 @@ Job kinds:
   logo        PNG, 160 px high, transparency kept
   pdf         first page of a PDF, then responsive
   thumbnail   downloaded from YouTube, then responsive
+  download    any image URL, downloaded then responsive
   gallery     place and topic photos listed in content.yaml, watermarked, widths
               400/800/1400/2000, written to static/img/places/<slug>/
 """
@@ -90,6 +91,8 @@ JOBS: list[tuple[str, str, str]] = [
     ("logo", "brochure/2027/logos/partners/industrial_scientific.png", "logos/industrial_scientific.png"),
     ("logo", "brochure/2027/logos/csi_logo_crop.png", "logos/csi_logo_crop.png"),
     ("thumbnail", THUMB_URL, "video-thumb"),
+    # TG5 report poster (Mediaset cannot be embedded, so the card links out).
+    ("download", "https://img-prod-api2.mediasetplay.mediaset.it/api/images/mp/v5/ita/F314202201199D08/image_keyframe_poster/1200/630", "tg5-thumb"),
     # Section photos on the home page (clean; their place galleries carry the watermark).
     ("responsive", "photos/torfa/river_crossing.JPG", "field-river"),
     ("responsive", "photos/torfa/descent.jpg", "field-descent"),
@@ -179,12 +182,16 @@ def _youtube_id() -> str:
     return load_content(HERE / "content.yaml")["video"]["youtube_id"]
 
 
-def _download_thumbnail(out_stem: Path) -> list[Path]:
+def _download(url: str, out_stem: Path) -> list[Path]:
     with tempfile.TemporaryDirectory() as tmp:
-        tmp_file = Path(tmp) / "thumb.jpg"
-        with urllib.request.urlopen(THUMB_URL.format(id=_youtube_id()), timeout=30) as resp:
+        tmp_file = Path(tmp) / "download.img"
+        with urllib.request.urlopen(url, timeout=30) as resp:
             tmp_file.write_bytes(resp.read())
         return responsive(tmp_file, out_stem)
+
+
+def _download_thumbnail(out_stem: Path) -> list[Path]:
+    return _download(THUMB_URL.format(id=_youtube_id()), out_stem)
 
 
 def run_job(kind: str, source: str, output: str) -> list[Path]:
@@ -200,6 +207,8 @@ def run_job(kind: str, source: str, output: str) -> list[Path]:
         return rasterise_pdf(src, out)
     if kind == "thumbnail":
         return _download_thumbnail(out)
+    if kind == "download":
+        return _download(source, out)
     raise ValueError(f"unknown job kind: {kind}")
 
 

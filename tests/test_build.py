@@ -448,6 +448,25 @@ def test_press_photos(site):
     assert "Paolo Testa" in footer
 
 
+def test_press_featured_cards(site):
+    c = minimal_content()
+    c["press"]["featured"] = [
+        {"kind": "video", "label": "TV", "title": "Report", "url": "https://mediaset.example/v",
+         "link_text": "Watch", "lang": "it", "image": "img/a", "image_alt": "Still", "credit": "TG5"},
+        {"kind": "article", "label": "Article", "title": "Paper", "url": "https://news.example/a",
+         "link_text": "Read", "image": "img/a", "image_alt": "Photo"},
+    ]
+    write_content(site, c)
+    html = build_html(site)
+    section = html[html.index('id="press"'):html.index('id="partners"')]
+    assert section.count('class="featured-card') == 2
+    video = section[section.index("featured-video"):section.index("featured-article")]
+    assert 'class="play"' in video
+    assert 'href="https://mediaset.example/v" rel="noopener" target="_blank"' in video
+    assert "featured-article" in section and 'class="play"' not in section[section.index("featured-article"):]
+    assert section.index("featured-card") < section.index("<h3>Articles</h3>")
+
+
 def _patron_content(flag):
     c = minimal_content()
     c["partners"] = [

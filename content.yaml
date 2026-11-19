@@ -489,10 +489,27 @@ press:                                   # brochure p14
       image_alt: Two speakers in front of a large screen showing a glacier photo, at a talk under a tent.
       caption: National speleology gathering, Costacciaro, October 2026.
       credit: Paolo Testa
-  tv:
-    - title: "*Tra fuoco e ghiaccio*"
-      outlet: TG5 report
+  featured:                              # large cards at the top of the section
+    - kind: video
+      label: TV · TG5
+      title: "*Tra fuoco e ghiaccio, la bellezza della vita*"
+      text: Italian speleologists in Iceland collect rare microorganisms living in extreme environments.
       url: https://mediasetinfinity.mediaset.it/video/tg5/tra-fuoco-e-ghiaccio-la-bellezza-della-vita_F314202201199D08
+      link_text: Watch on Mediaset Infinity
+      lang: it
+      image: img/tg5-thumb                # poster downloaded by prepare_images.py
+      image_alt: "Still from the TG5 report: Tra fuoco e ghiaccio, la bellezza della vita."
+      credit: Mediaset / TG5
+    - kind: article
+      label: Article · Università di Milano-Bicocca
+      title: "*Alla ricerca della vita in ambienti estremi*"
+      text: What the microbes of Iceland's glacier caves tell us, on Bicocca News.
+      url: https://bnews.unimib.it/blog/alla-ricerca-della-vita-in-ambienti-estremi-cosa-ci-raccontano-i-microbi-delle-grotte-glaciali-islandesi/
+      link_text: Read on Bicocca News
+      lang: it
+      image: img/why-sampling-2           # our own photo, not Bicocca's stock image
+      image_alt: A caver in a red helmet and half-mask holds a sample tube in a steamy ice cave, under a dark ice arch.
+      credit: Cristian Monticone
 
 # Partners and sponsors: shown only with `consent: true`.
 # tier = row of the partners card: main, federations, groups, science

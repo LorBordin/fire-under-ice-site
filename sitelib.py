@@ -39,7 +39,7 @@ REQUIRED: dict[str, list[str]] = {
     "science_why": ["kicker", "title", "items"],
     "science_why.items": ["title", "text"],
     "science_why.photos": ["image", "image_alt", "credit"],
-    "press.tv": ["title", "outlet", "url"],
+    "press.featured": ["kind", "label", "title", "url", "link_text", "image", "image_alt"],
     "credits": [],
     "years": ["year", "label", "place", "text", "image", "image_alt"],
     "video": ["youtube_id", "title", "thumbnail", "thumbnail_alt"],

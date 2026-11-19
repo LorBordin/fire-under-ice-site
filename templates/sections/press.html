@@ -1,6 +1,26 @@
-{% from "macros.html" import image, header %}
+{% from "macros.html" import image, header, play_icon %}
 <section id="press" class="reveal">
   {{ header(c.headings.press) }}
+  {% if c.press.featured is defined %}
+  <h3>Featured</h3>
+  <ul class="featured">
+    {% for f in c.press.featured %}
+    <li class="featured-card featured-{{ f.kind }}">
+      <a href="{{ f.url }}" rel="noopener" target="_blank"{% if f.lang is defined %} hreflang="{{ f.lang }}"{% endif %}>
+        <span class="featured-media">
+          {{ image(f.image, f.image_alt, sizes="(min-width: 48rem) 45vw, 100vw") }}
+          {% if f.kind == "video" %}{{ play_icon() }}{% endif %}
+        </span>
+        <span class="kicker">{{ f.label | md }}</span>
+        <span class="featured-title">{{ f.title | md }}</span>
+        {% if f.text is defined %}<span class="featured-text">{{ f.text | md }}</span>{% endif %}
+        <span class="featured-link">{{ f.link_text }} <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab, in Italian)</span></span>
+      </a>
+      {% if f.credit is defined %}<small class="credit">© {{ f.credit }}</small>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
   <h3>Articles</h3>
   <ul class="press-list">
     {% for a in c.press.articles %}
@@ -27,11 +47,4 @@
     {% endfor %}
   </div>
   {% endif %}
-  <h3>TV</h3>
-  <ul class="press-list">
-    {% for v in c.press.tv %}
-    <li><a href="{{ v.url }}" rel="noopener">{{ v.title | md }}</a>
-      <span class="meta">{{ v.outlet | md }}</span></li>
-    {% endfor %}
-  </ul>
 </section>
