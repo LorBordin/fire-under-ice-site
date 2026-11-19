@@ -507,8 +507,8 @@ press:                                   # brochure p14
       url: https://bnews.unimib.it/blog/alla-ricerca-della-vita-in-ambienti-estremi-cosa-ci-raccontano-i-microbi-delle-grotte-glaciali-islandesi/
       link_text: Read on Bicocca News
       lang: it
-      image: img/why-sampling-2           # our own photo, not Bicocca's stock image
-      image_alt: A caver in a red helmet and half-mask holds a sample tube in a steamy ice cave, under a dark ice arch.
+      image: img/why-sampling-1           # our own photo, not Bicocca's stock image
+      image_alt: Gloved hands take a sample with a pipette from an orange hot pool.
       credit: Cristian Monticone
 
 # Partners and sponsors: shown only with `consent: true`.
